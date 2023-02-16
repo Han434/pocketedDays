@@ -30,30 +30,27 @@
 ### View Created Projects
 * As a registered user, I want to see my projects in one page so that I can easily navigate around.
 
-### Give Feedback
-* As a user, I want to give feedback on the developer work, so that I can experience better.
+### Help us Improve Page
+* As a registered user, I want to see the coming soon views so that I can share my thoughts in "Help us improve" page.
 
 ## Project Related User's Stories
 ### Create New Project
-* As a registered user, I want to create new project so that I can have record of new one.
+* As a registered user, I want to create new project so that I can record project to work on.
 
-### Log in to the project
-* As a registered user, I want to log in to the project so that I can work with the project.
-
-### Give Project Name and Description
-* As a registered user, I want to give my project name and description so that everyone in the project team can see what this project is really about.
+### Give Project Name Password and Description
+* As a registered user, I want to give my project name password and description so that people can log in to the project and everyone in the project team can see what this project is really about.
 
 ### View Project Information
 * As a registered user, I want to view project information in a page so that I can learn about project by glance.
 
-### Project Menu
+### Log in to the project
+* As a registered user, I want to log in to the project so that I can work with the project.
+
+### View Project Menu
 * As a registered user, I want to have project menu when I log in to a project so that I can move around in the project views.
 
 ### Have Financial Manager
 * As a registered user, I want to have the system that will manage my finance so that I can generate reports and see the clear view of my finance state.
-
-### Help us Improve Page
-* As a registered user, I want to see the coming soon views so that I can share my thoughts in "Help us improve" page.
 
 ## View Related User's Stories
 ### See the view menu
@@ -62,12 +59,11 @@
 ### View page for list of sheets
 * As a registered user who log in to the project and finance manager, I want to have pages that will list the sheets of revenue and expense to track my income and expense.
 
-### Run reports by default or on conditions
-* As a registered user who log in to the project and finance manager, I want to run reports by default or on conditions so that I can run some quick report or custom report.
+### Run reports by default or on condition
+* As a registered user who log in to the project and finance manager, I want to run reports by default or on condition so that I can run some quick report or custom report.
 
 
 ## Sheet Related User's Stories
-
 ### Create New sheet
 * As a registered user who log in to the project and finance manager, I want to be able to create new sheet so that I can add new information.
 
@@ -81,12 +77,11 @@
 * As a registered user who log in to the project and finance manager, I want to add a new row to the sheet so that I can add more new information.
 
 ## Row Related User"s Stories
-
 ### View rows in details
 * As a registered user who log in to the project and finance manager, I want to have the ability to view row in details so that I can clearly see each row.
 
-### Edit sheets
-* As a registered user who log in to the project and finance manager, I want to have the ability to edit sheets so that I can edit out the incorrect information.
+### Edit rows
+* As a registered user who log in to the project and finance manager, I want to have the ability to edit rows so that I can edit out the incorrect information.
 
 ### Delete row
 * As a registered user who log in to the project and finance manager, I want to have the ability to delete the row.
