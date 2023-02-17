@@ -1,12 +1,10 @@
 Changes to the project team
 
-Log in to the project
-Creator don't assign team but team members can log into it using password and project name.
+Pages names
 
-Running Report
-Different page for conditions
+Screen Designs
+Remove team member Page
+Result Page
+Main Menu Pages
 
-Pages names and designs
-
-Delete project and Delete Sheet
 

@@ -49,6 +49,12 @@
 ### View Project Menu
 * As a registered user, I want to have project menu when I log in to a project so that I can move around in the project views.
 
+### Delete Project
+* As a registered user, I want to delete project so that I can delete outdated information or have the entirely new one.
+
+### Remove Team Member from Project
+* As a project creator, I want to have the ability to remove other users from my project, so that I can limit access to my project that I created.
+
 ### Have Financial Manager
 * As a registered user, I want to have the system that will manage my finance so that I can generate reports and see the clear view of my finance state.
 
