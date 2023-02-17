@@ -74,7 +74,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>YourIndieProject</finalName>
+    <finalName>pocketedDays</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
