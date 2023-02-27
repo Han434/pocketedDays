@@ -14,10 +14,10 @@
   <div class="full-page-dark"></div>
   <div class="ham-menu">
     <ul class="centre-text bold-text">
-      <a href="projectHome?projectId=${project.projectId}">Project Home</a>
-      <li><a href="revenue">Revenue</a></li>
-      <li><a href="expense">Expense</a></li>
-      <li><a href="runReports">Run Reports</a></li>
+      <a class="text-decoration-none text-light h3" href="projectHome?projectId=${projectId}">Project Home</a>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="sheet?sheetType=Revenue">Revenue</a></li>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="sheet?sheetType=Expense">Expense</a></li>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="runReports">Run Reports</a></li>
     </ul>
   </div>
   <a class="navbar-brand" href="index.jsp">
