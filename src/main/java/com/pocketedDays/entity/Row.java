@@ -21,7 +21,7 @@ public class Row {
     private int quantity;
     private int costPerItem;
     @Column(name = "incomeType")
-    private String type;
+    private String rowType;
     private String tag;
 
     public Row() {
@@ -84,11 +84,11 @@ public class Row {
     }
 
     public String getType() {
-        return type;
+        return rowType;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.rowType = type;
     }
 
     public String getTag() {
