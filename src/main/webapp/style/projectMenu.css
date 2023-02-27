@@ -9,8 +9,6 @@
     --border-color: #709680;
     --heading-color: #344a39;
     --box-shadow-color: #b5b5ac;
-    --lightest-green: #86a58d;
-    --light-green: #9ab09a;
     --dark-green: rgba(52, 74, 57, 0.86);
     --border-radius: 60px 5px;
     --fade-green: rgba(57, 87, 64, 0.55);
@@ -24,7 +22,7 @@ label[for="ham-menu"] {
     height: 60px;
     background-color: var(--home-bg-color);
     border-radius: 15px;
-    border: 2px solid white;
+    border: 2px solid black;
 }
 .ham-menu {
     position: fixed;
@@ -52,7 +50,7 @@ label[for="ham-menu"] {
 }
 #ham-menu:checked + label {
     background-color: transparent;
-    border-color: white;
+    border-color: black;
 }
 #ham-menu:checked ~ div.ham-menu {
     transform: translate(0px);
@@ -73,7 +71,7 @@ label[for="ham-menu"] {
 }
 #ham-menu:checked ~ div.full-page-dark {
     display: block;
-    opacity: 0.5;
+    opacity: 0.7;
     visibility: visible;
 }
 [for="ham-menu"] > div {
