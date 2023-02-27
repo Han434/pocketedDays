@@ -23,12 +23,14 @@ class ProjectDaoTest {
 
     @AfterEach
     void tearDown() {
+        //Database database = Database.getInstance();
+        //database.runSQL("install.sql");
     }
 
     @Test
     void getAllProjects() {
         List<Project> projects = dao.getAllProjects();
-        assertEquals(2, projects.size());
+        assertEquals(1, projects.size());
     }
 
     @Test
@@ -38,16 +40,16 @@ class ProjectDaoTest {
     @Test
     void getProjectById() {
         Project project = dao.getProjectById(1);
-        assertEquals("hi", project.getProjectName());
+        assertEquals("Manlay Website", project.getProjectName());
     }
 
     @Test
     void saveOrUpdateProject() {
         String newProjectName = "Han";
-        Project projectToUpdate = dao.getProjectById(2);
+        Project projectToUpdate = dao.getProjectById(1);
         projectToUpdate.setProjectName(newProjectName);
         dao.saveOrUpdateProject(projectToUpdate);
-        Project retrievedProject = dao.getProjectById(2);
+        Project retrievedProject = dao.getProjectById(1);
         assertEquals(newProjectName, retrievedProject.getProjectName());
     }
 
@@ -62,7 +64,7 @@ class ProjectDaoTest {
 
     @Test
     void deleteProject() {
-        dao.deleteProject(dao.getProjectById(2));
-        assertNull(dao.getProjectById(2));
+        dao.deleteProject(dao.getProjectById(1));
+        assertNull(dao.getProjectById(1));
     }
 }
