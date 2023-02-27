@@ -4,10 +4,8 @@
 <header>
   <%@include file="viewMenu.jsp"%>
 </header>
-<div class="container bg-secondary">
-  <body>
-
-  <div class="container-fluid">
+<body>
+  <div class="container bg-secondary">
     <h2>Sheet View</h2>
     <div class="row">
       <h3>${sheetType}</h3>
@@ -42,7 +40,5 @@
       </form>
     </div>
   </div>
-
-  </body>
-</div>
+</body>
 </html>
