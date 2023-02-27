@@ -14,10 +14,10 @@
   <div class="full-page-dark"></div>
   <div class="ham-menu">
     <ul class="centre-text bold-text">
-      <a href="workspace">Workspace</a>
-      <li><a href="revenue">Financial Manager</a></li>
-      <li><a href="comingSoon.jsp">Task Manager</a></li>
-      <li><a href="comingSoon.jsp">Stock Manager</a></li>
+      <a class="text-decoration-none text-light h3" href="workspace">Workspace</a>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="sheet?sheetType=Revenue">Financial Manager</a></li>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="comingSoon.jsp">Task Manager</a></li>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="comingSoon.jsp">Stock Manager</a></li>
     </ul>
   </div>
   <a class="navbar-brand" href="index.jsp">
