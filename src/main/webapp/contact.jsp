@@ -3,10 +3,10 @@
 <header>
     <%@include file="menu.jsp"%>
 </header>
-<div class="container bg-secondary">
-    <body>
-    <h2>Contact</h2>
-    <p>Hi this is text</p>
-    </body>
-</div>
+<body>
+    <div class="container mt-3">
+        <h2>Contact</h2>
+        <p>Hi this is text</p>
+    </div>
+</body>
 </html>

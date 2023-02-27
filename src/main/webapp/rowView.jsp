@@ -4,10 +4,8 @@
 <header>
     <%@include file="viewMenu.jsp"%>
 </header>
-<div class="container bg-secondary">
-    <body>
-
-    <div class="container-fluid">
+<body>
+    <div class="container bg-secondary">
         <h2>Row View</h2>
         <div class="row">
             <table class="border border-success" style="background-color:darkseagreen;" width: 100%>
@@ -41,7 +39,5 @@
             </form>
         </div>
     </div>
-
-    </body>
-</div>
+</body>
 </html>

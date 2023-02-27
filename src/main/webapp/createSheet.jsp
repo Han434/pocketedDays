@@ -4,10 +4,8 @@
 <header>
     <%@include file="viewMenu.jsp"%>
 </header>
-<div class="container bg-secondary">
-    <body>
-
-    <div class="container-fluid">
+<body>
+    <div class="container bg-secondary">
         <h2>Create Sheet</h2>
         <form action="createSheet">
             <div class="form-group">
@@ -19,10 +17,6 @@
                 <input type="text" class="form-control" name="organization" id="organization" placeholder="Organization">
             </div>
             <div class="form-group">
-                <label for="projectId">Project Id</label>
-                <input type="number" class="form-control" name="projectId" id="projectId" placeholder="123">
-            </div>
-            <div class="form-group">
                 <label for="filePath">File Path</label>
                 <input type="text" class="form-control" name="filePath" id="filePath" placeholder="abc/de.txt">
             </div>
@@ -30,8 +24,13 @@
                 <label for="note">Note</label>
                 <textarea class="form-control" name="note" id="note" placeholder="This sheet is for...." rows="3"></textarea>
             </div>
-            <input class="btn bg-primary" type="submit" name="submit" value="Add New" />
+            <div class="form-group d-none">
+                <label for="sheetType">Sheet Type</label>
+                <input type="text" value="${sheetType}" class="form-control" name="sheetType" id="sheetType" placeholder="Expense">
+            </div>
+            <input class="btn bg-success text-white" type="submit" name="submit" value="Add New Sheet" />
+            <a href="workspace" class="btn bg-dark text-white">Cancle</a>
         </form>
+    </div>
     </body>
-</div>
 </html>

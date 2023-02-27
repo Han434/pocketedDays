@@ -4,10 +4,8 @@
 <header>
   <%@include file="viewMenu.jsp"%>
 </header>
-<div class="container bg-secondary">
   <body>
-
-  <div class="container-fluid">
+    <div class="container bg-secondary">
     <h2>Create Row</h2>
     <form action="createRow">
       <div class="form-group">
@@ -40,8 +38,6 @@
       </div>
       <input class="btn bg-primary" type="submit" name="submit" value="Add New" />
     </form>
-  </div>
+    </div>
   </body>
-
-</div>
 </html>
