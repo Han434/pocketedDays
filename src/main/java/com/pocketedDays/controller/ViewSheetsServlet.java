@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet (
         urlPatterns = {"/sheet"}
 )
-public class SheetServlet extends HttpServlet {
+public class ViewSheetsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SheetDao sheetDao = new SheetDao();
@@ -28,9 +28,9 @@ public class SheetServlet extends HttpServlet {
         //request.setAttribute("sheets", sheetDao.getAllSheets());
         request.setAttribute("sheets", sheetDao.getSheetsByProjectId(projectId));
         request.setAttribute("projectId", projectId);
-        request.setAttribute("sheetType", "Revenue");
+        request.setAttribute("sheetTypeForHeader", sheetType);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/sheetView.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewSheets.jsp");
         dispatcher.forward(request, response);
     }
 }
