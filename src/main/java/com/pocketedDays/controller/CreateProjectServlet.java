@@ -19,13 +19,13 @@ public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
-        if (submit.equals("Add New")) {
-            Project project = new Project();
-            project.setProjectName(request.getParameter("projectName"));
-            project.setCreatorId(Integer.parseInt(request.getParameter("creatorId")));
-            project.setProjectPassword(request.getParameter("projectPassword"));
-            project.setCreatedDate(LocalDate.now());
-            project.setProjectDescription(request.getParameter("projectDescription"));
+        if (submit.equals("Add New Project")) {
+            String projectName = request.getParameter("projectName");
+            int creatorId = Integer.parseInt(request.getParameter("creatorId"));
+            String projectPassword = request.getParameter("projectPassword");
+            LocalDate createdDate = LocalDate.now();
+            String projectDescription = request.getParameter("projectDescription");
+            Project project = new Project( creatorId, projectName, projectPassword, createdDate, projectDescription);
 
             ProjectDao projectDao = new ProjectDao();
             int projectId = projectDao.insertProject(project);
