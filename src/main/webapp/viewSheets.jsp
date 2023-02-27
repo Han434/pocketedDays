@@ -8,7 +8,7 @@
   <div class="container bg-secondary">
     <h2>Sheet View</h2>
     <div class="row">
-      <h3>${sheetType}</h3>
+      <h3>${sheetTypeForHeader}</h3>
     </div>
     <div class="row">
       <table class="border border-success" style="background-color:darkseagreen;" width: 100%>
