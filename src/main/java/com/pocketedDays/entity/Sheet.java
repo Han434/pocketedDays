@@ -18,8 +18,27 @@ public class Sheet {
     private String organization;
     private String filePath;
     private String note;
+    private String sheetType;
 
     public Sheet() {
+    }
+
+    public Sheet(int projectId, String sheetDescription, LocalDate createdDate, String organization, String filePath, String note, String sheetType) {
+        this.projectId = projectId;
+        this.sheetDescription = sheetDescription;
+        this.createdDate = createdDate;
+        this.organization = organization;
+        this.filePath = filePath;
+        this.note = note;
+        this.sheetType = sheetType;
+    }
+
+    public String getSheetType() {
+        return sheetType;
+    }
+
+    public void setSheetType(String sheetType) {
+        this.sheetType = sheetType;
     }
 
     public int getSheetId() {
