@@ -32,10 +32,10 @@ public class SheetDao {
     public List<Sheet> getSheetsByProjectId(int projectId) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery query = builder.createQuery(Project.class);
-        Root<Sheet> root = query.from(Project.class);
-        Expression<String> propertyPath = root.get("projectId");
-        query.where(builder.like(propertyPath, "%" + projectId + "%"));
+        CriteriaQuery query = builder.createQuery(Sheet.class);
+        Root<Sheet> root = query.from(Sheet.class);
+        Expression<Integer> propertyPath = root.get("projectId");
+        query.select(root).where(builder.equal(propertyPath, projectId));
         List<Sheet> sheets =  session.createQuery(query).getResultList();
         session.close();
         return  sheets;
