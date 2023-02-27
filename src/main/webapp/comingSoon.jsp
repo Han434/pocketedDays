@@ -4,13 +4,9 @@
 <header>
     <%@include file="projectMenu.jsp"%>
 </header>
-<div class="container bg-secondary">
-    <body>
-
-    <div class="container-fluid">
+<body>
+    <div class="container mt-3">
         <h2>Coming Soon</h2>
     </div>
-
-    </body>
-</div>
+</body>
 </html>
