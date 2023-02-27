@@ -22,10 +22,10 @@ public class EditProjectServlet extends HttpServlet {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
-        if (submit.equals("Edit")) {
+        if (submit.equals("Edit Project")) {
             ProjectDao projectDao = new ProjectDao();
             Project project = projectDao.getProjectById(projectId);
-            
+
             project.setProjectName(request.getParameter("projectName"));
             project.setCreatorId(Integer.parseInt(request.getParameter("creatorId")));
             project.setProjectPassword(request.getParameter("projectPassword"));
