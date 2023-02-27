@@ -17,7 +17,8 @@ public class WorkspaceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectDao projectDao = new ProjectDao();
-        request.setAttribute("projects", projectDao.getAllProjects());
+        //request.setAttribute("projects", projectDao.getAllProjects());
+        request.setAttribute("projects", projectDao.getProjectByUserId(1));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace.jsp");
         dispatcher.forward(request, response);
     }
