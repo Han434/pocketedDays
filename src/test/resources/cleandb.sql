@@ -1,4 +1,4 @@
-drop table if exists pocketed_days.user, pocketed_days.project, pocketed_days.userProject, pocketed_days.sheet, pocketed_days.expense, pocketed_days.income;
+drop table if exists pocketed_days.user, pocketed_days.project, pocketed_days.userProject, pocketed_days.sheet, pocketed_days.row;
 CREATE TABLE pocketed_days.user (
                                     userId int auto_increment primary key,
                                     name varchar(255),
@@ -30,34 +30,21 @@ CREATE TABLE pocketed_days.sheet (
                                      createdDate date,
                                      organization varchar(255),
                                      filePath varchar(255),
-                                     note varchar(255)
+                                     note varchar(255),
+                                     sheetType varchar(255)
 );
 
-CREATE TABLE pocketed_days.expense (
-                                       expenseId int primary key auto_increment,
-                                       sheetId int,
-                                       rowCreatorId int,
-                                       createdDate date,
-                                       rowDescription varchar(255),
-                                       quantity varchar(255),
-                                       costPerItem int,
-                                       expenseType varchar(255),
-                                       tag varchar(255)
-);
-
-CREATE TABLE pocketed_days.income (
-                                      incomeId int primary key auto_increment,
-                                      sheetId int,
-                                      rowCreatorId int,
-                                      createdDate date,
-                                      rowDescription varchar(255),
-                                      quantity varchar(255),
-                                      costPerItem int,
-                                      incomeType varchar(255),
-                                      tag varchar(255)
+CREATE TABLE pocketed_days.row (
+                                   rowId int primary key auto_increment,
+                                   sheetId int,
+                                   rowCreatorId int,
+                                   createdDate date,
+                                   rowDescription varchar(255),
+                                   quantity varchar(255),
+                                   costPerItem int,
+                                   rowType varchar(255),
+                                   tag varchar(255)
 );
 delete from pocketed_days.project;
 INSERT INTO pocketed_days.project (creatorId, projectName, projectPassword, projectDescription, createdDate)
-VALUES (1, "hi", "hi", "hi", "1996-5-5");
-INSERT INTO pocketed_days.project (creatorId, projectName, projectPassword, projectDescription, createdDate)
-VALUES (2, "testing", "testing", "testing", "1995-5-5");
+VALUES (1, "Manlay Website", "123", "This project is to create something new.", "2023-5-5");
