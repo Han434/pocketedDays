@@ -21,11 +21,11 @@ public class CreateProjectServlet extends HttpServlet {
         String submit = request.getParameter("submit");
         if (submit.equals("Add New Project")) {
             String projectName = request.getParameter("projectName");
-            int creatorId = Integer.parseInt(request.getParameter("creatorId"));
+            int projectCreatorId = Integer.parseInt(request.getParameter("projectCreatorId"));
             String projectPassword = request.getParameter("projectPassword");
             LocalDate createdDate = LocalDate.now();
             String projectDescription = request.getParameter("projectDescription");
-            Project project = new Project( creatorId, projectName, projectPassword, createdDate, projectDescription);
+            Project project = new Project( projectCreatorId, projectName, projectPassword, createdDate, projectDescription);
 
             ProjectDao projectDao = new ProjectDao();
             int projectId = projectDao.insertProject(project);

@@ -12,7 +12,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private int projectId;
-    private int creatorId;
+    private int projectCreatorId;
     private String projectName;
     private String projectPassword;
     private LocalDate createdDate;
@@ -21,8 +21,8 @@ public class Project {
     public Project() {
     }
 
-    public Project(int creatorId, String projectName, String projectPassword, LocalDate createdDate, String projectDescription) {
-        this.creatorId = creatorId;
+    public Project(int projectCreatorId, String projectName, String projectPassword, LocalDate createdDate, String projectDescription) {
+        this.projectCreatorId = projectCreatorId;
         this.projectName = projectName;
         this.projectPassword = projectPassword;
         this.createdDate = createdDate;
@@ -37,12 +37,12 @@ public class Project {
         this.projectId = projectId;
     }
 
-    public int getCreatorId() {
-        return creatorId;
+    public int getProjectCreatorId() {
+        return projectCreatorId;
     }
 
-    public void setCreatorId(int creatorId) {
-        this.creatorId = creatorId;
+    public void setProjectCreatorId(int projectCreatorId) {
+        this.projectCreatorId = projectCreatorId;
     }
 
     public String getProjectName() {

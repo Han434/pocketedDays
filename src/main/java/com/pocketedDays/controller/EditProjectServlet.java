@@ -27,7 +27,7 @@ public class EditProjectServlet extends HttpServlet {
             Project project = projectDao.getProjectById(projectId);
 
             project.setProjectName(request.getParameter("projectName"));
-            project.setCreatorId(Integer.parseInt(request.getParameter("creatorId")));
+            project.setProjectCreatorId(Integer.parseInt(request.getParameter("creatorId")));
             project.setProjectPassword(request.getParameter("projectPassword"));
             project.setCreatedDate(LocalDate.now());
             project.setProjectDescription(request.getParameter("projectDescription"));

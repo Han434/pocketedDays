@@ -28,13 +28,13 @@ public class ProjectDao {
         return  projects;
     }
 
-    public List<Project> getProjectByUserId(int creatorId) {
+    public List<Project> getProjectByUserId(int projectCreatorId) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery query = builder.createQuery(Project.class);
         Root<Project> root = query.from(Project.class);
-        Expression<Integer> propertyPath = root.get("creatorId");
-        query.select(root).where(builder.equal(propertyPath, creatorId));
+        Expression<Integer> propertyPath = root.get("projectCreatorId");
+        query.select(root).where(builder.equal(propertyPath, projectCreatorId));
         List<Project> projects =  session.createQuery(query).getResultList();
         session.close();
         return  projects;

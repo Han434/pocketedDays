@@ -38,7 +38,7 @@
       <div class="col-12">
         <a href="deleteProject" class="btn bg-danger ml-3">Delete Project</a>
           <a href="removeTeamMember?projectId=${project.projectId}" class="btn bg-danger ml-3">Remove a team member</a>
-        <a href="editProject?submit=NoEdit" class="btn bg-dark ml-3">Edit Project</a>
+        <a href="editProject?submit=NoEdit" class="btn bg-primary ml-3">Edit Project</a>
       </div>
     </div>
   </div>

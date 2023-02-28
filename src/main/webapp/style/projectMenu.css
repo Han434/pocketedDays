@@ -67,7 +67,7 @@ label[for="ham-menu"] {
     opacity: 0;
     visibility: hidden;
     display: none;
-    transition: 500ms;
+    transition: 5000ms;
 }
 #ham-menu:checked ~ div.full-page-dark {
     display: block;
@@ -85,7 +85,7 @@ label[for="ham-menu"] {
 .menu-line {
     display: block;
     width: 17px;
-    height: 2px;
+    height: 3px;
     margin: 10px 0 5px;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -103,7 +103,7 @@ label[for="ham-menu"] {
     transform-origin: left center;
 }
 #ham-menu:checked + label span {
-    background-color: var(--dark-green);
+    background-color: white;
 }
 #ham-menu:checked + label span:nth-child(2),
 #ham-menu:checked + label span:nth-child(5) {
@@ -120,12 +120,4 @@ label[for="ham-menu"] {
 }
 #ham-menu:checked + label span:nth-child(6) {
     transform: translateY(-17px) rotate(45deg);
-}
-
-
-.centre-text {
-    text-align: center;
-}
-.bold-text {
-    font-weight: bold;
 }
