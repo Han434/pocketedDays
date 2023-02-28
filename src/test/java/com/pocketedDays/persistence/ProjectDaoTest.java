@@ -33,9 +33,6 @@ class ProjectDaoTest {
         assertEquals(1, projects.size());
     }
 
-    @Test
-    void getAllProjectBySomething() {
-    }
 
     @Test
     void getProjectById() {
