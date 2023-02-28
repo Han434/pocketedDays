@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <div class="card-footer bgs-b text-light">
-                        <p class="mr-auto">Created by ${project.creatorId} on ${project.createdDate}.</p>
+                        <p class="mr-auto">Created by ${project.projectCreatorId} on ${project.createdDate}.</p>
                     </div>
                 </div>
             </c:forEach>
