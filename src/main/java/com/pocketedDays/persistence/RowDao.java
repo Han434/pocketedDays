@@ -30,16 +30,16 @@ public class RowDao {
         return rows;
     }
 
-    public List<Sheet> getAllSheetsByProjectId(int projectId) {
+    public List<Row> getRowsBySheetId(int sheetId) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery query = builder.createQuery(Project.class);
-        Root<Sheet> root = query.from(Project.class);
-        Expression<String> propertyPath = root.get("projectId");
-        query.where(builder.like(propertyPath, "%" + projectId + "%"));
-        List<Sheet> sheets =  session.createQuery(query).getResultList();
+        CriteriaQuery query = builder.createQuery(Row.class);
+        Root<Row> root = query.from(Row.class);
+        Expression<Integer> propertyPath = root.get("sheetId");
+        query.select(root).where(builder.equal(propertyPath, sheetId));
+        List<Row> rows =  session.createQuery(query).getResultList();
         session.close();
-        return  sheets;
+        return  rows;
     }
 
     public Sheet getProjectById(int sheetId) {
