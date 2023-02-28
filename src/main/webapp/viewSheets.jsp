@@ -5,39 +5,64 @@
   <%@include file="viewMenu.jsp"%>
 </header>
 <body>
-  <div class="container bg-secondary">
+  <div class="container">
     <h2>Sheet View</h2>
     <div class="row">
-      <h3>${sheetTypeForHeader}</h3>
+      <div class="col-6">
+        <h2>${viewTypeForHeader} View</h2>
+      </div>
+      <div class="col-6">
+        <h3>Project Name: ${project.projectName}</h3>
+      </div>
     </div>
     <div class="row">
-      <table class="border border-success" style="background-color:darkseagreen;" width: 100%>
-        <tr style="border-bottom:2px solid; background-color:darkslategrey; color: antiquewhite;">
-          <td class="m-3">Sheet Id</td>
-          <td class="m-3">Project Id</td>
-          <td class="m-3">Sheet Description</td>
-          <td class="m-3">Created Date</td>
-          <td class="m-3">Organization</td>
-          <td class="m-3">File Path</td>
-          <td class="m-3">Note</td>
-          <td class="m-3">View Rows</td>
+      <table class="table table-striped table-dark table-hover">
+        <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Sheet Id</th>
+          <th scope="col">Sheet Description</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Organization</th>
+          <th scope="col">File Path</th>
+          <th scope="col">Note</th>
+          <th scope="col">Details</th>
         </tr>
-        <c:forEach var="sheet" items="${sheets}">
-          <tr class="border-bottom">
-            <td class="m-3">${sheet.sheetId}</td>
-            <td class="m-3">${sheet.projectId}</td>
-            <td class="m-3">${sheet.sheetDescription}</td>
-            <td class="m-3">${sheet.createdDate}</td>
-            <td class="m-3">${sheet.organization}</td>
-            <td class="m-3">${sheet.filePath}</td>
-            <td class="m-3">${sheet.note}</td>
-            <td class="m-3"><a href="viewRow?sheetId=${sheet.sheetId}">Click</a></td>
+        </thead>
+        <tbody>
+        <c:forEach var="sheet" items="${sheets}" varStatus="status">
+          <tr>
+            <th scope="row">${status.count}</th>
+            <td>${sheet.sheetId}</td>
+            <td>${sheet.sheetDescription}</td>
+            <td>${sheet.createdDate}</td>
+            <td>${sheet.organization}</td>
+            <td>${sheet.filePath}</td>
+            <td>${sheet.note}</td>
+            <td><a href="viewRow?sheetId=${sheet.sheetId}">View</a></td>
           </tr>
         </c:forEach>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <c:choose>
+              <c:when test="${empty sheets}">
+                No sheet is found for this project.
+              </c:when>
+              <c:otherwise>
+                Found sheets for this project are above.
+              </c:otherwise>
+            </c:choose>
+          </td>
+          <td><a class="btn bg-success" href="createSheet?submit=Add New Sheet">Add New Sheet</a></td>
+        </tr>
+        </tbody>
       </table>
-      <form action="createSheet">
-        <input class="btn bg-primary" type="submit" name="submit" value="Add" />
-      </form>
     </div>
   </div>
 </body>

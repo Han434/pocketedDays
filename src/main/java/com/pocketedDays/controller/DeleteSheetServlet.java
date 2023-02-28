@@ -20,12 +20,15 @@ import java.io.IOException;
 public class DeleteSheetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int sheetId = (int) request.getAttribute("sheetId");
+        HttpSession session = request.getSession();
+        int sheetId = (int) session.getAttribute("sheetId");
+        String sheetType = (String) session.getAttribute("sheetType");
 
         SheetDao sheetDao = new SheetDao();
         Sheet sheet = sheetDao.getSheetById(sheetId);
         sheetDao.deleteSheet(sheet);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/revenue");
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet?sheetType=" + sheetType);
         dispatcher.forward(request, response);
     }
 }

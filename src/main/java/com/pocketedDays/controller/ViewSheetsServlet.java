@@ -1,5 +1,6 @@
 package com.pocketedDays.controller;
 
+import com.pocketedDays.persistence.ProjectDao;
 import com.pocketedDays.persistence.SheetDao;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ public class ViewSheetsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SheetDao sheetDao = new SheetDao();
+        ProjectDao projectDao = new ProjectDao();
 
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
@@ -27,8 +29,8 @@ public class ViewSheetsServlet extends HttpServlet {
 
         //request.setAttribute("sheets", sheetDao.getAllSheets());
         request.setAttribute("sheets", sheetDao.getSheetsByProjectId(projectId));
-        request.setAttribute("projectId", projectId);
-        request.setAttribute("sheetTypeForHeader", sheetType);
+        request.setAttribute("project", projectDao.getProjectById(projectId));
+        request.setAttribute("viewTypeForHeader", sheetType);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewSheets.jsp");
         dispatcher.forward(request, response);
