@@ -8,7 +8,7 @@ CREATE TABLE pocketed_days.user (
 
 CREATE TABLE pocketed_days.project (
                                        projectId int auto_increment primary key,
-                                       creatorId int,
+                                       projectCreatorId int,
                                        projectName varchar(255),
                                        projectPassword varchar(255),
                                        projectDescription varchar(255),
@@ -34,7 +34,7 @@ CREATE TABLE pocketed_days.sheet (
                                      sheetType varchar(255)
 );
 
-CREATE TABLE pocketed_days.row (
+CREATE TABLE pocketed_days.rowOfSheet (
                                        rowId int primary key auto_increment,
                                        sheetId int,
                                        rowCreatorId int,
