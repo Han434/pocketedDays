@@ -14,6 +14,7 @@ public class Sheet {
     private int sheetId;
     private int projectId;
     private String sheetDescription;
+    private int sheetCreatorId;
     private LocalDate createdDate;
     private String organization;
     private String filePath;
@@ -23,21 +24,14 @@ public class Sheet {
     public Sheet() {
     }
 
-    public Sheet(int projectId, String sheetDescription, LocalDate createdDate, String organization, String filePath, String note, String sheetType) {
+    public Sheet(int projectId, String sheetDescription, int sheetCreatorId, LocalDate createdDate, String organization, String filePath, String note, String sheetType) {
         this.projectId = projectId;
         this.sheetDescription = sheetDescription;
+        this.sheetCreatorId = sheetCreatorId;
         this.createdDate = createdDate;
         this.organization = organization;
         this.filePath = filePath;
         this.note = note;
-        this.sheetType = sheetType;
-    }
-
-    public String getSheetType() {
-        return sheetType;
-    }
-
-    public void setSheetType(String sheetType) {
         this.sheetType = sheetType;
     }
 
@@ -63,6 +57,14 @@ public class Sheet {
 
     public void setSheetDescription(String sheetDescription) {
         this.sheetDescription = sheetDescription;
+    }
+
+    public int getSheetCreatorId() {
+        return sheetCreatorId;
+    }
+
+    public void setSheetCreatorId(int sheetCreatorId) {
+        this.sheetCreatorId = sheetCreatorId;
     }
 
     public LocalDate getCreatedDate() {
@@ -95,5 +97,13 @@ public class Sheet {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getSheetType() {
+        return sheetType;
+    }
+
+    public void setSheetType(String sheetType) {
+        this.sheetType = sheetType;
     }
 }
