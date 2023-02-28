@@ -1,4 +1,4 @@
-drop table if exists pocketed_days.user, pocketed_days.project, pocketed_days.userProject, pocketed_days.sheet, pocketed_days.row;
+drop table if exists pocketed_days.user, pocketed_days.project, pocketed_days.userProject, pocketed_days.sheet, pocketed_days.rowOfSheet;
 CREATE TABLE pocketed_days.user (
                                     userId int auto_increment primary key,
                                     name varchar(255),
@@ -8,7 +8,7 @@ CREATE TABLE pocketed_days.user (
 
 CREATE TABLE pocketed_days.project (
                                        projectId int auto_increment primary key,
-                                       creatorId int,
+                                       projectCreatorId int,
                                        projectName varchar(255),
                                        projectPassword varchar(255),
                                        projectDescription varchar(255),
@@ -34,17 +34,17 @@ CREATE TABLE pocketed_days.sheet (
                                      sheetType varchar(255)
 );
 
-CREATE TABLE pocketed_days.row (
-                                   rowId int primary key auto_increment,
-                                   sheetId int,
-                                   rowCreatorId int,
-                                   createdDate date,
-                                   rowDescription varchar(255),
-                                   quantity varchar(255),
-                                   costPerItem int,
-                                   rowType varchar(255),
-                                   tag varchar(255)
+CREATE TABLE pocketed_days.rowOfSheet (
+                                          rowId int primary key auto_increment,
+                                          sheetId int,
+                                          rowCreatorId int,
+                                          createdDate date,
+                                          rowDescription varchar(255),
+                                          quantity varchar(255),
+                                          costPerItem int,
+                                          rowType varchar(255),
+                                          tag varchar(255)
 );
 delete from pocketed_days.project;
-INSERT INTO pocketed_days.project (creatorId, projectName, projectPassword, projectDescription, createdDate)
+INSERT INTO pocketed_days.project (projectCreatorId, projectName, projectPassword, projectDescription, createdDate)
 VALUES (1, "Manlay Website", "123", "This project is to create something new.", "2023-5-5");
