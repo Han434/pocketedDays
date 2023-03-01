@@ -41,7 +41,7 @@ public class SheetDao {
         return  sheets;
     }
 
-    public Sheet getSheetById(int sheetId) {
+    public Sheet getSheetBySheetId(int sheetId) {
         Session session = sessionFactory.openSession();
         Sheet sheet = session.get(Sheet.class, sheetId);
         session.close();

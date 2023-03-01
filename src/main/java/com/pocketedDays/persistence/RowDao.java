@@ -42,11 +42,19 @@ public class RowDao {
         return  rows;
     }
 
-    public Sheet getProjectById(int sheetId) {
+    public Row getRowsByRowId(int rowId) {
         Session session = sessionFactory.openSession();
-        Sheet sheet = session.get(Sheet.class, sheetId);
+        Row row = session.get(Row.class, rowId);
         session.close();
-        return  sheet;
+        return  row;
+    }
+
+    public void saveOrUpdateRow(Row row) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(row);
+        transaction.commit();
+        session.close();
     }
 
     public int insertRow(Row row) {
@@ -59,10 +67,10 @@ public class RowDao {
         return id;
     }
 
-    public  void deleteProject(Sheet sheet) {
+    public  void deleteRow(Row row) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(sheet);
+        session.delete(row);
         transaction.commit();
         session.close();
     }

@@ -40,7 +40,7 @@ public class ProjectDao {
         return  projects;
     }
 
-    public Project getProjectById(int projectId) {
+    public Project getProjectByProjectId(int projectId) {
         Session session = sessionFactory.openSession();
         Project project = session.get(Project.class, projectId);
         session.close();
