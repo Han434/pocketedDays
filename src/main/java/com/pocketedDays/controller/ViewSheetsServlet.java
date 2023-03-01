@@ -29,7 +29,7 @@ public class ViewSheetsServlet extends HttpServlet {
 
         //request.setAttribute("sheets", sheetDao.getAllSheets());
         request.setAttribute("sheets", sheetDao.getSheetsByProjectId(projectId));
-        request.setAttribute("project", projectDao.getProjectById(projectId));
+        request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
         request.setAttribute("viewTypeForHeader", sheetType);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewSheets.jsp");
