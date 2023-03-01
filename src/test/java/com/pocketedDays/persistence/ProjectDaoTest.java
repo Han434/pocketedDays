@@ -23,45 +23,51 @@ class ProjectDaoTest {
 
     @AfterEach
     void tearDown() {
-        //Database database = Database.getInstance();
-        //database.runSQL("install.sql");
     }
 
     @Test
-    void getAllProjects() {
+    void getAllProjectsSuccess() {
         List<Project> projects = dao.getAllProjects();
         assertEquals(1, projects.size());
     }
 
+    @Test
+    void getProjectByUserIdSuccess() {
+        List<Project> projects = dao.getProjectByUserId(1);
+        assertEquals(1, projects.size());
+        Project project = projects.get(0);
+        assertEquals("Manlay Website", project.getProjectName());
+    }
+
 
     @Test
-    void getProjectById() {
-        Project project = dao.getProjectById(1);
+    void getProjectByProjectIdSuccess() {
+        Project project = dao.getProjectByProjectId(1);
         assertEquals("Manlay Website", project.getProjectName());
     }
 
     @Test
-    void saveOrUpdateProject() {
+    void saveOrUpdateProjectSuccess() {
         String newProjectName = "Han";
-        Project projectToUpdate = dao.getProjectById(1);
+        Project projectToUpdate = dao.getProjectByProjectId(1);
         projectToUpdate.setProjectName(newProjectName);
         dao.saveOrUpdateProject(projectToUpdate);
-        Project retrievedProject = dao.getProjectById(1);
+        Project retrievedProject = dao.getProjectByProjectId(1);
         assertEquals(newProjectName, retrievedProject.getProjectName());
     }
 
     @Test
-    void insertProject() {
+    void insertProjectSuccess() {
         Project project = new Project(1, "testing", "testing", LocalDate.parse("2018-12-27"), "testing");
         int projectId = dao.insertProject(project);
         assertNotEquals(0, projectId);
-        Project projectToTest = dao.getProjectById(projectId);
+        Project projectToTest = dao.getProjectByProjectId(projectId);
         assertEquals("testing", projectToTest.getProjectName());
     }
 
     @Test
-    void deleteProject() {
-        dao.deleteProject(dao.getProjectById(1));
-        assertNull(dao.getProjectById(1));
+    void deleteProjectSuccess() {
+        dao.deleteProject(dao.getProjectByProjectId(1));
+        assertNull(dao.getProjectByProjectId(1));
     }
 }
