@@ -22,12 +22,13 @@ public class EditProjectServlet extends HttpServlet {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
+        int projectCreatorId = (int) session.getAttribute("userId");
         if (submit.equals("Edit Project")) {
             ProjectDao projectDao = new ProjectDao();
-            Project project = projectDao.getProjectById(projectId);
+            Project project = projectDao.getProjectByProjectId(projectId);
 
             project.setProjectName(request.getParameter("projectName"));
-            project.setProjectCreatorId(Integer.parseInt(request.getParameter("creatorId")));
+            project.setProjectCreatorId(projectCreatorId);
             project.setProjectPassword(request.getParameter("projectPassword"));
             project.setCreatedDate(LocalDate.now());
             project.setProjectDescription(request.getParameter("projectDescription"));
@@ -38,7 +39,7 @@ public class EditProjectServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             ProjectDao projectDao = new ProjectDao();
-            Project project = projectDao.getProjectById(projectId);
+            Project project = projectDao.getProjectByProjectId(projectId);
             request.setAttribute("project", project);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/editProject.jsp");
