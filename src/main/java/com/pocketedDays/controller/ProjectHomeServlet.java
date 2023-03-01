@@ -23,7 +23,7 @@ public class ProjectHomeServlet extends HttpServlet {
         session.setAttribute("projectId", projectId);
 
         ProjectDao projectDao = new ProjectDao();
-        request.setAttribute("project", projectDao.getProjectById(projectId));
+        request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome.jsp");
         dispatcher.forward(request, response);
     }
