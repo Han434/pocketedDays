@@ -24,10 +24,6 @@
             </div>
         </div>
         <div class="form-group my-3">
-            <label for="creatorId">Creator Id</label>
-            <input type="number" value="${project.creatorId}" class="form-control" name="creatorId" id="creatorId" placeholder="${project.creatorId}">
-        </div>
-        <div class="form-group my-3">
             <label for="description">Project Description</label>
             <textarea class="form-control" value="${project.projectDescription}" name="projectDescription" id="description" placeholder="${project.projectDescription}" rows="3"></textarea>
         </div>
