@@ -22,7 +22,7 @@ public class DeleteProjectServlet extends HttpServlet {
         int projectId = (int) session.getAttribute("projectId");
 
         ProjectDao projectDao = new ProjectDao();
-        Project project = projectDao.getProjectById(projectId);
+        Project project = projectDao.getProjectByProjectId(projectId);
         projectDao.deleteProject(project);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace");
         dispatcher.forward(request, response);
