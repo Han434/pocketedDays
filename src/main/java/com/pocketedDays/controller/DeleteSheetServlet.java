@@ -25,7 +25,7 @@ public class DeleteSheetServlet extends HttpServlet {
         String sheetType = (String) session.getAttribute("sheetType");
 
         SheetDao sheetDao = new SheetDao();
-        Sheet sheet = sheetDao.getSheetById(sheetId);
+        Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
         sheetDao.deleteSheet(sheet);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet?sheetType=" + sheetType);
