@@ -28,9 +28,9 @@ public class ViewRowServlet extends HttpServlet {
         session.setAttribute("sheetId", sheetId);
         int projectId = (int) session.getAttribute("projectId");
 
-        request.setAttribute("sheet", sheetDao.getSheetById(sheetId));
+        request.setAttribute("sheet", sheetDao.getSheetBySheetId(sheetId));
         request.setAttribute("rows", rowDao.getRowsBySheetId(sheetId));
-        request.setAttribute("project", projectDao.getProjectById(projectId));
+        request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow.jsp");
         dispatcher.forward(request, response);
