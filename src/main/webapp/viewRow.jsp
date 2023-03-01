@@ -52,7 +52,7 @@
                         <td class="m-3">${row.costPerItem}</td>
                         <td class="m-3">${row.rowType}</td>
                         <td class="m-3">${row.tag}</td>
-                        <td class="m-3"><a href="viewRow?sheetId=${row.sheetId}">Click</a></td>
+                        <td class="m-3"><a href="viewRowInDetails?rowId=${row.rowId}">Click</a></td>
                     </tr>
                 </c:forEach>
                 <tr>
