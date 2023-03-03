@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type View sheets servlet.
+ */
 @WebServlet (
         urlPatterns = {"/sheet"}
 )
@@ -34,5 +37,9 @@ public class ViewSheetsServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewSheets.jsp");
         dispatcher.forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doGet(request, response);
     }
 }

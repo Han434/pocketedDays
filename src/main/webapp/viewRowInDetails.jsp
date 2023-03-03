@@ -8,41 +8,70 @@
 <div class="container">
     <h2>Row View In Details</h2>
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <h3>Sheet Name: ${sheet.sheetDescription}</h3>
-        </div>
-        <div class="col-6">
-
         </div>
     </div>
     <div class="row">
         <div class="col-6">
             <h3>Sheet Type: ${sheet.sheetType}</h3>
         </div>
-        <div class="col-4">
+        <div class="col-6">
             <h3>Project Name: ${project.projectName}</h3>
         </div>
-        <div class="col-2">
-            <a class="btn bg-danger" href="deleteSheet">Delete Sheet</a>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p>Row Description</p>
+        </div>
+        <div class="col-6">
+            <p>${row.rowDescription}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
-            <h3>${row.rowDescription}</h3>
+            <p>Created Date</p>
         </div>
         <div class="col-6">
-            <h3>${row.createdDate}</h3>
+            <p>${row.createdDate}</p>
         </div>
     </div>
     <div class="row">
-        <p class="col-12">${row.quantity}</p>
-        <p class="col-12">${row.costPerItem}</p>
-        <p class="col-12">${row.rowType}</p>
-        <p class="col-12">${row.tag}</p>
+        <div class="col-6">
+            <p>Quantity:</p>
+        </div>
+        <div class="col-6">
+            <p>${row.quantity}</p>
+        </div>
     </div>
     <div class="row">
-        <a class="btn bg-success" href="deleteRow?rowId=${row.rowId}">Delete Row</a>
-        <a class="btn bg-success" href="editRow?submit=Edit&rowId=${row.rowId}">Edit Row</a>
+        <div class="col-6">
+            <p>Cost Per Item:</p>
+        </div>
+        <div class="col-6">
+            <p>${row.costPerItem}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p>Row Type:</p>
+        </div>
+        <div class="col-6">
+            <p>${row.rowType}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p> Tag:</p>
+        </div>
+        <div class="col-6">
+            <p>${row.tag}</p>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn bg-success col-3 mx-3" href="deleteRow?rowId=${row.rowId}">Delete Row</a>
+        <a class="btn bg-success col-3 mx-3" href="editRow?submit=Edit&rowId=${row.rowId}">Edit Row</a>
+        <a class="text-white btn bg-secondary col-3 mx-3" href="viewRow?sheetId=${sheetId}">Go Back</a>
     </div>
 </div>
 </body>

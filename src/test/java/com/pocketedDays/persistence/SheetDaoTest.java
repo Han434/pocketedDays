@@ -28,7 +28,7 @@ class SheetDaoTest {
     void setUp() {
         dao = new SheetDao();
         Database database = Database.getInstance();
-        database.runSQL("sheetClean.sql");
+        database.runSQL("cleandb.sql");
     }
 
     /**

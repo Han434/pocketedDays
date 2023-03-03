@@ -39,7 +39,7 @@
             <td>${sheet.organization}</td>
             <td>${sheet.filePath}</td>
             <td>${sheet.note}</td>
-            <td><a href="viewRow?sheetId=${sheet.sheetId}">View</a></td>
+            <td><a class="text-white btn bg-success" href="viewRow?sheetId=${sheet.sheetId}">View</a></td>
           </tr>
         </c:forEach>
         <tr>

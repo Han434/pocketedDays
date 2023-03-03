@@ -29,7 +29,7 @@ class RowDaoTest {
     void setUp() {
         dao = new RowDao();
         Database database = Database.getInstance();
-        database.runSQL("rowClean.sql");
+        database.runSQL("cleandb.sql");
     }
 
     /**
@@ -67,6 +67,9 @@ class RowDaoTest {
         assertEquals("Socket", row.getRowDescription());
     }
 
+    /**
+     * Save or update row success.
+     */
     @Test
     void saveOrUpdateRowSuccess() {
         String newRowDescription = "Cable";

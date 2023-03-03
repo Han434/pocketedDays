@@ -16,10 +16,21 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * The type Row dao.
+ */
 public class RowDao {
     private final Logger logger = LogManager.getLogger(this.getClass());
+    /**
+     * The Session factory.
+     */
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
+    /**
+     * Gets all rows.
+     *
+     * @return the all rows
+     */
     public List<Row> getAllRows() {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -30,6 +41,12 @@ public class RowDao {
         return rows;
     }
 
+    /**
+     * Gets rows by sheet id.
+     *
+     * @param sheetId the sheet id
+     * @return the rows by sheet id
+     */
     public List<Row> getRowsBySheetId(int sheetId) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -42,6 +59,12 @@ public class RowDao {
         return  rows;
     }
 
+    /**
+     * Gets rows by row id.
+     *
+     * @param rowId the row id
+     * @return the rows by row id
+     */
     public Row getRowsByRowId(int rowId) {
         Session session = sessionFactory.openSession();
         Row row = session.get(Row.class, rowId);
@@ -49,6 +72,11 @@ public class RowDao {
         return  row;
     }
 
+    /**
+     * Save or update row.
+     *
+     * @param row the row
+     */
     public void saveOrUpdateRow(Row row) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -57,6 +85,12 @@ public class RowDao {
         session.close();
     }
 
+    /**
+     * Insert row int.
+     *
+     * @param row the row
+     * @return the int
+     */
     public int insertRow(Row row) {
         int id = 0;
         Session session = sessionFactory.openSession();
@@ -67,6 +101,11 @@ public class RowDao {
         return id;
     }
 
+    /**
+     * Delete row.
+     *
+     * @param row the row
+     */
     public  void deleteRow(Row row) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

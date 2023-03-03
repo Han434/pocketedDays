@@ -11,6 +11,9 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The type Create sheet servlet.
+ */
 @WebServlet (
         urlPatterns = {"/createSheet"}
 )
@@ -22,7 +25,7 @@ import java.time.LocalDate;
 public class CreateSheetServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if (submit.equals("Add New")) {
             this.doPost(request, response);
@@ -33,7 +36,7 @@ public class CreateSheetServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
         Part filePart = request.getPart("filePath");

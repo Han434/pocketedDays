@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type View row servlet.
+ */
 @WebServlet (
         urlPatterns = {"/viewRow"}
 )

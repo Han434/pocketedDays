@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The type Edit project servlet.
+ */
 @WebServlet (
         urlPatterns = {"/editProject"}
 )

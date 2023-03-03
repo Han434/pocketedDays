@@ -15,6 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The type Create row servlet.
+ */
 @WebServlet (
         urlPatterns = {"/createRow"}
 )
@@ -22,10 +25,9 @@ public class CreateRowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
+        HttpSession session = request.getSession();
+        int sheetId = (int) session.getAttribute("sheetId");
         if (submit.equals("Add New")) {
-            HttpSession session = request.getSession();
-
-            int sheetId = (int) session.getAttribute("sheetId");
             int rowCreatorId = (int) session.getAttribute("userId");
             LocalDate createdDate = LocalDate.now();
             String rowDescription = request.getParameter("rowDescription");
@@ -41,6 +43,7 @@ public class CreateRowServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);
             dispatcher.forward(request, response);
         } else {
+            request.setAttribute("sheetId", sheetId);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/createRow.jsp");
             dispatcher.forward(request, response);
         }

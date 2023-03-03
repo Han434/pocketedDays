@@ -11,9 +11,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Project dao test.
+ */
 class ProjectDaoTest {
 
+    /**
+     * The Dao.
+     */
     ProjectDao dao;
+
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         dao = new ProjectDao();
@@ -21,16 +31,25 @@ class ProjectDaoTest {
         database.runSQL("cleandb.sql");
     }
 
+    /**
+     * Tear down.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * Gets all projects success.
+     */
     @Test
     void getAllProjectsSuccess() {
         List<Project> projects = dao.getAllProjects();
         assertEquals(1, projects.size());
     }
 
+    /**
+     * Gets project by user id success.
+     */
     @Test
     void getProjectByUserIdSuccess() {
         List<Project> projects = dao.getProjectByUserId(1);
@@ -40,12 +59,18 @@ class ProjectDaoTest {
     }
 
 
+    /**
+     * Gets project by project id success.
+     */
     @Test
     void getProjectByProjectIdSuccess() {
         Project project = dao.getProjectByProjectId(1);
         assertEquals("Manlay Website", project.getProjectName());
     }
 
+    /**
+     * Save or update project success.
+     */
     @Test
     void saveOrUpdateProjectSuccess() {
         String newProjectName = "Han";
@@ -56,6 +81,9 @@ class ProjectDaoTest {
         assertEquals(newProjectName, retrievedProject.getProjectName());
     }
 
+    /**
+     * Insert project success.
+     */
     @Test
     void insertProjectSuccess() {
         Project project = new Project(1, "testing", "testing", LocalDate.parse("2018-12-27"), "testing");
@@ -65,6 +93,9 @@ class ProjectDaoTest {
         assertEquals("testing", projectToTest.getProjectName());
     }
 
+    /**
+     * Delete project success.
+     */
     @Test
     void deleteProjectSuccess() {
         dao.deleteProject(dao.getProjectByProjectId(1));
