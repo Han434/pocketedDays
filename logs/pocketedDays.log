@@ -1,0 +1,4 @@
+[DEBUG] 2023-03-03 11:59:27.806 [main] ProjectDao - Searching project by userId of 1
+[DEBUG] 2023-03-03 11:59:58.967 [http-nio-8080-exec-7] ProjectDao - Searching project by userId of 1
+[INFO ] 2023-03-03 12:09:16.547 [main] ProjectDao - Searching project by userId of 1
+[INFO ] 2023-03-03 12:09:48.085 [http-nio-8080-exec-4] ProjectDao - Searching project by userId of 1
