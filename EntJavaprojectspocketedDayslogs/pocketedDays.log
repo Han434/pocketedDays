@@ -1,0 +1,20 @@
+[INFO ] 2023-03-04 19:48:40.642 [main] ProjectDao - Searching project by projectId of 1
+[INFO ] 2023-03-04 19:48:40.732 [main] ProjectDao - Searched results com.pocketedDays.entity.Project@751d7425
+[INFO ] 2023-03-04 19:48:40.732 [main] ProjectDao - Deleting project com.pocketedDays.entity.Project@751d7425
+[INFO ] 2023-03-04 19:48:40.749 [main] ProjectDao - Searching project by projectId of 1
+[INFO ] 2023-03-04 19:48:40.751 [main] ProjectDao - Searched results null
+[INFO ] 2023-03-04 19:48:40.832 [main] ProjectDao - Searching project by projectId of 1
+[INFO ] 2023-03-04 19:48:40.836 [main] ProjectDao - Searched results com.pocketedDays.entity.Project@2450256f
+[INFO ] 2023-03-04 19:48:40.899 [main] ProjectDao - Searching project by projectId of 1
+[INFO ] 2023-03-04 19:48:40.905 [main] ProjectDao - Searched results com.pocketedDays.entity.Project@164d01ba
+[INFO ] 2023-03-04 19:48:40.905 [main] ProjectDao - Updating project com.pocketedDays.entity.Project@164d01ba
+[INFO ] 2023-03-04 19:48:40.913 [main] ProjectDao - Searching project by projectId of 1
+[INFO ] 2023-03-04 19:48:40.917 [main] ProjectDao - Searched results com.pocketedDays.entity.Project@267891bf
+[INFO ] 2023-03-04 19:48:40.978 [main] ProjectDao - Searching all projects
+[INFO ] 2023-03-04 19:48:41.099 [main] ProjectDao - Searched results [com.pocketedDays.entity.Project@33f4c769]
+[INFO ] 2023-03-04 19:48:41.176 [main] ProjectDao - Inserting project com.pocketedDays.entity.Project@698d6d30
+[INFO ] 2023-03-04 19:48:41.186 [main] ProjectDao - Success! Inserted project id is 2
+[INFO ] 2023-03-04 19:48:41.187 [main] ProjectDao - Searching project by projectId of 2
+[INFO ] 2023-03-04 19:48:41.190 [main] ProjectDao - Searched results com.pocketedDays.entity.Project@43e3a390
+[INFO ] 2023-03-04 19:48:41.277 [main] ProjectDao - Searching project by userId of 1
+[INFO ] 2023-03-04 19:48:41.296 [main] ProjectDao - Searched results [com.pocketedDays.entity.Project@6b6def36]
