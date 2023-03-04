@@ -92,3 +92,20 @@
 
 ## Delete Row (Not a page)
 - [ ] DeleteRowServlet
+
+# Beans, dao and tests
+## Project
+- [ ] Project bean
+- [ ] Project dao
+
+## Row
+- [ ] Row bean
+- [ ] Row dao
+
+## Sheet
+- [ ] Sheet bean
+- [ ] Sheet dao
+
+## User
+- [ ] User bean
+- [ ] User dao

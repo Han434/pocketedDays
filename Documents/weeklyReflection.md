@@ -30,3 +30,26 @@
 * Complete documents related to the Individual Project
 * Research for the Individual Project
 * Read a few documentation regarding Professional Development Activities
+
+## Week 5
+### Tasks Completed
+* Start working on Week 4 Assignment
+* Start working on codes for indie project
+* Start working on database for indie project.
+
+## Week 6
+### Tasks Completed
+* Finish initial draft of indie project
+* Update project plan
+* Finish checkpoint 1
+
+## Week 7
+### Tasks Completed
+* Finish Peer review
+* Review the previous weeks' works
+* Extend the project plan
+* Boot the Pro development research
+
+## Week 8
+### Tasks Completed
+* 

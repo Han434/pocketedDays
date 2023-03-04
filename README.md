@@ -43,4 +43,3 @@ Although the application is only capable of recording financial records for now,
 
 ## [Project Plan](Documents/projectPlan.md)
 #### [Weekly Refelection](Documents/weeklyReflection.md)
-#### [TimeLog](Documents/timeLog.md)

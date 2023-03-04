@@ -28,4 +28,16 @@
 - [ ] Start and complete Database Designs.
 
 ## Week 7
-- [ ] Tasks from tasks.md.
+- [ ] Complete the initial draft for servlet, jsp and javabeans.
+- [ ] Get peer feedback and work on it.
+
+## Week 8 
+- [ ] Complete polished version of the application.
+- [ ] Update delete servlets.
+- [ ] Finish Pro Dev.
+
+## Week 9
+- [ ] Start and Finish servlet, jsp for reports.
+
+## Week 10
+- [ ] Finish styling indie project.
