@@ -39,7 +39,9 @@ CREATE TABLE sheet (
                                      organization varchar(255),
                                      filePath varchar(255),
                                      note varchar(255),
-                                     sheetType varchar(255)
+                                     sheetType varchar(255),
+                                     constraint sheet_project_fk
+                                         foreign key (projectId) references test_pocketed_days.project (projectId)
 );
 
 CREATE TABLE rowOfSheet (
@@ -52,7 +54,7 @@ CREATE TABLE rowOfSheet (
                                           costPerItem int,
                                           rowType varchar(255),
                                           tag varchar(255),
-                                          constraint rowofsheet_sheet_sheetId_fk
+                                          constraint rowofsheet_sheet_fk
                                               foreign key (sheetId) references test_pocketed_days.sheet (sheetId)
 );
 delete from project;
