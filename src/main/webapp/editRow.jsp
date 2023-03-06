@@ -8,7 +8,7 @@
 <div class="container mt-3">
     <div class="form-box">
         <h2 class="text-center">Edit Row</h2>
-        <form action="editRow">
+        <form action="editRow" method="post">
             <div class="form-group my-3">
                 <label for="name">Row Description:</label>
                 <input type="text" value="${row.rowDescription}" class="form-control" id="name" name="rowDescription" aria-describedby="emailHelp" placeholder="${row.rowDescription}">
@@ -31,11 +31,10 @@
                 <div class="col">
                     <div class="my-3">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Type</label>
-                        <select value="${row.rowType}" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                            <option selected>Choose...</option>
-                            <option value="service">Service</option>
-                            <option value="product">Product</option>
-                            <option value="donation">Donation</option>
+                        <select name="rowType" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                            <option selected value="Service">Service</option>
+                            <option value="Product">Product</option>
+                            <option value="Donation">Donation</option>
                         </select>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
   <body>
     <div class="container">
     <h2>Create Row</h2>
-    <form action="createRow">
+    <form action="createRow" method="post">
       <div class="form-row">
         <div class="form-group my-3">
           <label for="name">Row Description:</label>
@@ -33,9 +33,9 @@
           <div class="my-3">
             <label class="mr-sm-2" for="inlineFormCustomSelect">Type</label>
             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="rowType" required>
-              <option selected value="service">Service</option>
-              <option value="product">Product</option>
-              <option value="donation">Donation</option>
+              <option selected value="Service">Service</option>
+              <option value="Product">Product</option>
+              <option value="Donation">Donation</option>
             </select>
           </div>
         </div>

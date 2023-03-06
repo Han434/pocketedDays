@@ -8,7 +8,7 @@
   <div class="container mt-3">
     <div class="form-box">
       <h2 class="text-center">Create Project</h2>
-      <form action="createProject">
+      <form action="createProject" method="post">
         <div class="row my-3">
           <div class="col">
             <div class="form-group">
