@@ -22,24 +22,35 @@ import java.time.LocalDate;
 public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Forward to createProject.jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/createProject.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
+
+        //If equal to "Add New Project"
         if (submit.equals("Add New Project")) {
+            //Get data
             String projectName = request.getParameter("projectName");
             int projectCreatorId = userId;
             String projectPassword = request.getParameter("projectPassword");
             LocalDate createdDate = LocalDate.now();
             String projectDescription = request.getParameter("projectDescription");
+
+            //Create new project
             Project project = new Project( projectCreatorId, projectName, projectPassword, createdDate, projectDescription);
 
+            //Insert it to the database
             ProjectDao projectDao = new ProjectDao();
             int projectId = projectDao.insertProject(project);
 
+            //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);
-            dispatcher.forward(request, response);
-        } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/createProject.jsp");
             dispatcher.forward(request, response);
         }
     }

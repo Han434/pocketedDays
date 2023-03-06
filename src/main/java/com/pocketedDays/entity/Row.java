@@ -16,7 +16,11 @@ public class Row {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private int rowId;
-    private int sheetId;
+    @ManyToOne
+    @JoinColumn(name = "sheetId",
+            foreignKey = @ForeignKey(name = "rowofsheet_sheet_fk")
+    )
+    private Sheet sheet;
     private int rowCreatorId;
     private LocalDate createdDate;
     private String rowDescription;
@@ -34,7 +38,7 @@ public class Row {
     /**
      * Instantiates a new Row.
      *
-     * @param sheetId        the sheet id
+     * @param sheet        the sheet id
      * @param rowCreatorId   the row creator id
      * @param createdDate    the created date
      * @param rowDescription the row description
@@ -43,8 +47,8 @@ public class Row {
      * @param rowType        the row type
      * @param tag            the tag
      */
-    public Row(int sheetId, int rowCreatorId, LocalDate createdDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
-        this.sheetId = sheetId;
+    public Row(Sheet sheet, int rowCreatorId, LocalDate createdDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
+        this.sheet = sheet;
         this.rowCreatorId = rowCreatorId;
         this.createdDate = createdDate;
         this.rowDescription = rowDescription;
@@ -73,21 +77,21 @@ public class Row {
     }
 
     /**
-     * Gets sheet id.
+     * Gets sheet.
      *
-     * @return the sheet id
+     * @return the sheet
      */
-    public int getSheetId() {
-        return sheetId;
+    public Sheet getSheet() {
+        return sheet;
     }
 
     /**
-     * Sets sheet id.
+     * Sets sheet.
      *
-     * @param sheetId the sheet id
+     * @param sheet the sheet
      */
-    public void setSheetId(int sheetId) {
-        this.sheetId = sheetId;
+    public void setSheet(Sheet sheet) {
+        this.sheet = sheet;
     }
 
     /**

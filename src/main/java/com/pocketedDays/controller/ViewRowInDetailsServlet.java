@@ -22,11 +22,13 @@ import java.io.IOException;
 public class ViewRowInDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get session variable of projectId, sheetId, rowId
         HttpSession session = request.getSession();
-        int sheetId = (int) session.getAttribute("sheetId");
         int projectId = (int) session.getAttribute("projectId");
+        int sheetId = (int) session.getAttribute("sheetId");
         int rowId = Integer.parseInt(request.getParameter("rowId"));
 
+        //Pass row, sheet, project
         RowDao rowDao = new RowDao();
         SheetDao sheetDao = new SheetDao();
         ProjectDao projectDao = new ProjectDao();
@@ -34,7 +36,7 @@ public class ViewRowInDetailsServlet extends HttpServlet {
         request.setAttribute("sheet", sheetDao.getSheetBySheetId(sheetId));
         request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
 
-
+        //Forward to viewRowInDetails.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRowInDetails.jsp");
         dispatcher.forward(request, response);
     }

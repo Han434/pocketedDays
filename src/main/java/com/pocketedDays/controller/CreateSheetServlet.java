@@ -1,6 +1,8 @@
 package com.pocketedDays.controller;
 
+import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
+import com.pocketedDays.persistence.ProjectDao;
 import com.pocketedDays.persistence.SheetDao;
 
 import javax.servlet.RequestDispatcher;
@@ -27,36 +29,41 @@ public class CreateSheetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
-        if (submit.equals("Add New")) {
-            this.doPost(request, response);
-        } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
-            dispatcher.forward(request, response);
-        }
+
+        //Forward to createSheet.jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get session variable projectId, sheetCreatorId, sheetType
         HttpSession session = request.getSession();
-
-        Part filePart = request.getPart("filePath");
-        String fileName = filePart.getSubmittedFileName();
-
         int projectId = (int) session.getAttribute("projectId");
         int sheetCreatorId = (int) session.getAttribute("userId");
         String sheetType = (String) session.getAttribute("sheetType");
 
+        //File
+        Part filePart = request.getPart("filePath");
+        String fileName = filePart.getSubmittedFileName();
+
+        //Set data
         String sheetDescription = request.getParameter("sheetDescription");
         LocalDate createdDate = LocalDate.now();
         String organization = request.getParameter("organization");
-        String filePath = fileName;//request.getParameter("fileName");
+        String filePath = fileName;
         String note = request.getParameter("note");
 
-        Sheet sheet = new Sheet(projectId, sheetDescription, sheetCreatorId, createdDate, organization, filePath, note, sheetType);
+        //Create new sheet
+        ProjectDao projectDao = new ProjectDao();
+        Project project = projectDao.getProjectByProjectId(projectId);
+        Sheet sheet = new Sheet(project, sheetDescription, sheetCreatorId, createdDate, organization, filePath, note, sheetType);
 
+        //Insert sheet into the database
         SheetDao sheetDao = new SheetDao();
         sheetDao.insertSheet(sheet);
 
+        //Forward to sheet
         RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet");
         dispatcher.forward(request, response);
     }

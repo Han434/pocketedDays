@@ -21,12 +21,16 @@ import java.io.IOException;
 public class DeleteProjectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Gets session variable projectId
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
 
+        //Delete project from database
         ProjectDao projectDao = new ProjectDao();
         Project project = projectDao.getProjectByProjectId(projectId);
         projectDao.deleteProject(project);
+
+        //Forward to workspace
         RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace");
         dispatcher.forward(request, response);
     }

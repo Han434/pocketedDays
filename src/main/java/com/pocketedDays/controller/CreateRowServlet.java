@@ -27,7 +27,24 @@ public class CreateRowServlet extends HttpServlet {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
+
+        //If not equal to "Add New"
+        if (!submit.equals("Add New")) {
+            request.setAttribute("sheetId", sheetId);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/createRow.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String submit = request.getParameter("submit");
+        HttpSession session = request.getSession();
+        int sheetId = (int) session.getAttribute("sheetId");
+
+        //If equal to "Add New"
         if (submit.equals("Add New")) {
+            //Get data
             int rowCreatorId = (int) session.getAttribute("userId");
             LocalDate createdDate = LocalDate.now();
             String rowDescription = request.getParameter("rowDescription");
@@ -35,16 +52,16 @@ public class CreateRowServlet extends HttpServlet {
             int costPerItem = Integer.parseInt(request.getParameter("costPerItem"));
             String rowType = request.getParameter("rowType");
             String tag = request.getParameter("tag");
-            Row row = new Row(sheetId, rowCreatorId, createdDate, rowDescription, quantity, costPerItem, rowType, tag);
 
+            //Create new row
+            SheetDao sheetDao = new SheetDao();
+            Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
+            Row row = new Row(sheet, rowCreatorId, createdDate, rowDescription, quantity, costPerItem, rowType, tag);
             RowDao rowDao = new RowDao();
             rowDao.insertRow(row);
 
+            //Forward to viewRow
             RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("sheetId", sheetId);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/createRow.jsp");
             dispatcher.forward(request, response);
         }
     }

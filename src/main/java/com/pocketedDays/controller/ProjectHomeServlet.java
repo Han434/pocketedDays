@@ -20,14 +20,25 @@ import java.io.IOException;
 public class ProjectHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get projectId from the request
         int projectId = Integer.parseInt(request.getParameter("projectId"));
 
+        //Set session variable of projectId
         HttpSession session = request.getSession();
         session.setAttribute("projectId", projectId);
 
+        //Pass project with the requested id
         ProjectDao projectDao = new ProjectDao();
         request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
+
+        //Forward to projectHome.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome.jsp");
         dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Call doGet
+        this.doGet(request, response);
     }
 }

@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type Project.
@@ -20,6 +22,8 @@ public class Project {
     private String projectPassword;
     private LocalDate createdDate;
     private String projectDescription;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Sheet> sheets = new HashSet<>();
 
     /**
      * Instantiates a new Project.
@@ -150,5 +154,43 @@ public class Project {
      */
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
+    }
+
+    /**
+     * Gets sheets.
+     *
+     * @return the sheets
+     */
+    public Set<Sheet> getSheets() {
+        return sheets;
+    }
+
+    /**
+     * Sets sheets.
+     *
+     * @param sheets the sheets
+     */
+    public void setSheets(Set<Sheet> sheets) {
+        this.sheets = sheets;
+    }
+
+    /**
+     * Add sheet.
+     *
+     * @param sheet the sheet
+     */
+    public void addSheet(Sheet sheet) {
+        sheets.add(sheet);
+        sheet.setProject(this);
+    }
+
+    /**
+     * Remove sheet.
+     *
+     * @param sheet the sheet
+     */
+    public void removeSheet(Sheet sheet) {
+        sheets.remove(sheet);
+        sheet.setProject(null);
     }
 }

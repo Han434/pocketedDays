@@ -1,13 +1,11 @@
 package com.pocketedDays.persistence;
 
-import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -38,24 +36,6 @@ public class SheetDao {
         List<Sheet> sheets =  session.createQuery(query).getResultList();
         session.close();
         return sheets;
-    }
-
-    /**
-     * Gets sheets by project id.
-     *
-     * @param projectId the project id
-     * @return the sheets by project id
-     */
-    public List<Sheet> getSheetsByProjectId(int projectId) {
-        Session session = sessionFactory.openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery query = builder.createQuery(Sheet.class);
-        Root<Sheet> root = query.from(Sheet.class);
-        Expression<Integer> propertyPath = root.get("projectId");
-        query.select(root).where(builder.equal(propertyPath, projectId));
-        List<Sheet> sheets =  session.createQuery(query).getResultList();
-        session.close();
-        return  sheets;
     }
 
     /**

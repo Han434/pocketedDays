@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type Sheet.
@@ -15,7 +17,11 @@ public class Sheet {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private int sheetId;
-    private int projectId;
+    @ManyToOne
+    @JoinColumn(name = "projectId",
+            foreignKey = @ForeignKey(name = "sheet_project_fk")
+    )
+    private Project project;
     private String sheetDescription;
     private int sheetCreatorId;
     private LocalDate createdDate;
@@ -23,6 +29,8 @@ public class Sheet {
     private String filePath;
     private String note;
     private String sheetType;
+    @OneToMany(mappedBy = "sheet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Row> rows = new HashSet<>();
 
     /**
      * Instantiates a new Sheet.
@@ -33,7 +41,7 @@ public class Sheet {
     /**
      * Instantiates a new Sheet.
      *
-     * @param projectId        the project id
+     * @param project        the project id
      * @param sheetDescription the sheet description
      * @param sheetCreatorId   the sheet creator id
      * @param createdDate      the created date
@@ -42,8 +50,8 @@ public class Sheet {
      * @param note             the note
      * @param sheetType        the sheet type
      */
-    public Sheet(int projectId, String sheetDescription, int sheetCreatorId, LocalDate createdDate, String organization, String filePath, String note, String sheetType) {
-        this.projectId = projectId;
+    public Sheet(Project project, String sheetDescription, int sheetCreatorId, LocalDate createdDate, String organization, String filePath, String note, String sheetType) {
+        this.project = project;
         this.sheetDescription = sheetDescription;
         this.sheetCreatorId = sheetCreatorId;
         this.createdDate = createdDate;
@@ -72,21 +80,21 @@ public class Sheet {
     }
 
     /**
-     * Gets project id.
+     * Gets project.
      *
-     * @return the project id
+     * @return the project
      */
-    public int getProjectId() {
-        return projectId;
+    public Project getProject() {
+        return project;
     }
 
     /**
-     * Sets project id.
+     * Sets project.
      *
-     * @param projectId the project id
+     * @param project the project
      */
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     /**
@@ -213,5 +221,43 @@ public class Sheet {
      */
     public void setSheetType(String sheetType) {
         this.sheetType = sheetType;
+    }
+
+    /**
+     * Gets rows.
+     *
+     * @return the rows
+     */
+    public Set<Row> getRows() {
+        return rows;
+    }
+
+    /**
+     * Sets rows.
+     *
+     * @param rows the rows
+     */
+    public void setRows(Set<Row> rows) {
+        this.rows = rows;
+    }
+
+    /**
+     * Add row.
+     *
+     * @param row the row
+     */
+    public void addRow(Row row) {
+        rows.add(row);
+        row.setSheet(this);
+    }
+
+    /**
+     * Remove row.
+     *
+     * @param row the row
+     */
+    public void removeRow(Row row) {
+        rows.remove(row);
+        row.setSheet(null);
     }
 }
