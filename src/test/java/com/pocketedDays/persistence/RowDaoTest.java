@@ -49,16 +49,6 @@ class RowDaoTest {
     }
 
     /**
-     * Gets rows by sheet id success.
-     */
-    @Test
-    void getRowsBySheetIdSuccess() {
-        List<Row> rows = dao.getRowsBySheetId(1);
-        Row row = rows.get(0);
-        assertEquals("Socket", row.getRowDescription());
-    }
-
-    /**
      * Gets project by row id success.
      */
     @Test
@@ -85,12 +75,18 @@ class RowDaoTest {
      */
     @Test
     void insertRowSuccess() {
-        Row row = new Row(1, 1, LocalDate.parse("2018-12-27"), "Keyword", 5,200, "Product", "Finanace");
+        SheetDao sheetDao = new SheetDao();
+        Sheet sheet = sheetDao.getSheetBySheetId(1);
+        Row row = new Row(sheet, 1, LocalDate.parse("2018-12-27"), "Keyword", 5,200, "Product", "Finanace");
+        sheet.addRow(row);
+
         int rowId = dao.insertRow(row);
         assertNotEquals(0, rowId);
+
         Row rowToTest = dao.getRowsByRowId(rowId);
         assertEquals("Keyword", rowToTest.getRowDescription());
     }
+
 
     /**
      * Delete row success.

@@ -1,6 +1,7 @@
 package com.pocketedDays.persistence;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.test.utilities.Database;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,17 +42,6 @@ class SheetDaoTest {
     }
 
     /**
-     * Gets sheets by project id.
-     */
-    @Test
-    void getSheetsByProjectIdSuccess() {
-        List<Sheet> sheets = dao.getSheetsByProjectId(1);
-        assertEquals(1, sheets.size());
-        Sheet sheet = sheets.get(0);
-        assertEquals("Installing computer for ABC department", sheet.getSheetDescription());
-    }
-
-    /**
      * Gets sheet by id.
      */
     @Test
@@ -65,12 +55,32 @@ class SheetDaoTest {
      */
     @Test
     void insertSheetSuccess() {
-        Sheet sheet = new Sheet(1, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+        ProjectDao projectDao = new ProjectDao();
+        Project project = projectDao.getProjectByProjectId(1);
+        Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         int sheetId = dao.insertSheet(sheet);
         assertNotEquals(0, sheetId);
         Sheet sheetToTest = dao.getSheetBySheetId(sheetId);
         assertEquals("Finance department petition", sheetToTest.getSheetDescription());
     }
+
+
+    @Test
+    void insertSheetWithRowsSuccess() {
+        ProjectDao projectDao = new ProjectDao();
+        Project project = projectDao.getProjectByProjectId(1);
+        Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+        Row row = new Row(sheet, 1, LocalDate.parse("2018-12-22"), "abc", 1, 200, "Expense", "tag");
+
+        sheet.addRow(row);
+
+        int sheetId = dao.insertSheet(sheet);
+        assertNotEquals(0, sheetId);
+        Sheet sheetToTest = dao.getSheetBySheetId(sheetId);
+        assertEquals("Finance department petition", sheetToTest.getSheetDescription());
+        assertEquals(1, sheetToTest.getRows().size());
+    }
+
 
     /**
      * Delete sheet.

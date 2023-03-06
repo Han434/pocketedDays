@@ -1,6 +1,8 @@
 package com.pocketedDays.persistence;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.Row;
+import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.test.utilities.Database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,6 +93,19 @@ class ProjectDaoTest {
         assertNotEquals(0, projectId);
         Project projectToTest = dao.getProjectByProjectId(projectId);
         assertEquals("testing", projectToTest.getProjectName());
+    }
+
+    @Test
+    void insertSheetWithRowsSuccess() {
+        Project project = new Project(1, "Name", "123", LocalDate.parse("2018-12-27"), "Description");
+        Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+
+        project.addSheet(sheet);
+
+        int projectId = dao.insertProject(project);
+        assertNotEquals(0, projectId);
+        Project projectToTest = dao.getProjectByProjectId(projectId);
+        assertEquals("Name", projectToTest.getProjectName());
     }
 
     /**
