@@ -64,7 +64,7 @@ public class EditRowServlet extends HttpServlet {
 
             //Update data
             row.setRowCreatorId(rowCreatorId);
-            row.setCreatedDate(LocalDate.now());
+            row.setUpdatedDate(LocalDate.now());
             row.setRowDescription(request.getParameter("rowDescription"));
             row.setQuantity(Integer.parseInt(request.getParameter("quantity")));
             row.setCostPerItem(Integer.parseInt(request.getParameter("costPerItem")));
