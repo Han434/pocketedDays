@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * The type Row.
@@ -22,7 +23,7 @@ public class Row {
     )
     private Sheet sheet;
     private int rowCreatorId;
-    private LocalDate createdDate;
+    private LocalDate updatedDate;
     private String rowDescription;
     private int quantity;
     private int costPerItem;
@@ -38,19 +39,19 @@ public class Row {
     /**
      * Instantiates a new Row.
      *
-     * @param sheet        the sheet id
+     * @param sheet          the sheet id
      * @param rowCreatorId   the row creator id
-     * @param createdDate    the created date
+     * @param updatedDate    the created date
      * @param rowDescription the row description
      * @param quantity       the quantity
      * @param costPerItem    the cost per item
      * @param rowType        the row type
      * @param tag            the tag
      */
-    public Row(Sheet sheet, int rowCreatorId, LocalDate createdDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
+    public Row(Sheet sheet, int rowCreatorId, LocalDate updatedDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
         this.sheet = sheet;
         this.rowCreatorId = rowCreatorId;
-        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
         this.rowDescription = rowDescription;
         this.quantity = quantity;
         this.costPerItem = costPerItem;
@@ -117,17 +118,17 @@ public class Row {
      *
      * @return the created date
      */
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public LocalDate getUpdatedDate() {
+        return updatedDate;
     }
 
     /**
      * Sets created date.
      *
-     * @param createdDate the created date
+     * @param updatedDate the created date
      */
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setUpdatedDate(LocalDate updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     /**
@@ -218,5 +219,33 @@ public class Row {
      */
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Row)) return false;
+        Row row = (Row) o;
+        return getRowId() == row.getRowId() && getRowCreatorId() == row.getRowCreatorId() && getQuantity() == row.getQuantity() && getCostPerItem() == row.getCostPerItem() && getSheet().equals(row.getSheet()) && getUpdatedDate().equals(row.getUpdatedDate()) && getRowDescription().equals(row.getRowDescription()) && getRowType().equals(row.getRowType()) && getTag().equals(row.getTag());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getRowId(), getSheet(), getRowCreatorId(), getUpdatedDate(), getRowDescription(), getQuantity(), getCostPerItem(), getRowType(), getTag());
+    }
+
+    @Override
+    public String toString() {
+        return "Row{" +
+                "rowId=" + rowId +
+                ", sheet=" + sheet +
+                ", rowCreatorId=" + rowCreatorId +
+                ", updatedDate=" + updatedDate +
+                ", rowDescription='" + rowDescription + '\'' +
+                ", quantity=" + quantity +
+                ", costPerItem=" + costPerItem +
+                ", rowType='" + rowType + '\'' +
+                ", tag='" + tag + '\'' +
+                '}';
     }
 }

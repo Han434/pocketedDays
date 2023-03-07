@@ -4,8 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The type Project.
@@ -20,10 +19,10 @@ public class Project {
     private int projectCreatorId;
     private String projectName;
     private String projectPassword;
-    private LocalDate createdDate;
+    private LocalDate updatedDate;
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Sheet> sheets = new HashSet<>();
+    private List<Sheet> sheets = new ArrayList<>();
 
     /**
      * Instantiates a new Project.
@@ -37,14 +36,14 @@ public class Project {
      * @param projectCreatorId   the project creator id
      * @param projectName        the project name
      * @param projectPassword    the project password
-     * @param createdDate        the created date
+     * @param updatedDate        the created date
      * @param projectDescription the project description
      */
-    public Project(int projectCreatorId, String projectName, String projectPassword, LocalDate createdDate, String projectDescription) {
+    public Project(int projectCreatorId, String projectName, String projectPassword, LocalDate updatedDate, String projectDescription) {
         this.projectCreatorId = projectCreatorId;
         this.projectName = projectName;
         this.projectPassword = projectPassword;
-        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
         this.projectDescription = projectDescription;
     }
 
@@ -125,17 +124,17 @@ public class Project {
      *
      * @return the created date
      */
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public LocalDate getUpdatedDate() {
+        return updatedDate;
     }
 
     /**
      * Sets created date.
      *
-     * @param createdDate the created date
+     * @param updatedDate the created date
      */
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setUpdatedDate(LocalDate updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     /**
@@ -161,7 +160,7 @@ public class Project {
      *
      * @return the sheets
      */
-    public Set<Sheet> getSheets() {
+    public List<Sheet> getSheets() {
         return sheets;
     }
 
@@ -170,7 +169,7 @@ public class Project {
      *
      * @param sheets the sheets
      */
-    public void setSheets(Set<Sheet> sheets) {
+    public void setSheets(List<Sheet> sheets) {
         this.sheets = sheets;
     }
 
@@ -192,5 +191,31 @@ public class Project {
     public void removeSheet(Sheet sheet) {
         sheets.remove(sheet);
         sheet.setProject(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project)) return false;
+        Project project = (Project) o;
+        return getProjectId() == project.getProjectId() && getProjectCreatorId() == project.getProjectCreatorId() && getProjectName().equals(project.getProjectName()) && getProjectPassword().equals(project.getProjectPassword()) && getUpdatedDate().equals(project.getUpdatedDate()) && getProjectDescription().equals(project.getProjectDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProjectId(), getProjectCreatorId(), getProjectName(), getProjectPassword(), getUpdatedDate(), getProjectDescription());
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", projectCreatorId=" + projectCreatorId +
+                ", projectName='" + projectName + '\'' +
+                ", projectPassword='" + projectPassword + '\'' +
+                ", updatedDate=" + updatedDate +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", sheets=" + sheets +
+                '}';
     }
 }

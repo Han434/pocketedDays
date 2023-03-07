@@ -4,8 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The type Sheet.
@@ -24,13 +23,13 @@ public class Sheet {
     private Project project;
     private String sheetDescription;
     private int sheetCreatorId;
-    private LocalDate createdDate;
+    private LocalDate updatedDate;
     private String organization;
     private String filePath;
     private String note;
     private String sheetType;
     @OneToMany(mappedBy = "sheet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Row> rows = new HashSet<>();
+    private List<Row> rows = new ArrayList<>();
 
     /**
      * Instantiates a new Sheet.
@@ -41,20 +40,20 @@ public class Sheet {
     /**
      * Instantiates a new Sheet.
      *
-     * @param project        the project id
+     * @param project          the project id
      * @param sheetDescription the sheet description
      * @param sheetCreatorId   the sheet creator id
-     * @param createdDate      the created date
+     * @param updatedDate      the created date
      * @param organization     the organization
      * @param filePath         the file path
      * @param note             the note
      * @param sheetType        the sheet type
      */
-    public Sheet(Project project, String sheetDescription, int sheetCreatorId, LocalDate createdDate, String organization, String filePath, String note, String sheetType) {
+    public Sheet(Project project, String sheetDescription, int sheetCreatorId, LocalDate updatedDate, String organization, String filePath, String note, String sheetType) {
         this.project = project;
         this.sheetDescription = sheetDescription;
         this.sheetCreatorId = sheetCreatorId;
-        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
         this.organization = organization;
         this.filePath = filePath;
         this.note = note;
@@ -138,17 +137,17 @@ public class Sheet {
      *
      * @return the created date
      */
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public LocalDate getUpdatedDate() {
+        return updatedDate;
     }
 
     /**
      * Sets created date.
      *
-     * @param createdDate the created date
+     * @param updatedDate the created date
      */
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setUpdatedDate(LocalDate updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     /**
@@ -228,7 +227,7 @@ public class Sheet {
      *
      * @return the rows
      */
-    public Set<Row> getRows() {
+    public List<Row> getRows() {
         return rows;
     }
 
@@ -237,7 +236,7 @@ public class Sheet {
      *
      * @param rows the rows
      */
-    public void setRows(Set<Row> rows) {
+    public void setRows(List<Row> rows) {
         this.rows = rows;
     }
 
@@ -259,5 +258,34 @@ public class Sheet {
     public void removeRow(Row row) {
         rows.remove(row);
         row.setSheet(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sheet)) return false;
+        Sheet sheet = (Sheet) o;
+        return getSheetId() == sheet.getSheetId() && getSheetCreatorId() == sheet.getSheetCreatorId() && getProject().equals(sheet.getProject()) && getSheetDescription().equals(sheet.getSheetDescription()) && getUpdatedDate().equals(sheet.getUpdatedDate()) && getOrganization().equals(sheet.getOrganization()) && getFilePath().equals(sheet.getFilePath()) && getNote().equals(sheet.getNote()) && getSheetType().equals(sheet.getSheetType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSheetId(), getProject(), getSheetDescription(), getSheetCreatorId(), getUpdatedDate(), getOrganization(), getFilePath(), getNote(), getSheetType());
+    }
+
+    @Override
+    public String toString() {
+        return "Sheet{" +
+                "sheetId=" + sheetId +
+                ", project=" + project +
+                ", sheetDescription='" + sheetDescription + '\'' +
+                ", sheetCreatorId=" + sheetCreatorId +
+                ", updatedDate=" + updatedDate +
+                ", organization='" + organization + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", note='" + note + '\'' +
+                ", sheetType='" + sheetType + '\'' +
+                ", rows=" + rows +
+                '}';
     }
 }
