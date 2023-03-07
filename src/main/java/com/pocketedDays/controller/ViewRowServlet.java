@@ -43,8 +43,8 @@ public class ViewRowServlet extends HttpServlet {
         request.setAttribute("rows", sheet.getRows());
         request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
 
-        //Forward to viewRow.jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow.jsp");
+        //Forward to viewRows.jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRows.jsp");
         dispatcher.forward(request, response);
     }
 

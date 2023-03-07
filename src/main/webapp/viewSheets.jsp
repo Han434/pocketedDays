@@ -21,8 +21,9 @@
         <tr>
           <th scope="col">No</th>
           <th scope="col">Sheet Id</th>
-          <th scope="col">Sheet Description</th>
           <th scope="col">Created Date</th>
+          <th scope="col">Sheet Description</th>
+          <th scope="col">Total</th>
           <th scope="col">Organization</th>
           <th scope="col">File Path</th>
           <th scope="col">Note</th>
@@ -34,8 +35,9 @@
           <tr>
             <th scope="row">${status.count}</th>
             <td>${sheet.sheetId}</td>
+            <td>${sheet.updatedDate}</td>
             <td>${sheet.sheetDescription}</td>
-            <td>${sheet.createdDate}</td>
+            <td>${sheetTotals[sheet.sheetId]}</td>
             <td>${sheet.organization}</td>
             <td>${sheet.filePath}</td>
             <td>${sheet.note}</td>
@@ -44,6 +46,7 @@
         </c:forEach>
         <tr>
           <th scope="row"></th>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>

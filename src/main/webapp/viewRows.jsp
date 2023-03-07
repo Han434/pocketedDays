@@ -1,3 +1,4 @@
+<%@ page import="com.pocketedDays.entity.Row" %>
 <%@include file="taglib.jsp"%>
 <%@include file="head.jsp"%>
 <html>
@@ -32,6 +33,7 @@
                     <th scope="col">Row Description</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Cost Per Item</th>
+                    <th scope="col">Total</th>
                     <th scope="col">Expense Type</th>
                     <th scope="col">Tag</th>
                     <th scope="col">Details</th>
@@ -45,6 +47,7 @@
                         <td class="m-3">${row.rowDescription}</td>
                         <td class="m-3">${row.quantity}</td>
                         <td class="m-3">${row.costPerItem}</td>
+                        <td class="m-3">${row.quantity * row.costPerItem}</td>
                         <td class="m-3">${row.rowType}</td>
                         <td class="m-3">${row.tag}</td>
                         <td class="m-3"><a class="text-white btn bg-success" href="viewRowInDetails?rowId=${row.rowId}">View</a></td>
@@ -52,6 +55,7 @@
                 </c:forEach>
                 <tr>
                     <th scope="row"></th>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

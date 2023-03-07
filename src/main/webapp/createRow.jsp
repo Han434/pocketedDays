@@ -32,7 +32,7 @@
         <div class="col">
           <div class="my-3">
             <label class="mr-sm-2" for="inlineFormCustomSelect">Type</label>
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="rowType" required>
+            <select class="form-select mr-sm-2" id="inlineFormCustomSelect" name="rowType" required>
               <option selected value="Service">Service</option>
               <option value="Product">Product</option>
               <option value="Donation">Donation</option>

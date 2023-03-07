@@ -22,9 +22,9 @@
                     </div>
                 </div>
             </div>
-            <div class="custom-file my-3">
-                <label class="custom-file-label" for="customFile">File Path</label>
-                <input type="file" class="custom-file-input" id="customFile" name="filePath" placeholder="abc/de.png" required>
+            <div class="my-3">
+                <label class="custom-label" for="customFile">File Path</label>
+                <input type="file" class="form-control" id="customFile" name="filePath" placeholder="abc/de.png" required>
             </div>
             <div class="form-group my-3">
                 <label for="note">Note</label>

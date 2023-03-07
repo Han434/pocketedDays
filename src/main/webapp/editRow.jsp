@@ -31,7 +31,7 @@
                 <div class="col">
                     <div class="my-3">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Type</label>
-                        <select name="rowType" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <select name="rowType" class="form-select mr-sm-2" id="inlineFormCustomSelect">
                             <option selected value="Service">Service</option>
                             <option value="Product">Product</option>
                             <option value="Donation">Donation</option>

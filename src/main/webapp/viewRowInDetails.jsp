@@ -33,7 +33,7 @@
             <p>Created Date</p>
         </div>
         <div class="col-6">
-            <p>${row.createdDate}</p>
+            <p>${row.updatedDate}</p>
         </div>
     </div>
     <div class="row">
