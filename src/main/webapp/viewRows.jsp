@@ -41,7 +41,7 @@
                 <c:forEach var="row" items="${rows}" varStatus="status">
                     <tr>
                         <th scope="row">${status.count}</th>
-                        <td class="m-3">${row.createdDate}</td>
+                        <td class="m-3">${row.updatedDate}</td>
                         <td class="m-3">${row.rowDescription}</td>
                         <td class="m-3">${row.quantity}</td>
                         <td class="m-3">${row.costPerItem}</td>
