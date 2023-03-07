@@ -4,6 +4,7 @@ import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.test.utilities.Database;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,27 +19,37 @@ import static org.junit.jupiter.api.Assertions.*;
 class SheetDaoTest {
 
     /**
-     * The Dao.
+     * The Generic dao.
      */
-    SheetDao dao;
+    GenericDao genericDao;
 
     /**
      * Sets up.
      */
     @BeforeEach
     void setUp() {
-        dao = new SheetDao();
+        genericDao = new GenericDao(Sheet.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
+
+    /**
+     * Tear down.
+     */
+    @AfterEach
+    void tearDown() {
+    }
+
 
     /**
      * Gets all sheets.
      */
     @Test
     void getAllSheetsSuccess() {
-        List<Sheet> sheets = dao.getAllSheets();
+        List<Sheet> sheets = genericDao.getAll();
         assertEquals(1, sheets.size());
+        Sheet sheet = sheets.get(0);
+        assertEquals("Installing computer for ABC department", sheet.getSheetDescription());
     }
 
     /**
@@ -46,7 +57,7 @@ class SheetDaoTest {
      */
     @Test
     void getSheetBySheetIdSuccess() {
-        Sheet sheet = dao.getSheetBySheetId(1);
+        Sheet sheet = (Sheet) genericDao.getById(1);
         assertEquals("Installing computer for ABC department", sheet.getSheetDescription());
     }
 
@@ -58,27 +69,34 @@ class SheetDaoTest {
         ProjectDao projectDao = new ProjectDao();
         Project project = projectDao.getProjectByProjectId(1);
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
-        int sheetId = dao.insertSheet(sheet);
+        project.addSheet(sheet);
+
+        int sheetId = genericDao.insertEntity(sheet);
         assertNotEquals(0, sheetId);
-        Sheet sheetToTest = dao.getSheetBySheetId(sheetId);
-        assertEquals("Finance department petition", sheetToTest.getSheetDescription());
+
+        Sheet sheetToTest = (Sheet) genericDao.getById(sheetId);
+        assertEquals(sheetToTest, sheet);
+        assertEquals(project, sheet.getProject());
     }
 
 
+    /**
+     * Insert sheet with rows success.
+     */
     @Test
     void insertSheetWithRowsSuccess() {
         ProjectDao projectDao = new ProjectDao();
         Project project = projectDao.getProjectByProjectId(1);
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         Row row = new Row(sheet, 1, LocalDate.parse("2018-12-22"), "abc", 1, 200, "Expense", "tag");
-
         sheet.addRow(row);
 
-        int sheetId = dao.insertSheet(sheet);
+        int sheetId = genericDao.insertEntity(sheet);
         assertNotEquals(0, sheetId);
-        Sheet sheetToTest = dao.getSheetBySheetId(sheetId);
-        assertEquals("Finance department petition", sheetToTest.getSheetDescription());
+        Sheet sheetToTest = (Sheet) genericDao.getById(sheetId);
+        assertEquals(sheetToTest, sheet);
         assertEquals(1, sheetToTest.getRows().size());
+        assertEquals(row, sheetToTest.getRows().get(0));
     }
 
 
@@ -87,7 +105,7 @@ class SheetDaoTest {
      */
     @Test
     void deleteSheetSuccess() {
-        dao.deleteSheet(dao.getSheetBySheetId(1));
-        assertNull(dao.getSheetBySheetId(1));
+        genericDao.deleteEntity(genericDao.getById(1));
+        assertNull(genericDao.getById(1));
     }
 }

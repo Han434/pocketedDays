@@ -1,7 +1,6 @@
 package com.pocketedDays.persistence;
 
 import com.pocketedDays.entity.Project;
-import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.test.utilities.Database;
 import org.junit.jupiter.api.AfterEach;
@@ -17,18 +16,17 @@ import static org.junit.jupiter.api.Assertions.*;
  * The type Project dao test.
  */
 class ProjectDaoTest {
-
     /**
-     * The Dao.
+     * The Generic dao.
      */
-    ProjectDao dao;
+    GenericDao genericDao;
 
     /**
      * Sets up.
      */
     @BeforeEach
     void setUp() {
-        dao = new ProjectDao();
+        genericDao = new GenericDao(Project.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
@@ -45,8 +43,10 @@ class ProjectDaoTest {
      */
     @Test
     void getAllProjectsSuccess() {
-        List<Project> projects = dao.getAllProjects();
+        List<Project> projects = (List<Project>) genericDao.getAll();
         assertEquals(1, projects.size());
+        Project project = projects.get(0);
+        assertEquals("Manlay Website", project.getProjectName());
     }
 
     /**
@@ -54,7 +54,7 @@ class ProjectDaoTest {
      */
     @Test
     void getProjectByUserIdSuccess() {
-        List<Project> projects = dao.getProjectByUserId(1);
+        List<Project> projects = (List<Project>) genericDao.getByProperty("projectCreatorId", 1);
         assertEquals(1, projects.size());
         Project project = projects.get(0);
         assertEquals("Manlay Website", project.getProjectName());
@@ -66,7 +66,7 @@ class ProjectDaoTest {
      */
     @Test
     void getProjectByProjectIdSuccess() {
-        Project project = dao.getProjectByProjectId(1);
+        Project project = (Project) genericDao.getById(1);
         assertEquals("Manlay Website", project.getProjectName());
     }
 
@@ -76,11 +76,11 @@ class ProjectDaoTest {
     @Test
     void saveOrUpdateProjectSuccess() {
         String newProjectName = "Han";
-        Project projectToUpdate = dao.getProjectByProjectId(1);
+        Project projectToUpdate = (Project) genericDao.getById(1);
         projectToUpdate.setProjectName(newProjectName);
-        dao.saveOrUpdateProject(projectToUpdate);
-        Project retrievedProject = dao.getProjectByProjectId(1);
-        assertEquals(newProjectName, retrievedProject.getProjectName());
+        genericDao.saveOrUpdateEntity(projectToUpdate);
+        Project retrievedProject = (Project) genericDao.getById(1);
+        assertEquals(projectToUpdate, retrievedProject);
     }
 
     /**
@@ -89,23 +89,27 @@ class ProjectDaoTest {
     @Test
     void insertProjectSuccess() {
         Project project = new Project(1, "testing", "testing", LocalDate.parse("2018-12-27"), "testing");
-        int projectId = dao.insertProject(project);
+        int projectId = genericDao.insertEntity(project);
         assertNotEquals(0, projectId);
-        Project projectToTest = dao.getProjectByProjectId(projectId);
-        assertEquals("testing", projectToTest.getProjectName());
+        Project projectToTest = (Project) genericDao.getById(projectId);
+        assertEquals(project, projectToTest);
     }
 
+    /**
+     * Insert sheet with rows success.
+     */
     @Test
     void insertSheetWithRowsSuccess() {
         Project project = new Project(1, "Name", "123", LocalDate.parse("2018-12-27"), "Description");
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
-
         project.addSheet(sheet);
 
-        int projectId = dao.insertProject(project);
+        int projectId = genericDao.insertEntity(project);
         assertNotEquals(0, projectId);
-        Project projectToTest = dao.getProjectByProjectId(projectId);
-        assertEquals("Name", projectToTest.getProjectName());
+        Project projectToTest = (Project) genericDao.getById(projectId);
+        assertEquals(projectToTest, project);
+        assertEquals(1, projectToTest.getSheets().size());
+        assertEquals(sheet, projectToTest.getSheets().get(0));
     }
 
     /**
@@ -113,7 +117,7 @@ class ProjectDaoTest {
      */
     @Test
     void deleteProjectSuccess() {
-        dao.deleteProject(dao.getProjectByProjectId(1));
-        assertNull(dao.getProjectByProjectId(1));
+        genericDao.deleteEntity(genericDao.getById(1));
+        assertNull(genericDao.getById(1));
     }
 }

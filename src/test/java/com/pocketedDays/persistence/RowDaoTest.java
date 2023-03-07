@@ -1,6 +1,5 @@
 package com.pocketedDays.persistence;
 
-import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.test.utilities.Database;
@@ -18,16 +17,16 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class RowDaoTest {
     /**
-     * The Dao.
+     * The Generic dao.
      */
-    RowDao dao;
+    GenericDao genericDao;
 
     /**
      * Sets up.
      */
     @BeforeEach
     void setUp() {
-        dao = new RowDao();
+        genericDao = new GenericDao(Row.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
@@ -44,8 +43,10 @@ class RowDaoTest {
      */
     @Test
     void getAllRowsSuccess() {
-        List<Row> rows = dao.getAllRows();
+        List<Row> rows = genericDao.getAll();
         assertEquals(1, rows.size());
+        Row row = rows.get(0);
+        assertEquals("Socket", row.getRowDescription());
     }
 
     /**
@@ -53,21 +54,8 @@ class RowDaoTest {
      */
     @Test
     void getProjectByRowIdSuccess() {
-        Row row = dao.getRowsByRowId(1);
+        Row row = (Row) genericDao.getById(1);
         assertEquals("Socket", row.getRowDescription());
-    }
-
-    /**
-     * Save or update row success.
-     */
-    @Test
-    void saveOrUpdateRowSuccess() {
-        String newRowDescription = "Cable";
-        Row rowToUpdate = dao.getRowsByRowId(1);
-        rowToUpdate.setRowDescription(newRowDescription);
-        dao.saveOrUpdateRow(rowToUpdate);
-        Row retrievedProject = dao.getRowsByRowId(1);
-        assertEquals(newRowDescription, retrievedProject.getRowDescription());
     }
 
     /**
@@ -80,11 +68,25 @@ class RowDaoTest {
         Row row = new Row(sheet, 1, LocalDate.parse("2018-12-27"), "Keyword", 5,200, "Product", "Finanace");
         sheet.addRow(row);
 
-        int rowId = dao.insertRow(row);
+        int rowId = genericDao.insertEntity(row);
         assertNotEquals(0, rowId);
 
-        Row rowToTest = dao.getRowsByRowId(rowId);
-        assertEquals("Keyword", rowToTest.getRowDescription());
+        Row rowToTest = (Row) genericDao.getById(rowId);
+        assertEquals(rowToTest, row);
+        assertEquals(sheet, row.getSheet());
+    }
+
+    /**
+     * Save or update row success.
+     */
+    @Test
+    void saveOrUpdateRowSuccess() {
+        String newRowDescription = "Cable";
+        Row rowToUpdate = (Row) genericDao.getById(1);
+        rowToUpdate.setRowDescription(newRowDescription);
+        genericDao.saveOrUpdateEntity(rowToUpdate);
+        Row retrievedProject = (Row) genericDao.getById(1);
+        assertEquals(rowToUpdate, retrievedProject);
     }
 
 
@@ -93,7 +95,7 @@ class RowDaoTest {
      */
     @Test
     void deleteRowSuccess() {
-        dao.deleteRow(dao.getRowsByRowId(1));
-        assertNull(dao.getRowsByRowId(1));
+        genericDao.deleteEntity(genericDao.getById(1));
+        assertNull(genericDao.getById(1));
     }
 }
