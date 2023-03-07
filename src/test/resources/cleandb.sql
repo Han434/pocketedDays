@@ -2,7 +2,8 @@ use test_pocketed_days;
 drop table if exists userProject, user, project, sheet, rowOfSheet;
 CREATE TABLE user (
                                     userId int auto_increment primary key,
-                                    name varchar(255),
+                                    firstName varchar(100),
+                                    lastName varchar(100),
                                     userName varchar(255),
                                     dateOfBirth date
 );
@@ -13,7 +14,7 @@ CREATE TABLE project (
                          projectName varchar(255),
                          projectPassword varchar(255),
                          projectDescription varchar(255),
-                         createdDate date
+                         updatedDate date
 );
 
 create table userProject
@@ -35,7 +36,7 @@ CREATE TABLE sheet (
                                      projectId int,
                                      sheetCreatorId int,
                                      sheetDescription varchar(255),
-                                     createdDate date,
+                                     updatedDate date,
                                      organization varchar(255),
                                      filePath varchar(255),
                                      note varchar(255),
@@ -48,7 +49,7 @@ CREATE TABLE rowOfSheet (
                                           rowId int primary key auto_increment,
                                           sheetId int,
                                           rowCreatorId int,
-                                          createdDate date,
+                                          updatedDate date,
                                           rowDescription varchar(255),
                                           quantity varchar(255),
                                           costPerItem int,
@@ -58,11 +59,11 @@ CREATE TABLE rowOfSheet (
                                               foreign key (sheetId) references test_pocketed_days.sheet (sheetId)
 );
 delete from project;
-INSERT INTO project (projectCreatorId, projectName, projectPassword, projectDescription, createdDate)
+INSERT INTO project (projectCreatorId, projectName, projectPassword, projectDescription, updatedDate)
 VALUES (1, "Manlay Website", "123", "This project is to create something new.", "2023-5-5");
 delete from sheet;
-INSERT INTO sheet (projectId, sheetCreatorId, sheetDescription, createdDate, organization, filePath, note, sheetType)
+INSERT INTO sheet (projectId, sheetCreatorId, sheetDescription, updatedDate, organization, filePath, note, sheetType)
 VALUES (1, 1, "Installing computer for ABC department", "2023-5-5", "TechLand", "invoice.png", "Note here", "Expense");
 delete from rowOfSheet;
-INSERT INTO rowOfSheet (sheetId, rowCreatorId, createdDate, rowDescription, quantity, costPerItem, rowType, tag)
+INSERT INTO rowOfSheet (sheetId, rowCreatorId, updatedDate, rowDescription, quantity, costPerItem, rowType, tag)
 VALUES (1, 1, "2023-5-5", "Socket", 5, 200, "Product", "dfas");
