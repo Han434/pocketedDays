@@ -23,9 +23,9 @@
           <th scope="col">Sheet Id</th>
           <th scope="col">Created Date</th>
           <th scope="col">Sheet Description</th>
-          <th scope="col">Total</th>
           <th scope="col">Organization</th>
           <th scope="col">File Path</th>
+          <th scope="col">Total</th>
           <th scope="col">Note</th>
           <th scope="col">Details</th>
         </tr>
@@ -37,9 +37,9 @@
             <td>${sheet.sheetId}</td>
             <td>${sheet.updatedDate}</td>
             <td>${sheet.sheetDescription}</td>
-            <td>${sheetTotals[sheet.sheetId]}</td>
             <td>${sheet.organization}</td>
             <td>${sheet.filePath}</td>
+            <td>${sheetTotals[sheet.sheetId]}</td>
             <td>${sheet.note}</td>
             <td><a class="text-white btn bg-success" href="viewRow?sheetId=${sheet.sheetId}">View</a></td>
           </tr>
@@ -51,7 +51,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td>Total: ${projectTotal}</td>
           <td>
             <c:choose>
               <c:when test="${empty sheets}">

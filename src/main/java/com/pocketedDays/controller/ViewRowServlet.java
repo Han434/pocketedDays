@@ -1,5 +1,6 @@
 package com.pocketedDays.controller;
 
+import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.persistence.ProjectDao;
 import com.pocketedDays.persistence.RowDao;
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The type View row servlet.
@@ -38,9 +43,21 @@ public class ViewRowServlet extends HttpServlet {
         //Get sheet by sheetId
         Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
 
+        //Get row totals and sheet total
+        Set<Row> rows = sheet.getRows();
+        Map<Integer,Integer> rowTotals = new HashMap<Integer,Integer>();
+        int sheetTotal = 0;
+        for (Row row : rows) {
+            int rowTotal = row.calculatedTotal();
+            sheetTotal += rowTotal;
+            rowTotals.put(row.getRowId(), rowTotal);
+        }
+
         //Pass sheet, rows and project
         request.setAttribute("sheet", sheet);
-        request.setAttribute("rows", sheet.getRows());
+        request.setAttribute("rows", rows);
+        request.setAttribute("rowTotals", rowTotals);
+        request.setAttribute("sheetTotal", sheetTotal);
         request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
 
         //Forward to viewRows.jsp

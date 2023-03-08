@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The type View sheets servlet.
@@ -40,24 +37,24 @@ public class ViewSheetsServlet extends HttpServlet {
         int projectId = (int) session.getAttribute("projectId");
         session.setAttribute("sheetType", sheetType);
 
-        //Pass project sheet and sheetType
+        //Get project by projectId
         Project project = projectDao.getProjectByProjectId(projectId);
-        request.setAttribute("project", project);
 
-        List<Sheet> sheets = project.getSheets();
+        //Get sheet totals and project total
+        Set<Sheet> sheets = project.getSheets();
         Map<Integer,Integer> sheetTotals = new HashMap<Integer,Integer>();
+        int projectTotal = 0;
         for (Sheet sheet : sheets) {
-            List<Row> rows = sheet.getRows();
-            int sheetTotal = 0;
-            for (Row row : rows) {
-                int rowTotal = row.getQuantity() * row.getCostPerItem();
-                sheetTotal += rowTotal;
-            }
+            int sheetTotal = sheet.calculatedTotal();
+            projectTotal += sheetTotal;
             sheetTotals.put(sheet.getSheetId(), sheetTotal);
         }
 
+        //Pass project, sheet, sheetTotals, projectTotal and sheetType
+        request.setAttribute("project", project);
         request.setAttribute("sheets", project.getSheets());
         request.setAttribute("sheetTotals", sheetTotals);
+        request.setAttribute("projectTotal", projectTotal);
         request.setAttribute("viewTypeForHeader", sheetType);
 
         //Forward to viewSheets.jsp
