@@ -29,7 +29,7 @@ public class CreateRowServlet extends HttpServlet {
         int sheetId = (int) session.getAttribute("sheetId");
 
         //If not equal to "Add New"
-        if (!submit.equals("Add New")) {
+        if (!submit.equals("Create")) {
             request.setAttribute("sheetId", sheetId);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/createRow.jsp");
             dispatcher.forward(request, response);
@@ -43,7 +43,7 @@ public class CreateRowServlet extends HttpServlet {
         int sheetId = (int) session.getAttribute("sheetId");
 
         //If equal to "Add New"
-        if (submit.equals("Add New")) {
+        if (submit.equals("Create")) {
             //Get data
             int rowCreatorId = (int) session.getAttribute("userId");
             LocalDate createdDate = LocalDate.now();

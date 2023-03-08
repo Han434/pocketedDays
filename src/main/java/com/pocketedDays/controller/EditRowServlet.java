@@ -32,7 +32,7 @@ public class EditRowServlet extends HttpServlet {
         int sheetId = (int) session.getAttribute("sheetId");
 
         //If not equal to "Edit Row"
-        if (!submit.equals("Edit Row")) {
+        if (!submit.equals("Edit")) {
             RowDao rowDao = new RowDao();
             Row row = rowDao.getRowsByRowId(rowId);
             request.setAttribute("row", row);
@@ -57,7 +57,7 @@ public class EditRowServlet extends HttpServlet {
         int rowCreatorId = (int) session.getAttribute("userId");
 
         //If equal to "Edit Row"
-        if (submit.equals("Edit Row")) {
+        if (submit.equals("Edit")) {
             //Get row by rowId
             RowDao rowDao = new RowDao();
             Row row = rowDao.getRowsByRowId(rowId);

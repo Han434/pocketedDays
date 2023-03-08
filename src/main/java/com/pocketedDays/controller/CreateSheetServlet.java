@@ -28,8 +28,6 @@ public class CreateSheetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String submit = request.getParameter("submit");
-
         //Forward to createSheet.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
         dispatcher.forward(request, response);

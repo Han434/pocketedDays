@@ -8,24 +8,30 @@
 <div class="container mt-3">
 <div class="form-box">
     <h2 class="text-center">Edit Project</h2>
-    <form action="editProject" method="post">
+    <form action="editProject" method="post" class="was-validated">
         <div class="row my-3">
             <div class="col">
                 <div class="form-group">
-                    <label for="name">Project Name:</label>
-                    <input type="text" value="${project.projectName}" class="form-control" id="name" name="projectName" aria-describedby="emailHelp" placeholder="${project.projectName}">
+                    <label for="projectName">Project Name:</label>
+                    <input pattern=".*" type="text" value="${project.projectName}" class="form-control" id="projectName" name="projectName" placeholder="${project.projectName}">
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Project Password</label>
-                    <input type="password" class="form-control" name="projectPassword" id="exampleInputPassword1" placeholder="${project.projectPassword}">
+                    <label for="projectPassword">Project Password</label>
+                    <input minlength="8" type="password" class="form-control" name="projectPassword" id="projectPassword" placeholder="${project.projectPassword}">
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Password must be at least 8 characters!</div>
                 </div>
             </div>
         </div>
         <div class="form-group my-3">
             <label for="description">Project Description</label>
-            <textarea class="form-control" value="${project.projectDescription}" name="projectDescription" id="description" placeholder="${project.projectDescription}" rows="3"></textarea>
+            <textarea class="form-control" name="projectDescription" id="description" placeholder="${project.projectDescription}" rows="3">${project.projectDescription}</textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please fill out this field!</div>
         </div>
         <div class="form-group my-3">
             <input class="btn bg-success text-white mx-3" type="submit" name="submit" value="Edit Project"/>
