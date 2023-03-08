@@ -1,10 +1,13 @@
 <hibernate-configuration>
 <session-factory>
-<property name="connection.url">jdbc:mysql://localhost:3306/pocketed_days</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/pocketed_days</property>
+    <!--<property name="connection.url">jdbc:mysql://awseb-e-p89r36apq2-stack-awsebrdsdatabase-s1l4fezsf4qg.czch5hffzafp.us-east-2.rds.amazonaws.com:3306/pocketed_days</property>-->
 <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
 <property name="connection.username">student</property>
-<property name="connection.password">student</property>
+    <property name="connection.password">student</property>
+<!--<property name="connection.password">ITWeb782021</property>-->
 
 <property name="hibernate.c3p0.min_size">5</property>
 <property name="hibernate.c3p0.max_size">20</property>
