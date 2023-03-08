@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 @Entity(name = "Row")
 @Table(name = "rowOfSheet")
-public class Row {
+public class Row implements Comparable<Row> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -247,5 +247,19 @@ public class Row {
                 ", rowType='" + rowType + '\'' +
                 ", tag='" + tag + '\'' +
                 '}';
+    }
+
+    /**
+     * Calculated total int.
+     *
+     * @return the int
+     */
+    public int calculatedTotal() {
+        return this.costPerItem * this.getQuantity();
+    }
+
+    @Override
+    public int compareTo(Row row) {
+        return ((Integer)this.rowId).compareTo(row.rowId);
     }
 }

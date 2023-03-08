@@ -11,7 +11,7 @@ import java.util.*;
  */
 @Entity(name = "Sheet")
 @Table(name = "sheet")
-public class Sheet {
+public class Sheet implements Comparable<Sheet> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -29,7 +29,7 @@ public class Sheet {
     private String note;
     private String sheetType;
     @OneToMany(mappedBy = "sheet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Row> rows = new ArrayList<>();
+    private Set<Row> rows = new TreeSet<>();
 
     /**
      * Instantiates a new Sheet.
@@ -227,7 +227,7 @@ public class Sheet {
      *
      * @return the rows
      */
-    public List<Row> getRows() {
+    public Set<Row> getRows() {
         return rows;
     }
 
@@ -236,7 +236,7 @@ public class Sheet {
      *
      * @param rows the rows
      */
-    public void setRows(List<Row> rows) {
+    public void setRows(Set<Row> rows) {
         this.rows = rows;
     }
 
@@ -258,6 +258,21 @@ public class Sheet {
     public void removeRow(Row row) {
         rows.remove(row);
         row.setSheet(null);
+    }
+
+    /**
+     * Calculated total int.
+     *
+     * @return the int
+     */
+    public int calculatedTotal() {
+        Set<Row> rows = this.getRows();
+        int sheetTotal = 0;
+        for (Row row : rows) {
+            int rowTotal = row.getQuantity() * row.getCostPerItem();
+            sheetTotal += rowTotal;
+        }
+        return sheetTotal;
     }
 
     @Override
@@ -288,4 +303,23 @@ public class Sheet {
                 ", rows=" + rows +
                 '}';
     }
+
+    @Override
+    public int compareTo(Sheet sheet) {
+        int hash =((Integer)this.sheetId).compareTo(sheet.sheetId);
+        return hash;
+    }
+
+//    @Override
+//    public int compareTo(Sheet sheet){
+//        if (this.sheetId > sheet.sheetId) {
+//            return 1;
+//        }
+//        else if (this.sheetId < sheet.sheetId) {
+//            return -1;
+//        }
+//        else {
+//            return 0;
+//        }
+//    }
 }

@@ -22,7 +22,7 @@ public class Project {
     private LocalDate updatedDate;
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Sheet> sheets = new ArrayList<>();
+    private Set<Sheet> sheets = new TreeSet<>();
 
     /**
      * Instantiates a new Project.
@@ -160,7 +160,7 @@ public class Project {
      *
      * @return the sheets
      */
-    public List<Sheet> getSheets() {
+    public Set<Sheet> getSheets() {
         return sheets;
     }
 
@@ -169,7 +169,7 @@ public class Project {
      *
      * @param sheets the sheets
      */
-    public void setSheets(List<Sheet> sheets) {
+    public void setSheets(Set<Sheet> sheets) {
         this.sheets = sheets;
     }
 
