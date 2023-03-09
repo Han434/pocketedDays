@@ -9,7 +9,7 @@
     <h2>Sheet View</h2>
     <div class="row">
       <div class="col-6">
-        <h2>${viewTypeForHeader} View</h2>
+        <h2>${sheet.sheetType} View</h2>
       </div>
       <div class="col-6">
         <h3>Project Name: ${project.projectName}</h3>
@@ -39,7 +39,7 @@
             <td>${sheet.sheetDescription}</td>
             <td>${sheet.organization}</td>
             <td>${sheet.filePath}</td>
-            <td>${sheetTotals[sheet.sheetId]}</td>
+            <td>${sheet.getFormattedCurrency(sheet.calculateTotal())}</td>
             <td>${sheet.note}</td>
             <td><a class="text-white btn bg-success" href="viewRow?sheetId=${sheet.sheetId}">View</a></td>
           </tr>
@@ -51,7 +51,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>Total: ${projectTotal}</td>
+          <td>Total: ${project.getFormattedCurrency(project.calculateTotal())}</td>
           <td>
             <c:choose>
               <c:when test="${empty sheets}">

@@ -75,8 +75,8 @@
                         <td class="m-3">${row.updatedDate}</td>
                         <td class="m-3">${row.rowDescription}</td>
                         <td class="m-3">${row.quantity}</td>
-                        <td class="m-3">${row.costPerItem}</td>
-                        <td class="m-3">${rowTotals[row.rowId]}</td>
+                        <td class="m-3">${row.getFormattedCurrency(row.costPerItem)}</td>
+                        <td class="m-3">${row.getFormattedCurrency(row.calculateTotal())}</td>
                         <td class="m-3">${row.rowType}</td>
                         <td class="m-3">${row.tag}</td>
                         <td class="m-3"><a class="text-white btn bg-success" href="viewRowInDetails?rowId=${row.rowId}">View</a></td>
@@ -88,7 +88,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>Total: ${sheetTotal}</td>
+                    <td>Total: ${sheet.getFormattedCurrency(sheet.calculateTotal())}</td>
                     <td></td>
                     <td>
                         <c:choose>

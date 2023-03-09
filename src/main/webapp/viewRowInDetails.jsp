@@ -43,7 +43,11 @@
             </tr>
             <tr>
                 <th scope="col">Cost Per Item</th>
-                <td class="m-3">${row.costPerItem}</td>
+                <td class="m-3">${row.getFormattedCurrency(row.costPerItem)}</td>
+            </tr>
+            <tr>
+                <th scope="col">Total</th>
+                <td class="m-3">${row.getFormattedCurrency(row.calculateTotal())}</td>
             </tr>
             <tr>
                 <th scope="col">Row Type</th>
