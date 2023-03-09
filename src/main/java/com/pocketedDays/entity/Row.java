@@ -1,9 +1,12 @@
 package com.pocketedDays.entity;
 
+import com.pocketedDays.utilities.NumberFormatInterface;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -11,7 +14,7 @@ import java.util.Objects;
  */
 @Entity(name = "Row")
 @Table(name = "rowOfSheet")
-public class Row implements Comparable<Row> {
+public class Row implements Comparable<Row>, NumberFormatInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -254,8 +257,9 @@ public class Row implements Comparable<Row> {
      *
      * @return the int
      */
-    public int calculatedTotal() {
-        return this.costPerItem * this.getQuantity();
+    public int calculateTotal() {
+        int rowTotal = this.costPerItem * this.getQuantity();
+        return rowTotal;
     }
 
     @Override

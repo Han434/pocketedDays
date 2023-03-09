@@ -1,8 +1,10 @@
 package com.pocketedDays.entity;
 
+import com.pocketedDays.utilities.NumberFormatInterface;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -11,7 +13,7 @@ import java.util.*;
  */
 @Entity(name = "Project")
 @Table(name = "project")
-public class Project {
+public class Project implements NumberFormatInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -217,5 +219,15 @@ public class Project {
                 ", projectDescription='" + projectDescription + '\'' +
                 ", sheets=" + sheets +
                 '}';
+    }
+
+    public int calculateTotal() {
+        Set<Sheet> sheets = this.getSheets();
+        int projectTotal = 0;
+        for (Sheet sheet : sheets) {
+            int sheetTotal = sheet.calculateTotal();
+            projectTotal += sheetTotal;
+        }
+        return projectTotal;
     }
 }
