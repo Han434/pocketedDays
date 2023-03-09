@@ -42,20 +42,11 @@ public class ViewSheetsServlet extends HttpServlet {
 
         //Get sheet totals and project total
         Set<Sheet> sheets = project.getSheets();
-        Map<Integer,Integer> sheetTotals = new HashMap<Integer,Integer>();
-        int projectTotal = 0;
-        for (Sheet sheet : sheets) {
-            int sheetTotal = sheet.calculatedTotal();
-            projectTotal += sheetTotal;
-            sheetTotals.put(sheet.getSheetId(), sheetTotal);
-        }
 
-        //Pass project, sheet, sheetTotals, projectTotal and sheetType
+        //Pass project, sheet, sheetType
         request.setAttribute("project", project);
-        request.setAttribute("sheets", project.getSheets());
-        request.setAttribute("sheetTotals", sheetTotals);
-        request.setAttribute("projectTotal", projectTotal);
-        request.setAttribute("viewTypeForHeader", sheetType);
+        request.setAttribute("sheets", sheets);
+        //request.setAttribute("viewTypeForHeader", sheetType);
 
         //Forward to viewSheets.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewSheets.jsp");

@@ -43,21 +43,12 @@ public class ViewRowServlet extends HttpServlet {
         //Get sheet by sheetId
         Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
 
-        //Get row totals and sheet total
+        //Get row
         Set<Row> rows = sheet.getRows();
-        Map<Integer,Integer> rowTotals = new HashMap<Integer,Integer>();
-        int sheetTotal = 0;
-        for (Row row : rows) {
-            int rowTotal = row.calculatedTotal();
-            sheetTotal += rowTotal;
-            rowTotals.put(row.getRowId(), rowTotal);
-        }
 
         //Pass sheet, rows and project
         request.setAttribute("sheet", sheet);
         request.setAttribute("rows", rows);
-        request.setAttribute("rowTotals", rowTotals);
-        request.setAttribute("sheetTotal", sheetTotal);
         request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
 
         //Forward to viewRows.jsp

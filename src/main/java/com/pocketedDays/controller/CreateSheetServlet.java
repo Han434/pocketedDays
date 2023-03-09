@@ -4,13 +4,17 @@ import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.persistence.ProjectDao;
 import com.pocketedDays.persistence.SheetDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
 /**
@@ -25,6 +29,8 @@ import java.time.LocalDate;
         maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
 public class CreateSheetServlet extends HttpServlet {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +50,15 @@ public class CreateSheetServlet extends HttpServlet {
         //File
         Part filePart = request.getPart("filePath");
         String fileName = filePart.getSubmittedFileName();
+        for (Part part : request.getParts()) {
+            try {
+                part.write("C:\\temp\\" + fileName);
+            } catch (IOException exception) {
+                logger.error("Cannot load the file", exception);
+            } catch (Exception exception) {
+                logger.error("Cannot load the file", exception);
+            }
+        }
 
         //Set data
         String sheetDescription = request.getParameter("sheetDescription");
