@@ -4,9 +4,9 @@
 <header>
     <%@include file="viewMenu.jsp"%>
 </header>
-<body>
-    <div class="container">
-        <h2>Create Sheet</h2>
+<body class="bg-dark">
+    <div class="container mt-3 p-3 bgs-b rounded text-white">
+        <h2 class="text-center">Create Sheet</h2>
         <form action="createSheet" enctype='multipart/form-data' method="post" class="was-validated">
             <div class="row my-3">
                 <div class="col">

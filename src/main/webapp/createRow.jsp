@@ -4,9 +4,9 @@
 <header>
   <%@include file="viewMenu.jsp"%>
 </header>
-  <body>
-    <div class="container">
-    <h2>Create Row</h2>
+<body class="bg-dark">
+<div class="container mt-3 p-3 bgs-b rounded text-white">
+    <h2 class="text-center">Create Row</h2>
     <form action="createRow" method="post" class="was-validated">
       <div class="form-row">
         <div class="form-group my-3">

@@ -4,8 +4,8 @@
 <header>
     <%@include file="projectMenu.jsp"%>
 </header>
-<body>
-<div class="container mt-3">
+<body class="bg-dark">
+<div class="container mt-3 p-3 bgs-b rounded text-white">
 <div class="form-box">
     <h2 class="text-center">Edit Project</h2>
     <form action="editProject" method="post" class="was-validated">

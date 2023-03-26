@@ -4,12 +4,12 @@
 <header>
     <%@include file="menu.jsp"%>
 </header>
-<body>
-    <div class="container mt-3">
-        <h2>Workspace</h2>
+<body class="bg-dark">
+    <div class="container mt-3 bgs-b rounded p-3 text-white">
+        <h2 class="text-center">Workspace</h2>
         <div class="row">
             <c:forEach var="project" items="${projects}">
-                <div class="card col-3 px-0 py-0 m-3">
+                <div class="card col-3 px-0 py-0 m-4">
                     <div class="card-header bgs-b text-light">
                         <p>Projec Name: ${project.projectName}</p>
                     </div>

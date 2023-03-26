@@ -4,8 +4,8 @@
 <header>
   <%@include file="menu.jsp"%>
 </header>
-<body>
-  <div class="container mt-3">
+<body class="bg-dark">
+  <div class="container mt-3 p-3 bgs-b rounded text-white">
     <div class="form-box">
       <h2 class="text-center">Create Project</h2>
       <form action="createProject" method="post" class="was-validated">
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group my-3">
           <input class="btn bg-success text-white mx-3" type="submit" name="submit" value="Add New Project" />
-          <a href="workspace" class="btn bg-dark text-white addHover mx-3">Cancle</a>
+          <a href="workspace" class="btn bg-secondary text-white addHover mx-3">Cancle</a>
         </div>
       </form>
     </div>

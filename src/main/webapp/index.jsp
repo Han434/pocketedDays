@@ -3,8 +3,8 @@
     <header>
         <%@include file="menu.jsp"%>
     </header>
-    <body>
-        <div class="container mt-3">
+    <body class="bg-dark">
+        <div class="container mt-3 p-3 rounded bgs-b text-white">
             <h2>Home Page</h2>
             <p>Your mind is for holding ideas not holding them" quoted by David Allen.
                 I started to work much more effectively right after I get to familiar with the above quotation.

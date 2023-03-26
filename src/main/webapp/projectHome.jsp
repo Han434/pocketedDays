@@ -4,16 +4,24 @@
 <header>
   <%@include file="projectMenu.jsp"%>
 </header>
-<body>
-    <div class="container mt-3">
-    <div class="row" style="height: 10em;">
-      <div class="col-7">
-        <h2>Project Home</h2>
-      </div>
-      <div class="col-5 bgs-b text-white" style="border-radius: 0 0 0 20px;">
-        <h3>Project Name: ${project.projectName}</h3>
-          <h3>Project Password: ${project.projectPassword}</h3>
-      </div>
+<body class="bg-dark">
+<div class="container-fluid rounded bgs-b text-white">
+    <div class="row pt-0">
+        <div class="col-12" style="background-image: url('images/projectBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 25vh">
+            <div class="rounded-bottom text-white p-3 mx-auto">
+                <div class="text-center">
+                    <h2>Project Home</h2>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <h3>Project Name: ${project.projectName}</h3>
+                    </div>
+                    <div class="col-6">
+                        <h3>Project Password: ${project.projectPassword}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -32,9 +40,9 @@
         </div>
     </div>
 
-    <div class="row bgs-b p-2 text-white">
+    <div class="row bg-white p-2 rounded" style="--bs-bg-opacity: .3;">
       <h3 class="col-12 m-2">Danger Zone</h3>
-        <p>Please becareful with these buttons.</p>
+        <p>Please careful with these buttons.</p>
       <div class="col-12">
           <button type="button" class="btn btn-danger ml-3 text-dark" data-bs-toggle="modal" data-bs-target="#deleteProject">
               Delete Project

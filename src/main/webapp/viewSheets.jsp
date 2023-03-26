@@ -4,15 +4,19 @@
 <header>
   <%@include file="viewMenu.jsp"%>
 </header>
-<body>
-  <div class="container">
-    <h2>Sheet View</h2>
-    <div class="row">
-      <div class="col-6">
-        <h2>${sheet.sheetType} View</h2>
+<body class="bg-dark">
+  <div class="container-fluid bg-dark text-white">
+    <div class="row rounded-top" style="background-image: url('images/sheetBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 25vh">
+      <div class="text-center">
+        <h2>Sheet View</h2>
       </div>
-      <div class="col-6">
-        <h3>Project Name: ${project.projectName}</h3>
+      <div class="row">
+        <div class="col-6">
+          <h2>${viewTypeForHeader} View</h2>
+        </div>
+        <div class="col-6">
+          <h3>Project Name: ${project.projectName}</h3>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -27,7 +31,7 @@
           <th scope="col">File Path</th>
           <th scope="col">Total</th>
           <th scope="col">Note</th>
-          <th scope="col">Details</th>
+          <th scope="col">Associated Rows</th>
         </tr>
         </thead>
         <tbody>
