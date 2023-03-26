@@ -63,8 +63,8 @@ class RowDaoTest {
      */
     @Test
     void insertRowSuccess() {
-        SheetDao sheetDao = new SheetDao();
-        Sheet sheet = sheetDao.getSheetBySheetId(1);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        Sheet sheet = (Sheet) sheetDao.getById(1);
         Row row = new Row(sheet, 1, LocalDate.parse("2018-12-27"), "Keyword", 5,200, "Product", "Finanace");
         sheet.addRow(row);
 

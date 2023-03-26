@@ -66,8 +66,8 @@ class SheetDaoTest {
      */
     @Test
     void insertSheetSuccess() {
-        ProjectDao projectDao = new ProjectDao();
-        Project project = projectDao.getProjectByProjectId(1);
+        GenericDao projectDao = new GenericDao(Project.class);
+        Project project = (Project) projectDao.getById(1);
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         project.addSheet(sheet);
 
@@ -85,8 +85,8 @@ class SheetDaoTest {
      */
     @Test
     void insertSheetWithRowsSuccess() {
-        ProjectDao projectDao = new ProjectDao();
-        Project project = projectDao.getProjectByProjectId(1);
+        GenericDao projectDao = new GenericDao(Project.class);
+        Project project = (Project) projectDao.getById(1);
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         Row row = new Row(sheet, 1, LocalDate.parse("2018-12-22"), "abc", 1, 200, "Expense", "tag");
         sheet.addRow(row);
