@@ -1,8 +1,9 @@
 package com.pocketedDays.controller;
 
-import com.pocketedDays.persistence.ProjectDao;
-import com.pocketedDays.persistence.RowDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.Row;
+import com.pocketedDays.entity.Sheet;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,12 +30,12 @@ public class ViewRowInDetailsServlet extends HttpServlet {
         int rowId = Integer.parseInt(request.getParameter("rowId"));
 
         //Pass row, sheet, project
-        RowDao rowDao = new RowDao();
-        SheetDao sheetDao = new SheetDao();
-        ProjectDao projectDao = new ProjectDao();
-        request.setAttribute("row", rowDao.getRowsByRowId(rowId));
-        request.setAttribute("sheet", sheetDao.getSheetBySheetId(sheetId));
-        request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
+        GenericDao rowDao = new GenericDao(Row.class);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        GenericDao projectDao = new GenericDao(Project.class);
+        request.setAttribute("row", rowDao.getById(rowId));
+        request.setAttribute("sheet", sheetDao.getById(sheetId));
+        request.setAttribute("project", projectDao.getById(projectId));
 
         //Forward to viewRowInDetails.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRowInDetails.jsp");

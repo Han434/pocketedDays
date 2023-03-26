@@ -2,8 +2,7 @@ package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.persistence.RowDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,11 +53,12 @@ public class CreateRowServlet extends HttpServlet {
             String tag = request.getParameter("tag");
 
             //Create new row
-            SheetDao sheetDao = new SheetDao();
-            Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
+            GenericDao sheetDao = new GenericDao(Sheet.class);
+
+            Sheet sheet = (Sheet) sheetDao.getById(sheetId);
             Row row = new Row(sheet, rowCreatorId, createdDate, rowDescription, quantity, costPerItem, rowType, tag);
-            RowDao rowDao = new RowDao();
-            rowDao.insertRow(row);
+            GenericDao rowDao = new GenericDao(Row.class);
+            rowDao.insertEntity(row);
 
             //Forward to viewRow
             RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);

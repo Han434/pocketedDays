@@ -2,8 +2,7 @@ package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.persistence.ProjectDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,8 +12,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
 /**
@@ -68,13 +65,13 @@ public class CreateSheetServlet extends HttpServlet {
         String note = request.getParameter("note");
 
         //Create new sheet
-        ProjectDao projectDao = new ProjectDao();
-        Project project = projectDao.getProjectByProjectId(projectId);
+        GenericDao projectDao = new GenericDao(Project.class);
+        Project project = (Project) projectDao.getById(projectId);
         Sheet sheet = new Sheet(project, sheetDescription, sheetCreatorId, createdDate, organization, filePath, note, sheetType);
 
         //Insert sheet into the database
-        SheetDao sheetDao = new SheetDao();
-        sheetDao.insertSheet(sheet);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        sheetDao.insertEntity(sheet);
 
         //Forward to sheet
         RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet");

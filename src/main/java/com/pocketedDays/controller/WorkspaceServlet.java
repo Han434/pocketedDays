@@ -1,6 +1,7 @@
 package com.pocketedDays.controller;
 
-import com.pocketedDays.persistence.ProjectDao;
+import com.pocketedDays.entity.Project;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,13 +21,13 @@ import java.io.IOException;
 public class WorkspaceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProjectDao projectDao = new ProjectDao();
+        GenericDao projectDao = new GenericDao(Project.class);
 
         int userId = 1;
         HttpSession session = request.getSession();
         session.setAttribute("userId", userId);
 
-        request.setAttribute("projects", projectDao.getProjectByUserId(userId));
+        request.setAttribute("projects", projectDao.getByProperty("projectCreatorId", 1));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace.jsp");
         dispatcher.forward(request, response);
     }

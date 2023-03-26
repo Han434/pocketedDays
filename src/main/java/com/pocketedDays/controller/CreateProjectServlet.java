@@ -1,7 +1,7 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
-import com.pocketedDays.persistence.ProjectDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,8 +46,8 @@ public class CreateProjectServlet extends HttpServlet {
             Project project = new Project( projectCreatorId, projectName, projectPassword, createdDate, projectDescription);
 
             //Insert it to the database
-            ProjectDao projectDao = new ProjectDao();
-            int projectId = projectDao.insertProject(project);
+            GenericDao projectDao = new GenericDao(Project.class);
+            int projectId = projectDao.insertEntity(project);
 
             //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);

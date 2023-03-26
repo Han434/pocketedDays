@@ -1,10 +1,9 @@
 package com.pocketedDays.controller;
 
+import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.persistence.ProjectDao;
-import com.pocketedDays.persistence.RowDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,8 +27,8 @@ import java.util.Set;
 public class ViewRowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProjectDao projectDao = new ProjectDao();
-        SheetDao sheetDao = new SheetDao();
+        GenericDao projectDao = new GenericDao(Project.class);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
 
         //Get sheetId from request
         int sheetId = Integer.parseInt(request.getParameter("sheetId"));
@@ -41,7 +40,7 @@ public class ViewRowServlet extends HttpServlet {
         int projectId = (int) session.getAttribute("projectId");
 
         //Get sheet by sheetId
-        Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
+        Sheet sheet = (Sheet) sheetDao.getById(sheetId);
 
         //Get row
         Set<Row> rows = sheet.getRows();
@@ -49,7 +48,7 @@ public class ViewRowServlet extends HttpServlet {
         //Pass sheet, rows and project
         request.setAttribute("sheet", sheet);
         request.setAttribute("rows", rows);
-        request.setAttribute("project", projectDao.getProjectByProjectId(projectId));
+        request.setAttribute("project", projectDao.getById(projectId));
 
         //Forward to viewRows.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRows.jsp");

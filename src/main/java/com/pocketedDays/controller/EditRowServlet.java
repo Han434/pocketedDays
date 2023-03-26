@@ -1,7 +1,7 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Row;
-import com.pocketedDays.persistence.RowDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,8 +33,8 @@ public class EditRowServlet extends HttpServlet {
 
         //If not equal to "Edit Row"
         if (!submit.equals("Edit")) {
-            RowDao rowDao = new RowDao();
-            Row row = rowDao.getRowsByRowId(rowId);
+            GenericDao rowDao = new GenericDao(Row.class);
+            Row row = (Row) rowDao.getById(rowId);
             request.setAttribute("row", row);
             request.setAttribute("sheetId", sheetId);
 
@@ -59,8 +59,8 @@ public class EditRowServlet extends HttpServlet {
         //If equal to "Edit Row"
         if (submit.equals("Edit")) {
             //Get row by rowId
-            RowDao rowDao = new RowDao();
-            Row row = rowDao.getRowsByRowId(rowId);
+            GenericDao rowDao = new GenericDao(Row.class);
+            Row row = (Row) rowDao.getById(rowId);
 
             //Update data
             row.setRowCreatorId(rowCreatorId);
@@ -72,7 +72,7 @@ public class EditRowServlet extends HttpServlet {
             row.setTag(request.getParameter("tag"));
 
             //Update row to the database
-            rowDao.saveOrUpdateRow(row);
+            rowDao.saveOrUpdateEntity(row);
 
             //Forwards to viewRow
             RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);

@@ -1,7 +1,7 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
-import com.pocketedDays.persistence.ProjectDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,9 +26,9 @@ public class DeleteProjectServlet extends HttpServlet {
         int projectId = (int) session.getAttribute("projectId");
 
         //Delete project from database
-        ProjectDao projectDao = new ProjectDao();
-        Project project = projectDao.getProjectByProjectId(projectId);
-        projectDao.deleteProject(project);
+        GenericDao projectDao = new GenericDao(Project.class);
+        Project project = (Project) projectDao.getById(projectId);
+        projectDao.deleteEntity(project);
 
         //Forward to workspace
         RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace");

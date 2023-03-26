@@ -1,10 +1,8 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
-import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.persistence.ProjectDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,8 +23,8 @@ import java.util.*;
 public class ViewSheetsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SheetDao sheetDao = new SheetDao();
-        ProjectDao projectDao = new ProjectDao();
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        GenericDao projectDao = new GenericDao(Project.class);
 
         //Get the sheetType from the request
         String sheetType = request.getParameter("sheetType");
@@ -38,7 +36,7 @@ public class ViewSheetsServlet extends HttpServlet {
         session.setAttribute("sheetType", sheetType);
 
         //Get project by projectId
-        Project project = projectDao.getProjectByProjectId(projectId);
+        Project project = (Project) projectDao.getById(projectId);
 
         //Get sheet totals and project total
         Set<Sheet> sheets = project.getSheets();
@@ -46,7 +44,7 @@ public class ViewSheetsServlet extends HttpServlet {
         //Pass project, sheet, sheetType
         request.setAttribute("project", project);
         request.setAttribute("sheets", sheets);
-        //request.setAttribute("viewTypeForHeader", sheetType);
+        request.setAttribute("viewTypeForHeader", sheetType);
 
         //Forward to viewSheets.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewSheets.jsp");

@@ -1,9 +1,7 @@
 package com.pocketedDays.controller;
 
-import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.persistence.ProjectDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,9 +27,9 @@ public class DeleteSheetServlet extends HttpServlet {
         String sheetType = (String) session.getAttribute("sheetType");
 
         //Delete sheet from the database
-        SheetDao sheetDao = new SheetDao();
-        Sheet sheet = sheetDao.getSheetBySheetId(sheetId);
-        sheetDao.deleteSheet(sheet);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        Sheet sheet = (Sheet) sheetDao.getById(sheetId);
+        sheetDao.deleteEntity(sheet);
 
         //Forward to sheet
         RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet?sheetType=" + sheetType);

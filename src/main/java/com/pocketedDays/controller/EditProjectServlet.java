@@ -1,7 +1,7 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
-import com.pocketedDays.persistence.ProjectDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,8 +30,8 @@ public class EditProjectServlet extends HttpServlet {
         //If not equal to "Edit Project"
         if (!submit.equals("Edit Project")) {
             // Pass project for edit page
-            ProjectDao projectDao = new ProjectDao();
-            Project project = projectDao.getProjectByProjectId(projectId);
+            GenericDao projectDao = new GenericDao(Project.class);
+            Project project = (Project) projectDao.getById(projectId);
             request.setAttribute("project", project);
 
             //Forward to editProject.jsp
@@ -50,8 +50,8 @@ public class EditProjectServlet extends HttpServlet {
         //If equal to "Edit Project"
         if (submit.equals("Edit Project")) {
             //Get project by id
-            ProjectDao projectDao = new ProjectDao();
-            Project project = projectDao.getProjectByProjectId(projectId);
+            GenericDao projectDao = new GenericDao(Project.class);
+            Project project = (Project) projectDao.getById(projectId);
 
             //Set updated data
             project.setProjectName(request.getParameter("projectName"));
@@ -61,7 +61,7 @@ public class EditProjectServlet extends HttpServlet {
             project.setProjectDescription(request.getParameter("projectDescription"));
 
             //Update the project in the database
-            projectDao.saveOrUpdateProject(project);
+            projectDao.saveOrUpdateEntity(project);
 
             //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);

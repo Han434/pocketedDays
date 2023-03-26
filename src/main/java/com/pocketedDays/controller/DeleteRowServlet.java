@@ -1,9 +1,7 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Row;
-import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.persistence.RowDao;
-import com.pocketedDays.persistence.SheetDao;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,9 +29,9 @@ public class DeleteRowServlet extends HttpServlet {
         int sheetId = (int) session.getAttribute("sheetId");
 
         //Delete row from database
-        RowDao rowDao = new RowDao();
-        Row row = rowDao.getRowsByRowId(rowId);
-        rowDao.deleteRow(row);
+        GenericDao rowDao = new GenericDao(Row.class);
+        Row row = (Row) rowDao.getById(rowId);
+        rowDao.deleteEntity(row);
 
         //Forward to viewRow
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);
