@@ -40,4 +40,5 @@
 - [ ] Start and Finish servlet, jsp for reports.
 
 ## Week 10
+- [ ] Implement the knowledge to the indie project.
 - [ ] Finish styling indie project.

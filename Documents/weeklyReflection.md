@@ -52,4 +52,7 @@
 
 ## Week 8
 ### Tasks Completed
-* 
+* Finish Researching Pro development research
+
+## Week 9
+### Tasks Completed
