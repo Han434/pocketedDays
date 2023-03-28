@@ -2,12 +2,9 @@
 
 ## Problem Statement
 "Your mind is for holding ideas not holding them" quoted by David Allen. 
-I started to work much more effectively right after I get to familiar with the above quotation. 
-With that being said something that help me with that is "Notion" an application which I started to use a while ago to record and track my assignments and my activities. 
-But it is a bit hard for me to customized it to my like as it is too complex for me. 
-### To be honest, I still can't figure out how it works.
-* So, I am creating a task manager in the style of "Notion"with some particular customized options.
-* Another reason is that I would like to try to work on lots of different program processes and projects as I continue learning and practicing.
+
+Pocketed Days is a web application that is created to help business or individual to help with task based structure. The application is created with the foundation which is a backbone to hold more concept and services.
+I decided to develop this application while using Notion. What I want is I want to creat productivity software like notion as the chance is given by the class. However, I believe my limited knowledge and experience is something that is holding me to achieve that. That is the reason why I developed this application. Which at the moment, I can work on idea that I have and add to this application. I hope you find helpful using this.
 
 #### Although the application is only capable of recording financial records for now, task management as well as stock management will be joining in no time.
 
