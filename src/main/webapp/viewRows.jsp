@@ -7,49 +7,43 @@
 </header>
 <body class="bg-dark">
     <div class="container-fluid bg-dark text-white">
-        <div class="row rounded-top" style="background-image: url('images/sheetBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 25vh">
+        <div class="row rounded-top" style="background-image: url('images/rowBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 35vh">
             <div class="text-center">
                 <h2>Row View</h2>
             </div>
-            <div class="row">
-                <div class="col-6">
+            <div class="row mt-3 align-items-end justify-content-end">
+                <div class="col-4">
                     <h3>Project Name: ${project.projectName}</h3>
-                </div>
-                <div class="col-6">
                     <h3>Sheet Name: ${sheet.sheetDescription}</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
                     <h3>Sheet Type: ${sheet.sheetType}</h3>
-                </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-danger ml-3 text-dark" data-bs-toggle="modal" data-bs-target="#deleteSheet">
-                        Delete Sheet
-                    </button>
-                    <div class="modal fade text-white" id="deleteSheet">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header bg-dark">
-                                    <h4 class="modal-title">Warning!</h4>
-                                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="modal-body bgs-b">
-                                    <h5>Review</h5>
-                                    <div class="list-group bg-dark">
-                                        <li class="list-group-item list-group-item-action list-group-item-dark">Sheet Id: ${sheet.sheetId}</li>
-                                        <li class="list-group-item list-group-item-action list-group-item-dark">Sheet Description: ${sheet.sheetDescription}</li>
-                                        <li class="list-group-item list-group-item-action list-group-item-dark">Organization: ${sheet.organization}</li>
-                                        <li class="list-group-item list-group-item-action list-group-item-dark">Sheet Type: ${sheet.sheetType}</li>
+                    <div>
+                        <button type="button" class="btn btn-danger ml-3 text-dark" data-bs-toggle="modal" data-bs-target="#deleteSheet">
+                            Delete Sheet
+                        </button>
+                        <div class="modal fade text-white" id="deleteSheet">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header bg-dark">
+                                        <h4 class="modal-title">Warning!</h4>
+                                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
                                     </div>
-                                    <p class="font-italic">Note. Clicking the button below will delete this sheet permanently.</p>
-                                </div>
-                                <!-- Modal footer -->
-                                <div class="modal-footer bg-dark">
-                                    <a class="btn bg-danger" href="deleteSheet">Delete Sheet</a>
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                                    <!-- Modal body -->
+                                    <div class="modal-body bgs-b">
+                                        <h5>Review</h5>
+                                        <div class="list-group bg-dark">
+                                            <li class="list-group-item list-group-item-action list-group-item-dark">Sheet Id: ${sheet.sheetId}</li>
+                                            <li class="list-group-item list-group-item-action list-group-item-dark">Sheet Description: ${sheet.sheetDescription}</li>
+                                            <li class="list-group-item list-group-item-action list-group-item-dark">Organization: ${sheet.organization}</li>
+                                            <li class="list-group-item list-group-item-action list-group-item-dark">Sheet Type: ${sheet.sheetType}</li>
+                                        </div>
+                                        <p class="font-italic">Note. Clicking the button below will delete this sheet permanently.</p>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer bg-dark">
+                                        <a class="btn bg-danger" href="deleteSheet">Delete Sheet</a>
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

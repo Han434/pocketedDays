@@ -6,7 +6,7 @@
 </header>
 <body class="bg-dark">
 <div class="container mt-3 p-3 bgs-b rounded text-white">
-    <div class="row rounded-top" style="background-image: url('images/sheetBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 25vh">
+    <div class="row rounded-top">
         <div class="text-center">
             <h2>Row View In Details</h2>
         </div>

@@ -12,12 +12,10 @@
                 <div class="text-center">
                     <h2>Project Home</h2>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <h3>Project Name: ${project.projectName}</h3>
-                    </div>
-                    <div class="col-6">
-                        <h3>Project Password: ${project.projectPassword}</h3>
+                <div class="row mt-3 align-items-end justify-content-end">
+                    <div class="col-3">
+                        <h3>${project.projectName}</h3>
+                        <h3>Password: ${project.projectPassword}</h3>
                     </div>
                 </div>
             </div>

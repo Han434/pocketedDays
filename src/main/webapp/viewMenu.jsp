@@ -21,7 +21,7 @@
     </ul>
   </div>
   <a class="navbar-brand" href="index.jsp">
-    <img width="125" src="images/logo.png">
+    <img width="125" src="images/logob.png">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -31,6 +31,7 @@
     <ul class="navbar-nav mr-auto">
       <div class="dropdown">
         <button class="btn bgs-b dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img width="25" src="images/mainMenu.png">
           Main Menu
         </button>
         <ul class="dropdown-menu bg-secondary text-light">
@@ -42,6 +43,7 @@
       </div>
       <div class="dropdown">
         <button class="btn bgs-b dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img width="25" src="images/userMenu.png">
           User Menu
         </button>
         <ul class="dropdown-menu bg-secondary text-light">

@@ -10,11 +10,9 @@
       <div class="text-center">
         <h2>Sheet View</h2>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <h2>${viewTypeForHeader} View</h2>
-        </div>
-        <div class="col-6">
+      <div class="row mt-3 align-items-end justify-content-end">
+        <div class="col-4">
+          <h3>Sheet Type: ${viewTypeForHeader}</h3>
           <h3>Project Name: ${project.projectName}</h3>
         </div>
       </div>
