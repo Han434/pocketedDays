@@ -1,5 +1,5 @@
 use test_pocketed_days;
-drop table if exists userProject, user, project, sheet, rowOfSheet;
+drop table if exists user_project, user, project, sheet, rowOfSheet;
 CREATE TABLE user (
                       userId int auto_increment primary key,
                       firstName varchar(100),
@@ -19,7 +19,7 @@ CREATE TABLE project (
                          updatedDate date
 );
 
-create table userProject
+create table user_project
 (
     id         int auto_increment
         primary key,
