@@ -1,11 +1,13 @@
 use test_pocketed_days;
 drop table if exists userProject, user, project, sheet, rowOfSheet;
 CREATE TABLE user (
-                                    userId int auto_increment primary key,
-                                    firstName varchar(100),
-                                    lastName varchar(100),
-                                    userName varchar(255),
-                                    dateOfBirth date
+                      userId int auto_increment primary key,
+                      firstName varchar(100),
+                      lastName varchar(100),
+                      userName varchar(255),
+                      gender varchar(20),
+                      email varchar(255),
+                      dateOfBirth date
 );
 
 CREATE TABLE project (
@@ -58,6 +60,9 @@ CREATE TABLE rowOfSheet (
                                           constraint rowofsheet_sheet_fk
                                               foreign key (sheetId) references test_pocketed_days.sheet (sheetId)
 );
+delete from user;
+INSERT INTO user (userId, firstName, lastName, userName, gender, email, dateOfBirth)
+VALUES (1, "W", "A", "White", "Male", "abc@gmail.com", "2023-5-5");
 delete from project;
 INSERT INTO project (projectCreatorId, projectName, projectPassword, projectDescription, updatedDate)
 VALUES (1, "Manlay Website", "123", "This project is to create something new.", "2023-5-5");

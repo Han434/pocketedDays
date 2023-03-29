@@ -5,6 +5,8 @@ CREATE TABLE user (
                       firstName varchar(100),
                       lastName varchar(100),
                       userName varchar(255),
+                      gender varchar(20),
+                      email varchar(255),
                       dateOfBirth date
 );
 
