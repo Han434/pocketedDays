@@ -2,14 +2,16 @@ package com.pocketedDays.persistence;
 
 import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
+import com.pocketedDays.entity.User;
 import com.pocketedDays.test.utilities.Database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +23,7 @@ class ProjectDaoTest {
      * The Generic dao.
      */
     GenericDao genericDao;
+    GenericDao userDao;
 
     /**
      * Sets up.
@@ -28,6 +31,7 @@ class ProjectDaoTest {
     @BeforeEach
     void setUp() {
         genericDao = new GenericDao(Project.class);
+        userDao = new GenericDao(User.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
@@ -97,10 +101,10 @@ class ProjectDaoTest {
     }
 
     /**
-     * Insert sheet with rows success.
+     * Insert project with sheets.
      */
     @Test
-    void insertSheetWithRowsSuccess() {
+    void insertProjectWithSheetsSuccess() {
         Project project = new Project(1, "Name", "123", LocalDate.parse("2018-12-27"), "Description");
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         project.addSheet(sheet);
@@ -114,11 +118,46 @@ class ProjectDaoTest {
     }
 
     /**
+     * Insert project with users success.
+     */
+    @Test
+    void insertProjectWithUsersSuccess() {
+        User user = new User("A", "B", "Red12", "Female", "abc@gmail.com", LocalDate.parse("2018-12-27"));
+        Project project = new Project(1, "Namea", "123", LocalDate.parse("2018-12-27"), "Description");
+
+        int userId = userDao.insertEntity(user);
+        int projectId = genericDao.insertEntity(project);
+
+        User insertedUser = (User) userDao.getById(userId);
+        Project insertedProject = (Project) genericDao.getById(projectId);
+
+        insertedProject.addUser(insertedUser);
+        genericDao.saveOrUpdateEntity(insertedProject);
+
+        assertNotEquals(0, userId);
+        assertEquals(insertedUser, user);
+        assertEquals(insertedProject, project);
+        assertEquals(1, insertedProject.getUsers().size());
+    }
+
+    /**
      * Delete project success.
      */
     @Test
     void deleteProjectSuccess() {
-        genericDao.deleteEntity(genericDao.getById(1));
+        Project projectToDelete = (Project) genericDao.getById(1);
+        Set<Sheet> listOfSheet = projectToDelete.getSheets();
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        List<Integer> listOfSheetId = new ArrayList<>();
+        List<Sheet> sheet = new ArrayList<>();
+        for (Sheet sheetToDelete : listOfSheet) {
+            listOfSheetId.add(sheetToDelete.getSheetId());
+        }
+        genericDao.deleteEntity(projectToDelete);
         assertNull(genericDao.getById(1));
+        for (int sheetId : listOfSheetId) {
+            sheet.add((Sheet) sheetDao.getById(sheetId));
+        }
+        //assertEquals(true, sheet.isEmpty());
     }
 }

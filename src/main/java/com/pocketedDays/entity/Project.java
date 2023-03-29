@@ -25,6 +25,8 @@ public class Project implements NumberFormatInterface {
     private String projectDescription;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Sheet> sheets = new TreeSet<>();
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private Set<UserProject> users = new HashSet<UserProject>();
 
     /**
      * Instantiates a new Project.
@@ -176,6 +178,24 @@ public class Project implements NumberFormatInterface {
     }
 
     /**
+     * Gets users.
+     *
+     * @return the users
+     */
+    public Set<UserProject> getUsers() {
+        return users;
+    }
+
+    /**
+     * Sets users.
+     *
+     * @param users the users
+     */
+    public void setUsers(Set<UserProject> users) {
+        this.users = users;
+    }
+
+    /**
      * Add sheet.
      *
      * @param sheet the sheet
@@ -193,6 +213,17 @@ public class Project implements NumberFormatInterface {
     public void removeSheet(Sheet sheet) {
         sheets.remove(sheet);
         sheet.setProject(null);
+    }
+
+    /**
+     * Add user.
+     *
+     * @param user the user
+     */
+    public void addUser(User user) {
+        UserProject userProject = new UserProject(user, this);
+        users.add(userProject);
+        user.getProjects().add(userProject);
     }
 
     @Override
@@ -221,6 +252,11 @@ public class Project implements NumberFormatInterface {
                 '}';
     }
 
+    /**
+     * Calculate total int.
+     *
+     * @return the int
+     */
     public int calculateTotal() {
         Set<Sheet> sheets = this.getSheets();
         int projectTotal = 0;
