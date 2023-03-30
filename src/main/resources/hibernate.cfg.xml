@@ -17,5 +17,7 @@
 <mapping class="com.pocketedDays.entity.Project"/>
     <mapping class="com.pocketedDays.entity.Sheet"/>
     <mapping class="com.pocketedDays.entity.Row"/>
+    <mapping class="com.pocketedDays.entity.User"/>
+    <mapping class="com.pocketedDays.entity.UserProject"/>
 </session-factory>
 </hibernate-configuration>
