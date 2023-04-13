@@ -1,6 +1,7 @@
 package com.pocketedDays.persistence;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.test.utilities.Database;
@@ -148,16 +149,32 @@ class ProjectDaoTest {
         Project projectToDelete = (Project) genericDao.getById(1);
         Set<Sheet> listOfSheet = projectToDelete.getSheets();
         GenericDao sheetDao = new GenericDao(Sheet.class);
+        GenericDao rowDao = new GenericDao(Row.class);
         List<Integer> listOfSheetId = new ArrayList<>();
         List<Sheet> sheet = new ArrayList<>();
+        List<List> collectionOfListOfRowId = new ArrayList();
         for (Sheet sheetToDelete : listOfSheet) {
             listOfSheetId.add(sheetToDelete.getSheetId());
+
+            List<Integer> listOfRowId = new ArrayList<>();
+            Set<Row> listOfRow = sheetToDelete.getRows();
+            for (Row rowToDelete : listOfRow) {
+                listOfRowId.add(rowToDelete.getRowId());
+            }
+            collectionOfListOfRowId.add(listOfRowId);
         }
         genericDao.deleteEntity(projectToDelete);
         assertNull(genericDao.getById(1));
         for (int sheetId : listOfSheetId) {
             sheet.add((Sheet) sheetDao.getById(sheetId));
         }
-        //assertEquals(true, sheet.isEmpty());
+        for (List<Integer> listOfRowId : collectionOfListOfRowId) {
+            List<Row> row = new ArrayList<>();
+            for (int rowId : listOfRowId) {
+                row.add((Row) rowDao.getById(rowId));
+            }
+            assertEquals(null, row.get(0));
+        }
+        assertEquals(null, sheet.get(0));
     }
 }

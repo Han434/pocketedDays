@@ -2,6 +2,7 @@ package com.pocketedDays.utilities;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * This interface contains a default method that can be used anywhere a
@@ -11,6 +12,7 @@ import java.util.Properties;
  *
  */
 public interface PropertiesLoader {
+    final Logger logger = Logger.getLogger(String.valueOf(PropertiesLoader.class));
 
     /**
      * This default method will load a properties file into a Properties
@@ -28,10 +30,10 @@ public interface PropertiesLoader {
             properties.load(this.getClass().getResourceAsStream(
                     propertiesFilePath));
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            logger.info("IO Exception occured.");
             throw ioException;
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.info("Something is wrong.");
             throw exception;
         }
         return properties;

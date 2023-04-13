@@ -294,7 +294,7 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
     public String toString() {
         return "Sheet{" +
                 "sheetId=" + sheetId +
-                ", project=" + project +
+                ", project=" + project.toString() +
                 ", sheetDescription='" + sheetDescription + '\'' +
                 ", sheetCreatorId=" + sheetCreatorId +
                 ", updatedDate=" + updatedDate +
@@ -302,7 +302,7 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
                 ", filePath='" + filePath + '\'' +
                 ", note='" + note + '\'' +
                 ", sheetType='" + sheetType + '\'' +
-                ", rows=" + rows +
+                //", rows=" + rows.toString() +
                 '}';
     }
 

@@ -44,12 +44,11 @@ public class CreateSheetServlet extends HttpServlet {
         int sheetCreatorId = (int) session.getAttribute("userId");
         String sheetType = (String) session.getAttribute("sheetType");
 
-        //File
         Part filePart = request.getPart("filePath");
         String fileName = filePart.getSubmittedFileName();
         for (Part part : request.getParts()) {
             try {
-                part.write("C:\\temp\\" + fileName);
+                part.write("C:\\upload\\" + fileName);
             } catch (IOException exception) {
                 logger.error("Cannot load the file", exception);
             } catch (Exception exception) {

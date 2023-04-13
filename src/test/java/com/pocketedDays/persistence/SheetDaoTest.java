@@ -9,7 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,7 +107,19 @@ class SheetDaoTest {
      */
     @Test
     void deleteSheetSuccess() {
-        genericDao.deleteEntity(genericDao.getById(1));
+        Sheet sheetToDelete = (Sheet) genericDao.getById(1);
+        Set<Row> listOfRow = sheetToDelete.getRows();
+        GenericDao rowDao = new GenericDao(Row.class);
+        List<Integer> listOfRowId = new ArrayList<>();
+        List<Row> row = new ArrayList<>();
+        for (Row rowToDelete : listOfRow) {
+            listOfRowId.add(rowToDelete.getRowId());
+        }
+        genericDao.deleteEntity(sheetToDelete);
         assertNull(genericDao.getById(1));
+        for (int rowId : listOfRowId) {
+            row.add((Row) rowDao.getById(rowId));
+        }
+        assertEquals(null, row.get(0));
     }
 }

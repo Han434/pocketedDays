@@ -248,7 +248,7 @@ public class Project implements NumberFormatInterface {
                 ", projectPassword='" + projectPassword + '\'' +
                 ", updatedDate=" + updatedDate +
                 ", projectDescription='" + projectDescription + '\'' +
-                ", sheets=" + sheets +
+                //", sheets=" + sheets +
                 '}';
     }
 

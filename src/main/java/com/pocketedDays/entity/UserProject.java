@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * The type User project.
  */
 @Entity(name = "UserProject")
-@Table(name = "user_project")
+@Table(name = "userProject")
 public class UserProject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")

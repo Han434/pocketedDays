@@ -41,4 +41,4 @@
 
 ## Week 10
 - [ ] Implement the knowledge to the indie project.
-- [ ] Finish styling indie project.
+- [ ] Start finishing styling indie project.
