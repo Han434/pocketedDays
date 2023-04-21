@@ -1,6 +1,8 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.User;
+import com.pocketedDays.entity.UserProject;
 import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Workspace servlet.
@@ -21,13 +25,22 @@ import java.io.IOException;
 public class WorkspaceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GenericDao projectDao = new GenericDao(Project.class);
-
-        int userId = 1;
+        GenericDao userProjectDao = new GenericDao(UserProject.class);
+        GenericDao userDao = new GenericDao(User.class);
         HttpSession session = request.getSession();
-        session.setAttribute("userId", userId);
 
-        request.setAttribute("projects", projectDao.getByProperty("projectCreatorId", 1));
+        User user = (User) session.getAttribute("user");
+        int userId = user.getUserId();
+
+        List<Project> projects = new ArrayList<>();
+
+        List<UserProject> userProjects = userProjectDao.findByPropertyEqual("user", user);
+        for (UserProject userProject : userProjects) {
+            Project project = userProject.getProject();
+            projects.add(project);
+        }
+
+        request.setAttribute("projects", projects);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace.jsp");
         dispatcher.forward(request, response);
     }
