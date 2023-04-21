@@ -36,6 +36,7 @@
         <div class="form-group my-3">
           <input class="btn bg-success text-white mx-3" type="submit" name="submit" value="Add New Project" />
           <a href="workspace" class="btn bg-secondary text-white addHover mx-3">Cancle</a>
+          <a href="projectLogIn.jsp" class="btn bg-primary text-white addHover mx-3">Log In to the Project</a>
         </div>
       </form>
     </div>
