@@ -60,7 +60,7 @@ class ProjectDaoTest {
      */
     @Test
     void getProjectByUserIdSuccess() {
-        List<Project> projects = (List<Project>) genericDao.getByProperty("projectCreatorId", 1);
+        List<Project> projects = (List<Project>) genericDao.findByPropertyEqual("projectCreatorId", 1);
         assertEquals(1, projects.size());
         Project project = projects.get(0);
         assertEquals("Manlay Website", project.getProjectName());
