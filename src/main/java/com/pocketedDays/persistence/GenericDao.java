@@ -5,11 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -50,22 +49,40 @@ public class GenericDao<T> {
     }
 
     /**
-     * Gets by property.
+     * Find by property equal list.
      *
-     * @param propertyName     the property name
-     * @param projectCreatorId the project creator id
-     * @return the by property
+     * @param propertyName the property name
+     * @param value        the value
+     * @return the list
      */
-    public List<T> getByProperty(String propertyName, int projectCreatorId) {
+    public List<T> findByPropertyEqual(String propertyName, Object value) {
         Session session = getSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery query = builder.createQuery(type);
+        CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
-        Expression<Integer> propertyPath = root.get(propertyName);
-        query.select(root).where(builder.equal(propertyPath, projectCreatorId));
-        List<T> entities =  session.createQuery(query).getResultList();
-        session.close();
-        return entities;
+        query.select(root).where(builder.equal(root.get(propertyName),value));
+
+        return session.createQuery(query).getResultList();
+    }
+
+    /**
+     * Find by property equal list.
+     *
+     * @param propertyMap the property map
+     * @return the list
+     */
+    public List<T> findByPropertyEqual(Map<String, Object> propertyMap) {
+        Session session = getSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+        List<Predicate> predicates = new ArrayList<Predicate>();
+        for (Map.Entry entry: propertyMap.entrySet()) {
+            predicates.add(builder.equal(root.get((String) entry.getKey()), entry.getValue()));
+        }
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+
+        return session.createQuery(query).getResultList();
     }
 
     /**

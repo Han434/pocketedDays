@@ -1,5 +1,6 @@
 package com.pocketedDays.entity;
 
+import com.pocketedDays.persistence.GenericDao;
 import com.pocketedDays.utilities.NumberFormatInterface;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -257,13 +258,38 @@ public class Project implements NumberFormatInterface {
      *
      * @return the int
      */
-    public int calculateTotal() {
-        Set<Sheet> sheets = this.getSheets();
-        int projectTotal = 0;
+    public int calculateTotalRevenue() {
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+        propertyMap.put("sheetType", "Revenue");
+        propertyMap.put("project", this);
+
+        List<Sheet> sheets = (List<Sheet>) sheetDao.findByPropertyEqual(propertyMap);
+        int sheetsTotal = 0;
         for (Sheet sheet : sheets) {
             int sheetTotal = sheet.calculateTotal();
-            projectTotal += sheetTotal;
+            sheetsTotal += sheetTotal;
         }
-        return projectTotal;
+        return sheetsTotal;
+    }
+
+    /**
+     * Calculate total int.
+     *
+     * @return the int
+     */
+    public int calculateTotalExpense() {
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+        propertyMap.put("sheetType", "Expense");
+        propertyMap.put("project", this);
+
+        List<Sheet> sheets = (List<Sheet>) sheetDao.findByPropertyEqual(propertyMap);
+        int sheetsTotal = 0;
+        for (Sheet sheet : sheets) {
+            int sheetTotal = sheet.calculateTotal();
+            sheetsTotal += sheetTotal;
+        }
+        return sheetsTotal;
     }
 }
