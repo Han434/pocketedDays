@@ -39,7 +39,11 @@ public class ViewSheetsServlet extends HttpServlet {
         Project project = (Project) projectDao.getById(projectId);
 
         //Get sheet totals and project total
-        Set<Sheet> sheets = project.getSheets();
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+        propertyMap.put("sheetType", sheetType);
+        propertyMap.put("project", project);
+
+        List<Sheet> sheets = sheetDao.findByPropertyEqual(propertyMap);
 
         //Pass project, sheet, sheetType
         request.setAttribute("project", project);
