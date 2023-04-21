@@ -1,6 +1,8 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.User;
+import com.pocketedDays.entity.UserProject;
 import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
@@ -31,13 +33,13 @@ public class CreateProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
-        int userId = (int) session.getAttribute("userId");
+        User user = (User) session.getAttribute("user");
 
         //If equal to "Add New Project"
         if (submit.equals("Add New Project")) {
             //Get data
             String projectName = request.getParameter("projectName");
-            int projectCreatorId = userId;
+            int projectCreatorId = user.getUserId();
             String projectPassword = request.getParameter("projectPassword");
             LocalDate createdDate = LocalDate.now();
             String projectDescription = request.getParameter("projectDescription");
@@ -48,6 +50,10 @@ public class CreateProjectServlet extends HttpServlet {
             //Insert it to the database
             GenericDao projectDao = new GenericDao(Project.class);
             int projectId = projectDao.insertEntity(project);
+
+            GenericDao userProjectDao = new GenericDao(UserProject.class);
+            UserProject userProject = new UserProject(user, project, "creator", createdDate);
+            int userProjectId = userProjectDao.insertEntity(userProject);
 
             //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);

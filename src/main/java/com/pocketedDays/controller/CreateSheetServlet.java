@@ -21,12 +21,12 @@ import java.time.LocalDate;
         urlPatterns = {"/createSheet"}
 )
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-        maxFileSize = 1024 * 1024 * 10,      // 10 MB
-        maxRequestSize = 1024 * 1024 * 100   // 100 MB
-)
+        fileSizeThreshold=1024*1024*2, // 2MB
+        maxFileSize=1024*1024*10,      // 10MB
+        maxRequestSize=1024*1024*50
+)   // 50MB
 public class CreateSheetServlet extends HttpServlet {
-
+    private static final String SAVE_DIR = "uploadFiles";
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     @Override
@@ -34,6 +34,17 @@ public class CreateSheetServlet extends HttpServlet {
         //Forward to createSheet.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
 
     @Override
@@ -44,15 +55,26 @@ public class CreateSheetServlet extends HttpServlet {
         int sheetCreatorId = (int) session.getAttribute("userId");
         String sheetType = (String) session.getAttribute("sheetType");
 
-        Part filePart = request.getPart("filePath");
-        String fileName = filePart.getSubmittedFileName();
+
+        // gets absolute path of the web application
+        String appPath = request.getServletContext().getRealPath("");
+        // constructs path of the directory to save uploaded file
+        String savePath = appPath + File.separator + SAVE_DIR;
+
+        // creates the save directory if it does not exists
+        File fileSaveDir = new File(savePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }
+
         for (Part part : request.getParts()) {
+            String fileName = extractFileName(part);
+            // refines the fileName in case it is an absolute path
+            fileName = new File(fileName).getName();
             try {
-                part.write("C:\\upload\\" + fileName);
-            } catch (IOException exception) {
-                logger.error("Cannot load the file", exception);
+                part.write(savePath + File.separator + fileName);
             } catch (Exception exception) {
-                logger.error("Cannot load the file", exception);
+                exception.printStackTrace();
             }
         }
 
@@ -60,7 +82,7 @@ public class CreateSheetServlet extends HttpServlet {
         String sheetDescription = request.getParameter("sheetDescription");
         LocalDate createdDate = LocalDate.now();
         String organization = request.getParameter("organization");
-        String filePath = fileName;
+        String filePath = request.getParameter("filePath");
         String note = request.getParameter("note");
 
         //Create new sheet
