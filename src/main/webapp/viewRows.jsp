@@ -11,11 +11,8 @@
             <div class="text-center">
                 <h2>Row View</h2>
             </div>
-            <div class="row mt-3 align-items-end justify-content-end">
-                <div class="col-4">
-                    <h3>Project Name: ${project.projectName}</h3>
-                    <h3>Sheet Name: ${sheet.sheetDescription}</h3>
-                    <h3>Sheet Type: ${sheet.sheetType}</h3>
+            <div class="row my-3 align-items-end justify-content-end">
+                <div class="col-2">
                     <div>
                         <button type="button" class="btn btn-danger ml-3 text-dark" data-bs-toggle="modal" data-bs-target="#deleteSheet">
                             Delete Sheet
@@ -49,6 +46,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-4">
+                    <h3>Project Name: ${project.projectName}</h3>
+                    <h3>Sheet Name: ${sheet.sheetDescription}</h3>
+                    <h3>Sheet Type: ${sheet.sheetType}</h3>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -61,7 +63,7 @@
                     <th scope="col">Quantity</th>
                     <th scope="col">Cost Per Item</th>
                     <th scope="col">Total</th>
-                    <th scope="col">Expense Type</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Tag</th>
                     <th scope="col">Details</th>
                 </tr>

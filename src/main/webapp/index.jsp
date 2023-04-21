@@ -7,7 +7,7 @@
         <div class="container text-white bgs-b mt-3 rounded p3">
             <div class="row">
                 <h2 class="text-center">
-                    Welcome ${userName}
+                    Welcome
                 </h2>
             </div>
             <div class="row mt-3">

@@ -26,9 +26,9 @@
           User Menu
         </button>
         <ul class="dropdown-menu bg-secondary text-light">
-          <li><a href="index.jsp" class="dropdown-item">My Account</a></li>
+          <li><a href="viewAccount" class="dropdown-item">My Account</a></li>
           <li><a href="logIn" class="dropdown-item">Login</a></li>
-          <li><a href="index.jsp" class="dropdown-item">Log out</a></li>
+          <li><a href="logOut" class="dropdown-item">Log out</a></li>
         </ul>
       </div>
     </ul>

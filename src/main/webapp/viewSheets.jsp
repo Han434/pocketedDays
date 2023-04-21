@@ -53,7 +53,15 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>Total: ${project.getFormattedCurrency(project.calculateTotal())}</td>
+          <c:choose>
+            <c:when test = "${viewTypeForHeader == 'Revenue'}">
+              <td>Total: ${project.getFormattedCurrency(project.calculateTotalRevenue())}</td>
+            </c:when>
+
+            <c:when test = "${viewTypeForHeader == 'Expense'}">
+              <td>Total: ${project.getFormattedCurrency(project.calculateTotalExpense())}</td>
+            </c:when>
+          </c:choose>
           <td>
             <c:choose>
               <c:when test="${empty sheets}">

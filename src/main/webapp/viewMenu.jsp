@@ -17,7 +17,7 @@
       <a class="text-decoration-none text-light h3" href="projectHome?projectId=${projectId}">Project Home</a>
       <li class="list-unstyled"><a class="text-decoration-none text-light" href="sheet?sheetType=Revenue">Revenue</a></li>
       <li class="list-unstyled"><a class="text-decoration-none text-light" href="sheet?sheetType=Expense">Expense</a></li>
-      <li class="list-unstyled"><a class="text-decoration-none text-light" href="runReports">Run Reports</a></li>
+      <li class="list-unstyled"><a class="text-decoration-none text-light" href="runReportServlet">Run Reports</a></li>
     </ul>
   </div>
   <a class="navbar-brand" href="index.jsp">
@@ -47,9 +47,9 @@
           User Menu
         </button>
         <ul class="dropdown-menu bg-secondary text-light">
-          <li><a href="index.jsp" class="dropdown-item">My Account</a></li>
-          <li><a href="index.jsp" class="dropdown-item">Login</a></li>
-          <li><a href="index.jsp" class="dropdown-item">Log out</a></li>
+          <li><a href="viewAccount" class="dropdown-item">My Account</a></li>
+          <li><a href="logIn" class="dropdown-item">Login</a></li>
+          <li><a href="logOut" class="dropdown-item">Log out</a></li>
         </ul>
       </div>
     </ul>
