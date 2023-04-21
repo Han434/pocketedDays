@@ -36,7 +36,8 @@ public class ProjectLogInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
-        int userId = (int) session.getAttribute("userId");
+        User sessionUser = (User) session.getAttribute("user");
+        int userId = sessionUser.getUserId();
 
         //If equal to "Add New Project"
         if (submit.equals("Log In to the Project")) {
@@ -57,7 +58,7 @@ public class ProjectLogInServlet extends HttpServlet {
             List<Project> listOfProject = (List<Project>) projectDao.findByPropertyEqual(propertyMap);
             Project project = listOfProject.get(0);
             projectDao.getById(projectId);
-            UserProject userProject = new UserProject(user, project, "Visitor", joinInDate);
+            UserProject userProject = new UserProject(user, project, "visitor", joinInDate);
 
             //Insert it to the database
             GenericDao userProjectDao = new GenericDao(UserProject.class);
