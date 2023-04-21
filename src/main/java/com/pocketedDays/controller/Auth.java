@@ -34,9 +34,7 @@ import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -78,7 +76,6 @@ public class Auth extends HttpServlet implements PropertiesLoader {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String authCode = req.getParameter("code");
-        String userName = null;
 
         if (authCode == null) {
             //TODO forward to an error page or back to the login
@@ -86,8 +83,8 @@ public class Auth extends HttpServlet implements PropertiesLoader {
             HttpRequest authRequest = buildAuthRequest(authCode);
             try {
                 TokenResponse tokenResponse = getToken(authRequest);
-                userName = validate(tokenResponse);
-                req.setAttribute("userName", userName);
+                Map<String, String> userInformation = validate(tokenResponse);
+                req.setAttribute("userInformation", userInformation);
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
                 //TODO forward to an error page
@@ -96,7 +93,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
                 //TODO forward to an error page
             }
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/viewAccount");
         dispatcher.forward(req, resp);
 
     }
@@ -133,7 +130,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
      * @return
      * @throws IOException
      */
-    private String validate(TokenResponse tokenResponse) throws IOException {
+    private Map<String, String> validate(TokenResponse tokenResponse) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CognitoTokenHeader tokenHeader = mapper.readValue(CognitoJWTParser.getHeader(tokenResponse.getIdToken()).toString(), CognitoTokenHeader.class);
 
@@ -170,7 +167,22 @@ public class Auth extends HttpServlet implements PropertiesLoader {
 
         // Verify the token
         DecodedJWT jwt = verifier.verify(tokenResponse.getIdToken());
+        Map<String, String> userInformation = new HashMap<String, String>();
+
         String userName = jwt.getClaim("cognito:username").asString();
+        String familyName = jwt.getClaim("family_name").asString();
+        String givenName = jwt.getClaim("given_name").asString();
+        String gender = jwt.getClaim("gender").asString();
+        String birthdate = jwt.getClaim("birthdate").asString();
+        String email = jwt.getClaim("email").asString();
+
+        userInformation.put("userName", userName);
+        userInformation.put("familyName", familyName);
+        userInformation.put("givenName", givenName);
+        userInformation.put("gender", gender);
+        userInformation.put("birthdate", birthdate);
+        userInformation.put("email", email);
+
         logger.debug("here's the username: " + userName);
 
         logger.debug("here are all the available claims: " + jwt.getClaims());
@@ -178,7 +190,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
         // TODO decide what you want to do with the info!
         // for now, I'm just returning username for display back to the browser
 
-        return userName;
+        return userInformation;
     }
 
     /** Create the auth url and use it to build the request.
