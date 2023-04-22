@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The type User.
@@ -26,6 +27,11 @@ public class User {
     private LocalDate dateOfBirth;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<UserProject> projects = new HashSet<UserProject>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Sheet> sheets = new TreeSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Row> rows = new TreeSet<>();
 
     /**
      * Instantiates a new User.
@@ -194,6 +200,36 @@ public class User {
      */
     public void setProjects(Set<UserProject> projects) {
         this.projects = projects;
+    }
+
+    public void addSheet(Sheet sheet) {
+        sheets.add(sheet);
+        sheet.setUser(this);
+    }
+
+    public void removeSheet(Sheet sheet) {
+        sheets.remove(sheet);
+        sheet.setUser(null);
+    }
+
+    /**
+     * Add row.
+     *
+     * @param row the row
+     */
+    public void addRow(Row row) {
+        rows.add(row);
+        row.setUser(this);
+    }
+
+    /**
+     * Remove row.
+     *
+     * @param row the row
+     */
+    public void removeRow(Row row) {
+        rows.remove(row);
+        row.setUser(null);
     }
 
     @Override

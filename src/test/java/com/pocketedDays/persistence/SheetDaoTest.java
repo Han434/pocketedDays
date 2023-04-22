@@ -3,6 +3,7 @@ package com.pocketedDays.persistence;
 import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
+import com.pocketedDays.entity.User;
 import com.pocketedDays.test.utilities.Database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,9 +69,10 @@ class SheetDaoTest {
      */
     @Test
     void insertSheetSuccess() {
-        GenericDao projectDao = new GenericDao(Project.class);
+        GenericDao userDao = new GenericDao(User.class);
+        User user = (User) userDao.getById(1);        GenericDao projectDao = new GenericDao(Project.class);
         Project project = (Project) projectDao.getById(1);
-        Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+        Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         project.addSheet(sheet);
 
         int sheetId = genericDao.insertEntity(sheet);
@@ -88,9 +90,11 @@ class SheetDaoTest {
     @Test
     void insertSheetWithRowsSuccess() {
         GenericDao projectDao = new GenericDao(Project.class);
+        GenericDao userDao = new GenericDao(User.class);
+        User user = (User) userDao.getById(1);
         Project project = (Project) projectDao.getById(1);
-        Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
-        Row row = new Row(sheet, 1, LocalDate.parse("2018-12-22"), "abc", 1, 200, "Expense", "tag");
+        Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+        Row row = new Row(sheet, user, LocalDate.parse("2018-12-22"), "abc", 1, 200, "Expense", "tag");
         sheet.addRow(row);
 
         int sheetId = genericDao.insertEntity(sheet);

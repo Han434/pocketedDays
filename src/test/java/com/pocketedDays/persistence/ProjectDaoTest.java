@@ -94,8 +94,10 @@ class ProjectDaoTest {
      */
     @Test
     void insertProjectWithSheetsSuccess() {
+        GenericDao userDao = new GenericDao(User.class);
+        User user = (User) userDao.getById(1);
         Project project = new Project("Name", "123", LocalDate.parse("2018-12-27"), "Description");
-        Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+        Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         project.addSheet(sheet);
 
         int projectId = genericDao.insertEntity(project);

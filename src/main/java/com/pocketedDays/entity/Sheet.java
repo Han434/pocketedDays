@@ -24,7 +24,11 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
     )
     private Project project;
     private String sheetDescription;
-    private int sheetCreatorId;
+    @ManyToOne
+    @JoinColumn(name = "sheetCreatorId",
+            foreignKey = @ForeignKey(name = "sheet_user_fk")
+    )
+    private User user;
     private LocalDate updatedDate;
     private String organization;
     private String filePath;
@@ -39,22 +43,11 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
     public Sheet() {
     }
 
-    /**
-     * Instantiates a new Sheet.
-     *
-     * @param project          the project id
-     * @param sheetDescription the sheet description
-     * @param sheetCreatorId   the sheet creator id
-     * @param updatedDate      the created date
-     * @param organization     the organization
-     * @param filePath         the file path
-     * @param note             the note
-     * @param sheetType        the sheet type
-     */
-    public Sheet(Project project, String sheetDescription, int sheetCreatorId, LocalDate updatedDate, String organization, String filePath, String note, String sheetType) {
+
+    public Sheet(Project project, String sheetDescription, User user, LocalDate updatedDate, String organization, String filePath, String note, String sheetType) {
         this.project = project;
         this.sheetDescription = sheetDescription;
-        this.sheetCreatorId = sheetCreatorId;
+        this.user = user;
         this.updatedDate = updatedDate;
         this.organization = organization;
         this.filePath = filePath;
@@ -116,22 +109,12 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
         this.sheetDescription = sheetDescription;
     }
 
-    /**
-     * Gets sheet creator id.
-     *
-     * @return the sheet creator id
-     */
-    public int getSheetCreatorId() {
-        return sheetCreatorId;
+    public User getUser() {
+        return user;
     }
 
-    /**
-     * Sets sheet creator id.
-     *
-     * @param sheetCreatorId the sheet creator id
-     */
-    public void setSheetCreatorId(int sheetCreatorId) {
-        this.sheetCreatorId = sheetCreatorId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
@@ -282,27 +265,27 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
         if (this == o) return true;
         if (!(o instanceof Sheet)) return false;
         Sheet sheet = (Sheet) o;
-        return getSheetId() == sheet.getSheetId() && getSheetCreatorId() == sheet.getSheetCreatorId() && getProject().equals(sheet.getProject()) && getSheetDescription().equals(sheet.getSheetDescription()) && getUpdatedDate().equals(sheet.getUpdatedDate()) && getOrganization().equals(sheet.getOrganization()) && getFilePath().equals(sheet.getFilePath()) && getNote().equals(sheet.getNote()) && getSheetType().equals(sheet.getSheetType());
+        return getSheetId() == sheet.getSheetId() && Objects.equals(getProject(), sheet.getProject()) && Objects.equals(getSheetDescription(), sheet.getSheetDescription()) && Objects.equals(getUser(), sheet.getUser()) && Objects.equals(getUpdatedDate(), sheet.getUpdatedDate()) && Objects.equals(getOrganization(), sheet.getOrganization()) && Objects.equals(getFilePath(), sheet.getFilePath()) && Objects.equals(getNote(), sheet.getNote()) && Objects.equals(getSheetType(), sheet.getSheetType()) && Objects.equals(getRows(), sheet.getRows());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSheetId(), getProject(), getSheetDescription(), getSheetCreatorId(), getUpdatedDate(), getOrganization(), getFilePath(), getNote(), getSheetType());
+        return Objects.hash(getSheetId(), getSheetDescription(), getUpdatedDate(), getOrganization(), getFilePath(), getNote(), getSheetType());
     }
 
     @Override
     public String toString() {
         return "Sheet{" +
                 "sheetId=" + sheetId +
-                ", project=" + project.toString() +
+                ", project=" + project +
                 ", sheetDescription='" + sheetDescription + '\'' +
-                ", sheetCreatorId=" + sheetCreatorId +
+                ", user=" + user +
                 ", updatedDate=" + updatedDate +
                 ", organization='" + organization + '\'' +
                 ", filePath='" + filePath + '\'' +
                 ", note='" + note + '\'' +
                 ", sheetType='" + sheetType + '\'' +
-                //", rows=" + rows.toString() +
+                ", rows=" + rows +
                 '}';
     }
 

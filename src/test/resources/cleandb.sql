@@ -43,7 +43,9 @@ CREATE TABLE sheet (
                                      note varchar(255),
                                      sheetType varchar(255),
                                      constraint sheet_project_fk
-                                         foreign key (projectId) references test_pocketed_days.project (projectId)
+                                         foreign key (projectId) references test_pocketed_days.project (projectId),
+                                     constraint sheet_user_fk
+                                         foreign key (sheetCreatorId) references pocketed_days.user (userId)
 );
 
 CREATE TABLE rowOfSheet (
@@ -57,7 +59,9 @@ CREATE TABLE rowOfSheet (
                                           rowType varchar(255),
                                           tag varchar(255),
                                           constraint rowofsheet_sheet_fk
-                                              foreign key (sheetId) references test_pocketed_days.sheet (sheetId)
+                                              foreign key (sheetId) references test_pocketed_days.sheet (sheetId),
+                                          constraint row_user_fk
+                                              foreign key (rowCreatorId) references pocketed_days.user (userId)
 );
 delete from user;
 INSERT INTO user (userId, firstName, lastName, userName, gender, email, dateOfBirth)

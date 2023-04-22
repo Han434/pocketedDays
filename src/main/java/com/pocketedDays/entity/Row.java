@@ -25,7 +25,11 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
             foreignKey = @ForeignKey(name = "rowofsheet_sheet_fk")
     )
     private Sheet sheet;
-    private int rowCreatorId;
+    @ManyToOne
+    @JoinColumn(name = "rowCreatorId",
+            foreignKey = @ForeignKey(name = "row_user_fk")
+    )
+    private User user;
     private LocalDate updatedDate;
     private String rowDescription;
     private int quantity;
@@ -39,21 +43,9 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
     public Row() {
     }
 
-    /**
-     * Instantiates a new Row.
-     *
-     * @param sheet          the sheet id
-     * @param rowCreatorId   the row creator id
-     * @param updatedDate    the created date
-     * @param rowDescription the row description
-     * @param quantity       the quantity
-     * @param costPerItem    the cost per item
-     * @param rowType        the row type
-     * @param tag            the tag
-     */
-    public Row(Sheet sheet, int rowCreatorId, LocalDate updatedDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
+    public Row(Sheet sheet, User user, LocalDate updatedDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
         this.sheet = sheet;
-        this.rowCreatorId = rowCreatorId;
+        this.user = user;
         this.updatedDate = updatedDate;
         this.rowDescription = rowDescription;
         this.quantity = quantity;
@@ -98,22 +90,12 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
         this.sheet = sheet;
     }
 
-    /**
-     * Gets row creator id.
-     *
-     * @return the row creator id
-     */
-    public int getRowCreatorId() {
-        return rowCreatorId;
+    public User getUser() {
+        return user;
     }
 
-    /**
-     * Sets row creator id.
-     *
-     * @param rowCreatorId the row creator id
-     */
-    public void setRowCreatorId(int rowCreatorId) {
-        this.rowCreatorId = rowCreatorId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
@@ -229,12 +211,12 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
         if (this == o) return true;
         if (!(o instanceof Row)) return false;
         Row row = (Row) o;
-        return getRowId() == row.getRowId() && getRowCreatorId() == row.getRowCreatorId() && getQuantity() == row.getQuantity() && getCostPerItem() == row.getCostPerItem() && getSheet().equals(row.getSheet()) && getUpdatedDate().equals(row.getUpdatedDate()) && getRowDescription().equals(row.getRowDescription()) && getRowType().equals(row.getRowType()) && getTag().equals(row.getTag());
+        return getRowId() == row.getRowId() && getQuantity() == row.getQuantity() && getCostPerItem() == row.getCostPerItem() && Objects.equals(getUpdatedDate(), row.getUpdatedDate()) && Objects.equals(getRowDescription(), row.getRowDescription()) && Objects.equals(getRowType(), row.getRowType()) && Objects.equals(getTag(), row.getTag());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getRowId(), getSheet(), getRowCreatorId(), getUpdatedDate(), getRowDescription(), getQuantity(), getCostPerItem(), getRowType(), getTag());
+        return Objects.hash(getRowId(), getUpdatedDate(), getRowDescription(), getQuantity(), getCostPerItem(), getRowType(), getTag());
     }
 
     @Override
@@ -242,7 +224,6 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
         return "Row{" +
                 "rowId=" + rowId +
                 ", sheet=" + sheet.toString() +
-                ", rowCreatorId=" + rowCreatorId +
                 ", updatedDate=" + updatedDate +
                 ", rowDescription='" + rowDescription + '\'' +
                 ", quantity=" + quantity +

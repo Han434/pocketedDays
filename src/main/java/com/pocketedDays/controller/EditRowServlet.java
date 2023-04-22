@@ -1,6 +1,7 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Row;
+import com.pocketedDays.entity.User;
 import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
@@ -54,7 +55,7 @@ public class EditRowServlet extends HttpServlet {
         //Get session variable sheetId and rowCreatorId
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
-        int rowCreatorId = (int) session.getAttribute("userId");
+        User user = (User) session.getAttribute("user");
 
         //If equal to "Edit Row"
         if (submit.equals("Edit")) {
@@ -63,7 +64,7 @@ public class EditRowServlet extends HttpServlet {
             Row row = (Row) rowDao.getById(rowId);
 
             //Update data
-            row.setRowCreatorId(rowCreatorId);
+            row.setUser(user);
             row.setUpdatedDate(LocalDate.now());
             row.setRowDescription(request.getParameter("rowDescription"));
             row.setQuantity(Integer.parseInt(request.getParameter("quantity")));

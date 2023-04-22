@@ -2,6 +2,7 @@ package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
+import com.pocketedDays.entity.User;
 import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
@@ -44,7 +45,7 @@ public class CreateRowServlet extends HttpServlet {
         //If equal to "Add New"
         if (submit.equals("Create")) {
             //Get data
-            int rowCreatorId = (int) session.getAttribute("userId");
+            User user = (User) session.getAttribute("user");
             LocalDate createdDate = LocalDate.now();
             String rowDescription = request.getParameter("rowDescription");
             int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -56,7 +57,7 @@ public class CreateRowServlet extends HttpServlet {
             GenericDao sheetDao = new GenericDao(Sheet.class);
 
             Sheet sheet = (Sheet) sheetDao.getById(sheetId);
-            Row row = new Row(sheet, rowCreatorId, createdDate, rowDescription, quantity, costPerItem, rowType, tag);
+            Row row = new Row(sheet, user, createdDate, rowDescription, quantity, costPerItem, rowType, tag);
             GenericDao rowDao = new GenericDao(Row.class);
             rowDao.insertEntity(row);
 

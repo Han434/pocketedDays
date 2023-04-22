@@ -2,6 +2,7 @@ package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Sheet;
+import com.pocketedDays.entity.User;
 import com.pocketedDays.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +53,7 @@ public class CreateSheetServlet extends HttpServlet {
         //Get session variable projectId, sheetCreatorId, sheetType
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
-        int sheetCreatorId = (int) session.getAttribute("userId");
+        User user = (User) session.getAttribute("user");
         String sheetType = (String) session.getAttribute("sheetType");
 
 
@@ -88,7 +89,7 @@ public class CreateSheetServlet extends HttpServlet {
         //Create new sheet
         GenericDao projectDao = new GenericDao(Project.class);
         Project project = (Project) projectDao.getById(projectId);
-        Sheet sheet = new Sheet(project, sheetDescription, sheetCreatorId, createdDate, organization, filePath, note, sheetType);
+        Sheet sheet = new Sheet(project, sheetDescription, user, createdDate, organization, filePath, note, sheetType);
 
         //Insert sheet into the database
         GenericDao sheetDao = new GenericDao(Sheet.class);
