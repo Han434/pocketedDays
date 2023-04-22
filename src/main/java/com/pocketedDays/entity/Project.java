@@ -19,7 +19,6 @@ public class Project implements NumberFormatInterface {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private int projectId;
-    private int projectCreatorId;
     private String projectName;
     private String projectPassword;
     private LocalDate updatedDate;
@@ -38,14 +37,12 @@ public class Project implements NumberFormatInterface {
     /**
      * Instantiates a new Project.
      *
-     * @param projectCreatorId   the project creator id
      * @param projectName        the project name
      * @param projectPassword    the project password
      * @param updatedDate        the created date
      * @param projectDescription the project description
      */
-    public Project(int projectCreatorId, String projectName, String projectPassword, LocalDate updatedDate, String projectDescription) {
-        this.projectCreatorId = projectCreatorId;
+    public Project(String projectName, String projectPassword, LocalDate updatedDate, String projectDescription) {
         this.projectName = projectName;
         this.projectPassword = projectPassword;
         this.updatedDate = updatedDate;
@@ -68,24 +65,6 @@ public class Project implements NumberFormatInterface {
      */
     public void setProjectId(int projectId) {
         this.projectId = projectId;
-    }
-
-    /**
-     * Gets project creator id.
-     *
-     * @return the project creator id
-     */
-    public int getProjectCreatorId() {
-        return projectCreatorId;
-    }
-
-    /**
-     * Sets project creator id.
-     *
-     * @param projectCreatorId the project creator id
-     */
-    public void setProjectCreatorId(int projectCreatorId) {
-        this.projectCreatorId = projectCreatorId;
     }
 
     /**
@@ -232,19 +211,18 @@ public class Project implements NumberFormatInterface {
         if (this == o) return true;
         if (!(o instanceof Project)) return false;
         Project project = (Project) o;
-        return getProjectId() == project.getProjectId() && getProjectCreatorId() == project.getProjectCreatorId() && getProjectName().equals(project.getProjectName()) && getProjectPassword().equals(project.getProjectPassword()) && getUpdatedDate().equals(project.getUpdatedDate()) && getProjectDescription().equals(project.getProjectDescription());
+        return getProjectId() == project.getProjectId() && getProjectName().equals(project.getProjectName()) && getProjectPassword().equals(project.getProjectPassword()) && getUpdatedDate().equals(project.getUpdatedDate()) && getProjectDescription().equals(project.getProjectDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProjectId(), getProjectCreatorId(), getProjectName(), getProjectPassword(), getUpdatedDate(), getProjectDescription());
+        return Objects.hash(getProjectId(), getProjectName(), getProjectPassword(), getUpdatedDate(), getProjectDescription());
     }
 
     @Override
     public String toString() {
         return "Project{" +
                 "projectId=" + projectId +
-                ", projectCreatorId=" + projectCreatorId +
                 ", projectName='" + projectName + '\'' +
                 ", projectPassword='" + projectPassword + '\'' +
                 ", updatedDate=" + updatedDate +

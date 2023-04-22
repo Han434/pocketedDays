@@ -12,7 +12,6 @@ CREATE TABLE user (
 
 CREATE TABLE project (
                          projectId int auto_increment primary key,
-                         projectCreatorId int,
                          projectName varchar(255),
                          projectPassword varchar(255),
                          projectDescription varchar(255),
@@ -64,8 +63,8 @@ delete from user;
 INSERT INTO user (userId, firstName, lastName, userName, gender, email, dateOfBirth)
 VALUES (1, "W", "A", "White", "Male", "abc@gmail.com", "2023-5-5");
 delete from project;
-INSERT INTO project (projectCreatorId, projectName, projectPassword, projectDescription, updatedDate)
-VALUES (1, "Manlay Website", "123", "This project is to create something new.", "2023-5-5");
+INSERT INTO project (projectName, projectPassword, projectDescription, updatedDate)
+VALUES ("Manlay Website", "123", "This project is to create something new.", "2023-5-5");
 delete from sheet;
 INSERT INTO sheet (projectId, sheetCreatorId, sheetDescription, updatedDate, organization, filePath, note, sheetType)
 VALUES (1, 1, "Installing computer for ABC department", "2023-5-5", "TechLand", "invoice.png", "Note here", "Expense");

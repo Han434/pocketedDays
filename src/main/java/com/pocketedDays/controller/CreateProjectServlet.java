@@ -45,7 +45,7 @@ public class CreateProjectServlet extends HttpServlet {
             String projectDescription = request.getParameter("projectDescription");
 
             //Create new project
-            Project project = new Project( projectCreatorId, projectName, projectPassword, createdDate, projectDescription);
+            Project project = new Project(projectName, projectPassword, createdDate, projectDescription);
 
             //Insert it to the database
             GenericDao projectDao = new GenericDao(Project.class);

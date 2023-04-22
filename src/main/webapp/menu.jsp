@@ -16,7 +16,7 @@
         <ul class="dropdown-menu bg-secondary text-light">
           <li><a href="index.jsp" class="dropdown-item">Home</a></li>
           <li><a href="workspace" class="dropdown-item">Workspace</a></li>
-          <li><a href="helpUsImprove.jsp" class="dropdown-item">Help Us Improve</a></li>
+          <li><a href="helpUsImprove" class="dropdown-item">Help Us Improve</a></li>
           <li><a href="contact.jsp" class="dropdown-item">Contact</a></li>
         </ul>
       </div>

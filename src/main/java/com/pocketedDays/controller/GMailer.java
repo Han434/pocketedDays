@@ -18,12 +18,10 @@ import org.apache.commons.codec.binary.Base64;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
@@ -62,13 +60,13 @@ public class GMailer {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public void sendMail(String subject, String message) throws GeneralSecurityException, IOException, MessagingException {
+    public void sendMail(String subject, String message, String receiver) throws GeneralSecurityException, IOException, MessagingException {
         // Encode as MIME message
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress(TEST_EMAIL));
-        email.addRecipient(TO, new InternetAddress("khinemyaelwin@gmail.com"));
+        email.addRecipient(TO, new InternetAddress(receiver));
         email.setSubject(subject);
         email.setText(message);
 
@@ -93,9 +91,5 @@ public class GMailer {
                 throw e;
             }
         }
-    }
-
-    public static void main(String[] args) throws GeneralSecurityException, IOException, MessagingException {
-        new GMailer().sendMail("A new message", "message");
     }
 }

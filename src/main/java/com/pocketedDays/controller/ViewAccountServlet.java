@@ -28,6 +28,8 @@ public class ViewAccountServlet extends HttpServlet {
         Map<String, String> userInformation = (Map<String, String>) request.getAttribute("userInformation");
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("user");
+        RequestDispatcher dispatcher = null;
+
         //If equal to "Add New Project"
         if (userInformation != null) {
             String userName = userInformation.get("userName");
@@ -50,15 +52,16 @@ public class ViewAccountServlet extends HttpServlet {
             } else {
                 userId = users.get(0).getUserId();
             }
-            User userData = (User) userDao.getById(userId);
+            
+            User user123 = (User) userDao.getById(userId);
 
-            session.setAttribute("user", userData);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("viewAccount.jsp");
-            dispatcher.forward(request, response);
+            session.setAttribute("user", user123);
+            dispatcher = request.getRequestDispatcher("viewAccount.jsp");
         } else if (sessionUser != null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("viewAccount.jsp");
-            dispatcher.forward(request, response);
+            dispatcher = request.getRequestDispatcher("viewAccount.jsp");
+        } else {
+            dispatcher = request.getRequestDispatcher("/logIn");
         }
+        dispatcher.forward(request, response);
     }
 }

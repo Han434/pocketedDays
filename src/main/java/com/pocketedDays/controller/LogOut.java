@@ -1,15 +1,18 @@
 package com.pocketedDays.controller;
 
 
+import com.pocketedDays.entity.User;
 import com.pocketedDays.utilities.PropertiesLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -54,17 +57,26 @@ public class LogOut extends HttpServlet implements PropertiesLoader {
 
     /**
      * Route to the aws-hosted cognito login page.
-     * @param req servlet request
-     * @param resp servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO if properties weren't loaded properly, route to an error page
         //String url = LOGOUT_URL + "?response_type=code&client_id=" + CLIENT_ID + "&redirect_uri=" + REDIRECT_URL;
         //resp.sendRedirect(url);
-        String url = "https://pocketed.auth.us-east-2.amazoncognito.com/logout?client_id=27rfufbu3j9ro6pbub70kcu67h&logout_uri=http://localhost:8080/pocketedDays_war/index.jsp";
-        resp.sendRedirect(url);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/logIn");
+            dispatcher.forward(request, response);
+        } else {
+            session.removeAttribute("user");
+            String url = "https://pocketed.auth.us-east-2.amazoncognito.com/logout?client_id=27rfufbu3j9ro6pbub70kcu67h&logout_uri=http://localhost:8080/pocketedDays_war/index.jsp";
+            response.sendRedirect(url);
+        }
     }
 }

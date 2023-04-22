@@ -83,7 +83,7 @@ class UserDaoTest {
     @Test
     void insertUserSuccess() {
         User user = new User("A", "B", "Red", "Female", "abc@gmail.com", LocalDate.parse("2018-12-27"));
-        Project project = new Project(2, "testing1", "testing1", LocalDate.parse("2018-12-27"), "testing");
+        Project project = new Project("testing1", "testing1", LocalDate.parse("2018-12-27"), "testing");
 
         int userId = genericDao.insertEntity(user);
         assertNotEquals(0, userId);

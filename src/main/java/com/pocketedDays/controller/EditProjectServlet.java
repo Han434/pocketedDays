@@ -55,7 +55,7 @@ public class EditProjectServlet extends HttpServlet {
 
             //Set updated data
             project.setProjectName(request.getParameter("projectName"));
-            project.setProjectCreatorId(projectCreatorId);
+            //project.setProjectCreatorId(projectCreatorId);
             project.setProjectPassword(request.getParameter("projectPassword"));
             project.setUpdatedDate(LocalDate.now());
             project.setProjectDescription(request.getParameter("projectDescription"));

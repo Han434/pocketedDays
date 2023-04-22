@@ -56,18 +56,6 @@ class ProjectDaoTest {
     }
 
     /**
-     * Gets project by user id success.
-     */
-    @Test
-    void getProjectByUserIdSuccess() {
-        List<Project> projects = (List<Project>) genericDao.findByPropertyEqual("projectCreatorId", 1);
-        assertEquals(1, projects.size());
-        Project project = projects.get(0);
-        assertEquals("Manlay Website", project.getProjectName());
-    }
-
-
-    /**
      * Gets project by project id success.
      */
     @Test
@@ -94,7 +82,7 @@ class ProjectDaoTest {
      */
     @Test
     void insertProjectSuccess() {
-        Project project = new Project(1, "testing", "testing", LocalDate.parse("2018-12-27"), "testing");
+        Project project = new Project("testing", "testing", LocalDate.parse("2018-12-27"), "testing");
         int projectId = genericDao.insertEntity(project);
         assertNotEquals(0, projectId);
         Project projectToTest = (Project) genericDao.getById(projectId);
@@ -106,7 +94,7 @@ class ProjectDaoTest {
      */
     @Test
     void insertProjectWithSheetsSuccess() {
-        Project project = new Project(1, "Name", "123", LocalDate.parse("2018-12-27"), "Description");
+        Project project = new Project("Name", "123", LocalDate.parse("2018-12-27"), "Description");
         Sheet sheet = new Sheet(project, "Finance department petition", 1, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         project.addSheet(sheet);
 
@@ -124,7 +112,7 @@ class ProjectDaoTest {
     @Test
     void insertProjectWithUsersSuccess() {
         User user = new User("A", "B", "Red12", "Female", "abc@gmail.com", LocalDate.parse("2018-12-27"));
-        Project project = new Project(1, "Namea", "123", LocalDate.parse("2018-12-27"), "Description");
+        Project project = new Project("Namea", "123", LocalDate.parse("2018-12-27"), "Description");
 
         int userId = userDao.insertEntity(user);
         int projectId = genericDao.insertEntity(project);

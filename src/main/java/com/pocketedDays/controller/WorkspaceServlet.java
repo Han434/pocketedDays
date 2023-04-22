@@ -30,18 +30,22 @@ public class WorkspaceServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
-        int userId = user.getUserId();
 
-        List<Project> projects = new ArrayList<>();
+        if (user == null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/logIn");
+            dispatcher.forward(request, response);
+        } else {
+            List<Project> projects = new ArrayList<>();
 
-        List<UserProject> userProjects = userProjectDao.findByPropertyEqual("user", user);
-        for (UserProject userProject : userProjects) {
-            Project project = userProject.getProject();
-            projects.add(project);
+            List<UserProject> userProjects = userProjectDao.findByPropertyEqual("user", user);
+            for (UserProject userProject : userProjects) {
+                Project project = userProject.getProject();
+                projects.add(project);
+            }
+
+            request.setAttribute("projects", projects);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace.jsp");
+            dispatcher.forward(request, response);
         }
-
-        request.setAttribute("projects", projects);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace.jsp");
-        dispatcher.forward(request, response);
     }
 }

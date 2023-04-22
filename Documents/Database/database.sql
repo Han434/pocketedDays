@@ -12,7 +12,6 @@ CREATE TABLE user (
 
 CREATE TABLE project (
                          projectId int auto_increment primary key,
-                         projectCreatorId int,
                          projectName varchar(255),
                          projectPassword varchar(255),
                          projectDescription varchar(255),
