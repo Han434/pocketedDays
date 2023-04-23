@@ -73,6 +73,9 @@ VALUES (1, "W", "A", "White", "Male", "abc@gmail.com", "2023-5-5");
 delete from project;
 INSERT INTO project (projectName, projectPassword, projectDescription, updatedDate)
 VALUES ("Manlay Website", "123", "This project is to create something new.", "2023-5-5");
+delete from userProject;
+INSERT INTO userProject(id, projectId, userId, userType, joinInDate)
+VALUES (1, 1, 1, "creator", "2023-5-5");
 delete from sheet;
 INSERT INTO sheet (projectId, sheetCreatorId, sheetDescription, updatedDate, organization, filePath, note, sheetType)
 VALUES (1, 1, "Installing computer for ABC department", "2023-5-5", "TechLand", "invoice.png", "Note here", "Expense");

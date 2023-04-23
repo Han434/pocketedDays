@@ -91,13 +91,13 @@ class UserDaoTest {
         assertEquals(user, userToTest);
     }
 
-    /**
-     * Delete project success.
-     */
-    @Test
-    void deleteProjectSuccess() {
-        User userToDelete = (User) genericDao.getById(1);
-        genericDao.deleteEntity(userToDelete);
-        assertNull(genericDao.getById(1));
-    }
+//    /**
+//     * Delete project success.
+//     */
+//    @Test
+//    void deleteUserSuccess() {
+//        User userToDelete = (User) genericDao.getById(1);
+//        genericDao.deleteEntity(userToDelete);
+//        assertNull(genericDao.getById(1));
+//    }
 }

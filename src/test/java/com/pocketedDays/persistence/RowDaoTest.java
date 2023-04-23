@@ -1,5 +1,6 @@
 package com.pocketedDays.persistence;
 
+import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.Row;
 import com.pocketedDays.entity.Sheet;
 import com.pocketedDays.entity.User;
@@ -76,7 +77,22 @@ class RowDaoTest {
 
         Row rowToTest = (Row) genericDao.getById(rowId);
         assertEquals(rowToTest, row);
-       //assertEquals(sheet, row.getSheet());
+        assertEquals(sheet, row.getSheet());
+    }
+
+    @Test
+    void insertSheetWithUsersSuccess() {
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        GenericDao userDao = new GenericDao(User.class);
+        User user = (User) userDao.getById(1);
+        Sheet sheet = (Sheet) sheetDao.getById(1);
+        Row row = new Row(sheet, user, LocalDate.parse("2018-12-27"), "Keyword", 5,200, "Product", "Finanace");
+        user.addRow(row);
+        int rowId = genericDao.insertEntity(row);
+        assertNotEquals(0, rowId);
+        Row rowToTest = (Row) genericDao.getById(rowId);
+        assertEquals(rowToTest, row);
+        assertEquals(user, rowToTest.getUser());
     }
 
     /**

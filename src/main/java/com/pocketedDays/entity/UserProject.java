@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * The type User project.
@@ -159,5 +160,18 @@ public class UserProject {
                 ", userType='" + userType + '\'' +
                 ", joinInDate=" + joinInDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserProject)) return false;
+        UserProject that = (UserProject) o;
+        return getId() == that.getId() && Objects.equals(getUser(), that.getUser()) && Objects.equals(getProject(), that.getProject()) && Objects.equals(getUserType(), that.getUserType()) && Objects.equals(getJoinInDate(), that.getJoinInDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUser(), getProject(), getUserType(), getJoinInDate());
     }
 }

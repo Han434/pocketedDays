@@ -105,6 +105,21 @@ class SheetDaoTest {
         //assertEquals(row, sheetToTest.getRows().get(0));
     }
 
+    @Test
+    void insertSheetWithUsersSuccess() {
+        GenericDao projectDao = new GenericDao(Project.class);
+        GenericDao userDao = new GenericDao(User.class);
+        User user = (User) userDao.getById(1);
+        Project project = (Project) projectDao.getById(1);
+        Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
+        user.addSheet(sheet);
+        int sheetId = genericDao.insertEntity(sheet);
+        assertNotEquals(0, sheetId);
+        Sheet sheetToTest = (Sheet) genericDao.getById(sheetId);
+        assertEquals(sheetToTest, sheet);
+        assertEquals(user, sheetToTest.getUser());
+    }
+
 
     /**
      * Delete sheet.
