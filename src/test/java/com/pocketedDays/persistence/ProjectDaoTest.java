@@ -1,9 +1,6 @@
 package com.pocketedDays.persistence;
 
-import com.pocketedDays.entity.Project;
-import com.pocketedDays.entity.Row;
-import com.pocketedDays.entity.Sheet;
-import com.pocketedDays.entity.User;
+import com.pocketedDays.entity.*;
 import com.pocketedDays.test.utilities.Database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -136,7 +133,12 @@ class ProjectDaoTest {
      */
     @Test
     void deleteProjectSuccess() {
+        GenericDao userProjectDao = new GenericDao(UserProject.class);
         Project projectToDelete = (Project) genericDao.getById(1);
+        List<UserProject> userProjectList = userProjectDao.findByPropertyEqual("project", projectToDelete);
+        for (UserProject userProject : userProjectList) {
+            userProjectDao.deleteEntity(userProject);
+        }
         Set<Sheet> listOfSheet = projectToDelete.getSheets();
         GenericDao sheetDao = new GenericDao(Sheet.class);
         GenericDao rowDao = new GenericDao(Row.class);
