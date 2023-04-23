@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * The type Workspace servlet.
  */
@@ -27,23 +28,28 @@ public class WorkspaceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDao userProjectDao = new GenericDao(UserProject.class);
         GenericDao userDao = new GenericDao(User.class);
-        HttpSession session = request.getSession();
 
+        //Get session variable of user
+        HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
+            //Forward to logIn
             RequestDispatcher dispatcher = request.getRequestDispatcher("/logIn");
             dispatcher.forward(request, response);
         } else {
+            //Get listOfProject
             List<Project> projects = new ArrayList<>();
-
-            List<UserProject> userProjects = userProjectDao.findByPropertyEqual("user", user);
-            for (UserProject userProject : userProjects) {
+            List<UserProject> userProjectsForProject = userProjectDao.findByPropertyEqual("user", user);
+            for (UserProject userProject : userProjectsForProject) {
                 Project project = userProject.getProject();
                 projects.add(project);
             }
 
+            //Get attribute of projects
             request.setAttribute("projects", projects);
+
+            //Forward to workspace.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace.jsp");
             dispatcher.forward(request, response);
         }

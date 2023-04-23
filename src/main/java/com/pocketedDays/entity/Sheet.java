@@ -279,13 +279,13 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
                 "sheetId=" + sheetId +
                 ", project=" + project +
                 ", sheetDescription='" + sheetDescription + '\'' +
-                ", user=" + user +
+                //", user=" + user +
                 ", updatedDate=" + updatedDate +
                 ", organization='" + organization + '\'' +
                 ", filePath='" + filePath + '\'' +
                 ", note='" + note + '\'' +
                 ", sheetType='" + sheetType + '\'' +
-                ", rows=" + rows +
+                //", rows=" + rows +
                 '}';
     }
 

@@ -33,27 +33,27 @@ public class CreateProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
+
         User user = (User) session.getAttribute("user");
+
+        GenericDao projectDao = new GenericDao(Project.class);
+        GenericDao userProjectDao = new GenericDao(UserProject.class);
 
         //If equal to "Add New Project"
         if (submit.equals("Add New Project")) {
             //Get data
             String projectName = request.getParameter("projectName");
-            int projectCreatorId = user.getUserId();
             String projectPassword = request.getParameter("projectPassword");
-            LocalDate createdDate = LocalDate.now();
             String projectDescription = request.getParameter("projectDescription");
+            LocalDate createdDate = LocalDate.now();
 
-            //Create new project
+            //Crate and Insert project into the database
             Project project = new Project(projectName, projectPassword, createdDate, projectDescription);
-
-            //Insert it to the database
-            GenericDao projectDao = new GenericDao(Project.class);
             int projectId = projectDao.insertEntity(project);
 
-            GenericDao userProjectDao = new GenericDao(UserProject.class);
+            //Create and Insert userProject into the database
             UserProject userProject = new UserProject(user, project, "creator", createdDate);
-            int userProjectId = userProjectDao.insertEntity(userProject);
+            userProjectDao.insertEntity(userProject);
 
             //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);

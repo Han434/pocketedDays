@@ -20,12 +20,15 @@ import java.time.LocalDate;
         urlPatterns = {"/editProject"}
 )
 public class EditProjectServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get session variable of projectId
         HttpSession session = request.getSession();
-        String submit = request.getParameter("submit");
         int projectId = (int) session.getAttribute("projectId");
+
+        //Get submit value
+        String submit = request.getParameter("submit");
+
 
         //If not equal to "Edit Project"
         if (!submit.equals("Edit Project")) {
@@ -42,10 +45,12 @@ public class EditProjectServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get submit value
         String submit = request.getParameter("submit");
+
+        //Get projectId
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
-        int projectCreatorId = (int) session.getAttribute("userId");
 
         //If equal to "Edit Project"
         if (submit.equals("Edit Project")) {
@@ -55,7 +60,6 @@ public class EditProjectServlet extends HttpServlet {
 
             //Set updated data
             project.setProjectName(request.getParameter("projectName"));
-            //project.setProjectCreatorId(projectCreatorId);
             project.setProjectPassword(request.getParameter("projectPassword"));
             project.setUpdatedDate(LocalDate.now());
             project.setProjectDescription(request.getParameter("projectDescription"));

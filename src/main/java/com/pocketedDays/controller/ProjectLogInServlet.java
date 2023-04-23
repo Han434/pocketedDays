@@ -27,42 +27,50 @@ import java.util.Map;
 public class ProjectLogInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Forward to createProject.jsp
+        //Forward to projectLogIn.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projectLogIn.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String submit = request.getParameter("submit");
+        //Get session variable of user
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("user");
+
+        //Get userId form sessionUser
         int userId = sessionUser.getUserId();
+
+        //Get value of submit
+        String submit = request.getParameter("submit");
+
 
         //If equal to "Add New Project"
         if (submit.equals("Log In to the Project")) {
+            GenericDao userProjectDao = new GenericDao(UserProject.class);
             GenericDao userDao = new GenericDao(User.class);
             GenericDao projectDao = new GenericDao(Project.class);
+
             //Get data
             int projectId = Integer.parseInt(request.getParameter("projectId"));
-            int projectCreatorId = userId;
             User user = (User) userDao.getById(userId);
             String projectPassword = request.getParameter("projectPassword");
             LocalDate joinInDate = LocalDate.now();
 
+            //Get list of project
             Map<String, Object> propertyMap = new HashMap<String, Object>();
             propertyMap.put("projectId", projectId);
             propertyMap.put("projectPassword", projectPassword);
-
-            //Create new project
             List<Project> listOfProject = (List<Project>) projectDao.findByPropertyEqual(propertyMap);
+
+            //Get required project
             Project project = listOfProject.get(0);
-            projectDao.getById(projectId);
+
+            //Create new UserProject
             UserProject userProject = new UserProject(user, project, "visitor", joinInDate);
 
             //Insert it to the database
-            GenericDao userProjectDao = new GenericDao(UserProject.class);
-            int userProjectId = userProjectDao.insertEntity(userProject);
+            userProjectDao.insertEntity(userProject);
 
             //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);

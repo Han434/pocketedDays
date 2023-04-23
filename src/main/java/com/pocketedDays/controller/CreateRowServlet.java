@@ -53,10 +53,11 @@ public class CreateRowServlet extends HttpServlet {
             String rowType = request.getParameter("rowType");
             String tag = request.getParameter("tag");
 
-            //Create new row
+            //Get sheet
             GenericDao sheetDao = new GenericDao(Sheet.class);
-
             Sheet sheet = (Sheet) sheetDao.getById(sheetId);
+
+            //Create and insert new row into the database
             Row row = new Row(sheet, user, createdDate, rowDescription, quantity, costPerItem, rowType, tag);
             GenericDao rowDao = new GenericDao(Row.class);
             rowDao.insertEntity(row);

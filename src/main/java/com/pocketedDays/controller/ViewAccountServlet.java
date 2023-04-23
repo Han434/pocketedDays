@@ -25,13 +25,18 @@ import java.util.Map;
 public class ViewAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get userInformation from the request
         Map<String, String> userInformation = (Map<String, String>) request.getAttribute("userInformation");
+
+        //Get user form session
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("user");
+
         RequestDispatcher dispatcher = null;
 
-        //If equal to "Add New Project"
+        //If userInformation is not null"
         if (userInformation != null) {
+            //Get data
             String userName = userInformation.get("userName");
             String birthdate = userInformation.get("birthdate");
             String familyName = userInformation.get("familyName");
@@ -39,27 +44,34 @@ public class ViewAccountServlet extends HttpServlet {
             String gender = userInformation.get("gender");
             String email = userInformation.get("email");
 
+            //Format the birthdateOfUser
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-
             LocalDate brithdateOfUser = LocalDate.parse(birthdate, formatter);
 
-            User user = new User(givenName, familyName, userName, gender, email, brithdateOfUser);
+            //Create new user and add it to the database if not exit.
+            User userToInsert = new User(givenName, familyName, userName, gender, email, brithdateOfUser);
             GenericDao userDao = new GenericDao<>(User.class);
             List<User> users = userDao.findByPropertyEqual("userName", userName);
             int userId = 0;
             if (users.isEmpty()) {
-                userId = userDao.insertEntity(user);
+                userId = userDao.insertEntity(userToInsert);
             } else {
                 userId = users.get(0).getUserId();
             }
-            
-            User user123 = (User) userDao.getById(userId);
 
-            session.setAttribute("user", user123);
+            //Get user from the userId
+            User user = (User) userDao.getById(userId);
+
+            //Set session attribute of user
+            session.setAttribute("user", user);
+
+            //Forward to viewAccount.jsp
             dispatcher = request.getRequestDispatcher("viewAccount.jsp");
         } else if (sessionUser != null) {
+            //Forward to viewAccount.jsp
             dispatcher = request.getRequestDispatcher("viewAccount.jsp");
         } else {
+            //Forward to logIn
             dispatcher = request.getRequestDispatcher("/logIn");
         }
         dispatcher.forward(request, response);

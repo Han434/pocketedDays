@@ -223,7 +223,8 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
     public String toString() {
         return "Row{" +
                 "rowId=" + rowId +
-                ", sheet=" + sheet.toString() +
+                ", sheet=" + sheet +
+                //", user=" + user +
                 ", updatedDate=" + updatedDate +
                 ", rowDescription='" + rowDescription + '\'' +
                 ", quantity=" + quantity +

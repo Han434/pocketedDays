@@ -26,9 +26,11 @@ public class DeleteSheetServlet extends HttpServlet {
         int sheetId = (int) session.getAttribute("sheetId");
         String sheetType = (String) session.getAttribute("sheetType");
 
-        //Delete sheet from the database
+        //Get sheet form database
         GenericDao sheetDao = new GenericDao(Sheet.class);
         Sheet sheet = (Sheet) sheetDao.getById(sheetId);
+
+        //Delete sheet from the database
         sheetDao.deleteEntity(sheet);
 
         //Forward to sheet

@@ -104,18 +104,18 @@ public class Project implements NumberFormatInterface {
     }
 
     /**
-     * Gets created date.
+     * Gets updated date.
      *
-     * @return the created date
+     * @return the updated date
      */
     public LocalDate getUpdatedDate() {
         return updatedDate;
     }
 
     /**
-     * Sets created date.
+     * Sets updated date.
      *
-     * @param updatedDate the created date
+     * @param updatedDate the updated date
      */
     public void setUpdatedDate(LocalDate updatedDate) {
         this.updatedDate = updatedDate;
@@ -228,6 +228,7 @@ public class Project implements NumberFormatInterface {
                 ", updatedDate=" + updatedDate +
                 ", projectDescription='" + projectDescription + '\'' +
                 //", sheets=" + sheets +
+                ", users=" + users +
                 '}';
     }
 

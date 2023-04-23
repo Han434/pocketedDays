@@ -65,8 +65,6 @@ public class LogOut extends HttpServlet implements PropertiesLoader {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO if properties weren't loaded properly, route to an error page
-        //String url = LOGOUT_URL + "?response_type=code&client_id=" + CLIENT_ID + "&redirect_uri=" + REDIRECT_URL;
-        //resp.sendRedirect(url);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 

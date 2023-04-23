@@ -28,9 +28,11 @@ public class DeleteRowServlet extends HttpServlet {
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
 
-        //Delete row from database
+        //Get row from the database
         GenericDao rowDao = new GenericDao(Row.class);
         Row row = (Row) rowDao.getById(rowId);
+
+        //Delete row from database
         rowDao.deleteEntity(row);
 
         //Forward to viewRow

@@ -1,5 +1,11 @@
 use pocketed_days;
-drop table if exists userProject, user, project, sheet, rowOfSheet;
+
+drop table if exists rowofsheet;
+drop table if exists sheet;
+drop table if exists userproject;
+drop table if exists project;
+drop table if exists user;
+
 CREATE TABLE user (
                       userId int auto_increment primary key,
                       firstName varchar(100),
@@ -45,7 +51,7 @@ CREATE TABLE sheet (
                        constraint sheet_project_fk
                            foreign key (projectId) references pocketed_days.project (projectId),
                        constraint sheet_user_fk
-                            foreign key (sheetCreatorId) references pocketed_days.user (userId)
+                           foreign key (sheetCreatorId) references pocketed_days.user (userId)
 );
 
 CREATE TABLE rowOfSheet (

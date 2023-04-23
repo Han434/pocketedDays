@@ -42,7 +42,7 @@ public class ViewRowServlet extends HttpServlet {
         //Get sheet by sheetId
         Sheet sheet = (Sheet) sheetDao.getById(sheetId);
 
-        //Get row
+        //Get rows from sheet
         Set<Row> rows = sheet.getRows();
 
         //Pass sheet, rows and project

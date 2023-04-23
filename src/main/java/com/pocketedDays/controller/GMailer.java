@@ -14,6 +14,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
+import com.pocketedDays.utilities.PropertiesLoader;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.mail.MessagingException;
@@ -27,12 +28,14 @@ import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static javax.mail.Message.RecipientType.TO;
 
 public class GMailer {
 
-    private static final String TEST_EMAIL = "myominhan13579@gmail.com";
+    private static final String MY_EMAIL = "myominhan13579@gmail.com";
+    private final Logger logger = Logger.getLogger(String.valueOf(PropertiesLoader.class));
     private final Gmail service;
 
     public GMailer() throws GeneralSecurityException, IOException {
@@ -65,7 +68,7 @@ public class GMailer {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
-        email.setFrom(new InternetAddress(TEST_EMAIL));
+        email.setFrom(new InternetAddress(MY_EMAIL));
         email.addRecipient(TO, new InternetAddress(receiver));
         email.setSubject(subject);
         email.setText(message);
@@ -81,13 +84,12 @@ public class GMailer {
         try {
             // Create send message
             msg = service.users().messages().send("me", msg).execute();
-            System.out.println("Message id: " + msg.getId());
-            System.out.println(msg.toPrettyString());
         } catch (GoogleJsonResponseException e) {
             GoogleJsonError error = e.getDetails();
             if (error.getCode() == 403) {
-                System.err.println("Unable to send message: " + e.getDetails());
+                logger.info("Unable to send message: " + e.getDetails());
             } else {
+                logger.info("Somthing is wrong.");
                 throw e;
             }
         }

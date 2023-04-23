@@ -3,6 +3,7 @@ package com.pocketedDays.controller;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.entity.UserProject;
 import com.pocketedDays.persistence.GenericDao;
+import com.pocketedDays.utilities.PropertiesLoader;
 
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.logging.Logger;
+
 /**
  * The type Workspace servlet.
  */
@@ -21,16 +24,20 @@ import java.security.GeneralSecurityException;
         urlPatterns = {"/helpUsImprove"}
 )
 public class HelpUsImproveServlet extends HttpServlet {
+    private final Logger logger = Logger.getLogger(String.valueOf(PropertiesLoader.class));
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDao userProjectDao = new GenericDao(UserProject.class);
         GenericDao userDao = new GenericDao(User.class);
+
+        //Get user form the session
         HttpSession session = request.getSession();
-        String submit = request.getParameter("submit");
-
-        String feedbackDescription = request.getParameter("feedbackDescription");
-
         User user = (User) session.getAttribute("user");
+
+        //Get submit value and feedbackDescription form the request.
+        String submit = request.getParameter("submit");
+        String feedbackDescription = request.getParameter("feedbackDescription");
 
         if (user == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/logIn");
@@ -48,11 +55,14 @@ public class HelpUsImproveServlet extends HttpServlet {
                 gMailer = new GMailer();
                 gMailer.sendMail("Reply for your feedback.", reply, userEmail);
             } catch (GeneralSecurityException e) {
+                logger.info("Unable to send message: ");
                 throw new RuntimeException(e);
             } catch (MessagingException e) {
+                logger.info("Something is wrong");
                 throw new RuntimeException(e);
             }
 
+            //Forward to index.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }

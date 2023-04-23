@@ -30,19 +30,19 @@ public class ViewSheetsServlet extends HttpServlet {
         String sheetType = request.getParameter("sheetType");
 
         //Get session variable projectId
-        //Set session variable sheetType
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
+
+        //Set session variable sheetType
         session.setAttribute("sheetType", sheetType);
 
         //Get project by projectId
         Project project = (Project) projectDao.getById(projectId);
 
-        //Get sheet totals and project total
+        //Get sheets
         Map<String, Object> propertyMap = new HashMap<String, Object>();
         propertyMap.put("sheetType", sheetType);
         propertyMap.put("project", project);
-
         List<Sheet> sheets = sheetDao.findByPropertyEqual(propertyMap);
 
         //Pass project, sheet, sheetType

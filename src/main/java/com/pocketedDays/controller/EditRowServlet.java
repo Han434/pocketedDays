@@ -23,9 +23,8 @@ import java.time.LocalDate;
 public class EditRowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get value of submit and rowId
         String submit = request.getParameter("submit");
-
-        //Get rowId from the request
         int rowId = Integer.parseInt(request.getParameter("rowId"));
 
         //Get session variable sheetId
@@ -34,8 +33,11 @@ public class EditRowServlet extends HttpServlet {
 
         //If not equal to "Edit Row"
         if (!submit.equals("Edit")) {
+            //Get row by id
             GenericDao rowDao = new GenericDao(Row.class);
             Row row = (Row) rowDao.getById(rowId);
+
+            //Set attributes of row and sheetId
             request.setAttribute("row", row);
             request.setAttribute("sheetId", sheetId);
 
@@ -47,12 +49,11 @@ public class EditRowServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Get submit and rowId form the request
         String submit = request.getParameter("submit");
-
-        //Get rowId from the request
         int rowId = Integer.parseInt(request.getParameter("rowId"));
 
-        //Get session variable sheetId and rowCreatorId
+        //Get session variable sheetId and user
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
         User user = (User) session.getAttribute("user");

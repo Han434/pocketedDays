@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <div class="card-footer bgs-b text-light">
-                        <p class="mr-auto">Created by on ${project.updatedDate}.</p>
+                        <p class="mr-auto">Created on ${project.updatedDate}.</p>
                     </div>
                 </div>
             </c:forEach>

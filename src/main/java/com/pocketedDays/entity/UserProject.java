@@ -155,7 +155,7 @@ public class UserProject {
         return "UserProject{" +
                 "id=" + id +
                 ", user=" + user +
-                ", project=" + project +
+                //", project=" + project +
                 ", userType='" + userType + '\'' +
                 ", joinInDate=" + joinInDate +
                 '}';

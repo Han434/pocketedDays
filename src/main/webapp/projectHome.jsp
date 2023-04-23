@@ -16,6 +16,7 @@
                     <div class="col-3">
                         <h3>${project.projectName}</h3>
                         <h3>Password: ${project.projectPassword}</h3>
+                        <h3>Created by ${creator.userName}</h3>
                     </div>
                 </div>
             </div>
@@ -26,7 +27,9 @@
       <div class="col-12">
         <h3>Project Members</h3>
         <ul>
-          <li>${project.projectId}</li>
+            <c:forEach var="memberName" items="${memberNames}">
+                <li>${memberName}</li>
+            </c:forEach>
         </ul>
       </div>
     </div>

@@ -1,6 +1,8 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.User;
+import com.pocketedDays.entity.UserProject;
 import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The type Project home servlet.
@@ -21,16 +27,45 @@ import java.io.IOException;
 public class ProjectHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GenericDao projectDao = new GenericDao(Project.class);
+        GenericDao userProjectDao = new GenericDao(UserProject.class);
+        HttpSession session = request.getSession();
+
         //Get projectId from the request
         int projectId = Integer.parseInt(request.getParameter("projectId"));
 
+        //Get project with projectId
+        Project project = (Project) projectDao.getById(projectId);
+
+        //Create and Set the property map
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+        propertyMap.put("userType", "creator");
+        propertyMap.put("project", project);
+
+        //Get userProjectList
+        List<UserProject> userProjectList = userProjectDao.findByPropertyEqual(propertyMap);
+
+        //Get userProjectListForProjectMember
+        List<UserProject> userProjectListForProjectMember = userProjectDao.findByPropertyEqual("project", project);
+
+        //Create memberNames
+        List<String> memberNames = new ArrayList<>();
+
+        //Get memberNames
+        User creator = userProjectList.get(0).getUser();
+        for (UserProject userProject : userProjectListForProjectMember) {
+            User member = userProject.getUser();
+            String memberName = member.getUserName();
+            memberNames.add(memberName);
+        }
+
         //Set session variable of projectId
-        HttpSession session = request.getSession();
         session.setAttribute("projectId", projectId);
 
-        //Pass project with the requested id
-        GenericDao projectDao = new GenericDao(Project.class);
-        request.setAttribute("project", projectDao.getById(projectId));
+        //Set attributes of creator, memberNames and project
+        request.setAttribute("creator", creator);
+        request.setAttribute("memberNames", memberNames);
+        request.setAttribute("project", project);
 
         //Forward to projectHome.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome.jsp");
