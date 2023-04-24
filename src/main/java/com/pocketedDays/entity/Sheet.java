@@ -4,7 +4,6 @@ import com.pocketedDays.utilities.NumberFormatInterface;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -44,6 +43,18 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
     }
 
 
+    /**
+     * Instantiates a new Sheet.
+     *
+     * @param project          the project
+     * @param sheetDescription the sheet description
+     * @param user             the user
+     * @param updatedDate      the updated date
+     * @param organization     the organization
+     * @param filePath         the file path
+     * @param note             the note
+     * @param sheetType        the sheet type
+     */
     public Sheet(Project project, String sheetDescription, User user, LocalDate updatedDate, String organization, String filePath, String note, String sheetType) {
         this.project = project;
         this.sheetDescription = sheetDescription;
@@ -109,27 +120,37 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
         this.sheetDescription = sheetDescription;
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
     /**
-     * Gets created date.
+     * Gets updated date.
      *
-     * @return the created date
+     * @return the updated date
      */
     public LocalDate getUpdatedDate() {
         return updatedDate;
     }
 
     /**
-     * Sets created date.
+     * Sets updated date.
      *
-     * @param updatedDate the created date
+     * @param updatedDate the updated date
      */
     public void setUpdatedDate(LocalDate updatedDate) {
         this.updatedDate = updatedDate;
@@ -246,7 +267,7 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
     }
 
     /**
-     * Calculated total int.
+     * Calculate total int.
      *
      * @return the int
      */
@@ -290,21 +311,15 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
     }
 
     @Override
-    public int compareTo(Sheet sheet) {
-        int hash =((Integer)this.sheetId).compareTo(sheet.sheetId);
-        return hash;
+    public int compareTo(Sheet sheet){
+        if (this.sheetId > sheet.sheetId) {
+            return 1;
+        }
+        else if (this.sheetId < sheet.sheetId) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
     }
-
-//    @Override
-//    public int compareTo(Sheet sheet){
-//        if (this.sheetId > sheet.sheetId) {
-//            return 1;
-//        }
-//        else if (this.sheetId < sheet.sheetId) {
-//            return -1;
-//        }
-//        else {
-//            return 0;
-//        }
-//    }
 }

@@ -39,7 +39,7 @@ public class Project implements NumberFormatInterface {
      *
      * @param projectName        the project name
      * @param projectPassword    the project password
-     * @param updatedDate        the created date
+     * @param updatedDate        the updated date
      * @param projectDescription the project description
      */
     public Project(String projectName, String projectPassword, LocalDate updatedDate, String projectDescription) {
@@ -233,7 +233,7 @@ public class Project implements NumberFormatInterface {
     }
 
     /**
-     * Calculate total int.
+     * Calculate total revenue int.
      *
      * @return the int
      */
@@ -253,7 +253,7 @@ public class Project implements NumberFormatInterface {
     }
 
     /**
-     * Calculate total int.
+     * Calculate total expense int.
      *
      * @return the int
      */

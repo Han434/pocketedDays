@@ -1,5 +1,6 @@
 package com.pocketedDays.entity;
 
+import com.pocketedDays.utilities.NumberFormatInterface;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Objects;
  */
 @Entity(name = "UserProject")
 @Table(name = "userProject")
-public class UserProject {
+public class UserProject implements Comparable<UserProject> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -173,5 +174,16 @@ public class UserProject {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getUser(), getProject(), getUserType(), getJoinInDate());
+    }
+
+    @Override
+    public int compareTo(UserProject userProject) {
+        if (this.id == userProject.id) {
+            return 0;
+        } else if (this.id > userProject.id) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

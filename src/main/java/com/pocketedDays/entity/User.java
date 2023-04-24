@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -26,7 +25,7 @@ public class User {
     private String email;
     private LocalDate dateOfBirth;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<UserProject> projects = new HashSet<UserProject>();
+    private Set<UserProject> projects = new TreeSet<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Sheet> sheets = new TreeSet<>();
 
@@ -194,19 +193,40 @@ public class User {
     }
 
     /**
+     * Add project.
+     *
+     * @param project the project
+     */
+    public void addProject(Project project) {
+        UserProject userProject = new UserProject(this, project);
+        projects.add(userProject);
+        project.getUsers().add(userProject);
+    }
+
+    /**
      * Sets projects.
      *
      * @param projects the projects
      */
-    public void setProjects(Set<UserProject> projects) {
+    public void setProjects(TreeSet<UserProject> projects) {
         this.projects = projects;
     }
 
+    /**
+     * Add sheet.
+     *
+     * @param sheet the sheet
+     */
     public void addSheet(Sheet sheet) {
         sheets.add(sheet);
         sheet.setUser(this);
     }
 
+    /**
+     * Remove sheet.
+     *
+     * @param sheet the sheet
+     */
     public void removeSheet(Sheet sheet) {
         sheets.remove(sheet);
         sheet.setUser(null);

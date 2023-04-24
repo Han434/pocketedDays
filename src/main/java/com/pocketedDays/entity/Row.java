@@ -43,6 +43,18 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
     public Row() {
     }
 
+    /**
+     * Instantiates a new Row.
+     *
+     * @param sheet          the sheet
+     * @param user           the user
+     * @param updatedDate    the updated date
+     * @param rowDescription the row description
+     * @param quantity       the quantity
+     * @param costPerItem    the cost per item
+     * @param rowType        the row type
+     * @param tag            the tag
+     */
     public Row(Sheet sheet, User user, LocalDate updatedDate, String rowDescription, int quantity, int costPerItem, String rowType, String tag) {
         this.sheet = sheet;
         this.user = user;
@@ -90,27 +102,37 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
         this.sheet = sheet;
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
     /**
-     * Gets created date.
+     * Gets updated date.
      *
-     * @return the created date
+     * @return the updated date
      */
     public LocalDate getUpdatedDate() {
         return updatedDate;
     }
 
     /**
-     * Sets created date.
+     * Sets updated date.
      *
-     * @param updatedDate the created date
+     * @param updatedDate the updated date
      */
     public void setUpdatedDate(LocalDate updatedDate) {
         this.updatedDate = updatedDate;
@@ -235,7 +257,7 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
     }
 
     /**
-     * Calculated total int.
+     * Calculate total int.
      *
      * @return the int
      */
