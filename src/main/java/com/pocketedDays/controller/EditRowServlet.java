@@ -30,9 +30,10 @@ public class EditRowServlet extends HttpServlet {
         //Get session variable sheetId
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
+        String userType = (String) session.getAttribute("userType");
 
         //If not equal to "Edit Row"
-        if (!submit.equals("Edit")) {
+        if (!submit.equals("Edit") && (!(userType.equals("visitor")))) {
             //Get row by id
             GenericDao rowDao = new GenericDao(Row.class);
             Row row = (Row) rowDao.getById(rowId);
@@ -43,6 +44,9 @@ public class EditRowServlet extends HttpServlet {
 
             //Forward to editRow.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/editRow.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -57,6 +61,7 @@ public class EditRowServlet extends HttpServlet {
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
         User user = (User) session.getAttribute("user");
+
 
         //If equal to "Edit Row"
         if (submit.equals("Edit")) {

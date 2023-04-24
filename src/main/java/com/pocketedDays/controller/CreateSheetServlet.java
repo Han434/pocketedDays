@@ -32,11 +32,17 @@ public class CreateSheetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Forward to createSheet.jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
-        dispatcher.forward(request, response);
+        HttpSession session = request.getSession();
+        String userType = (String) session.getAttribute("userType");
+        if (!(userType.equals("visitor"))) {
+            //Forward to createSheet.jsp
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
+            dispatcher.forward(request, response);
+        }
     }
-
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");

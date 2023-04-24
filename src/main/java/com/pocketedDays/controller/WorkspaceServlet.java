@@ -3,7 +3,6 @@ package com.pocketedDays.controller;
 import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.entity.UserProject;
-import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -26,9 +26,6 @@ import java.util.List;
 public class WorkspaceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GenericDao userProjectDao = new GenericDao(UserProject.class);
-        GenericDao userDao = new GenericDao(User.class);
-
         //Get session variable of user
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -40,8 +37,8 @@ public class WorkspaceServlet extends HttpServlet {
         } else {
             //Get listOfProject
             List<Project> projects = new ArrayList<>();
-            List<UserProject> userProjectsForProject = userProjectDao.findByPropertyEqual("user", user);
-            for (UserProject userProject : userProjectsForProject) {
+            Set<UserProject> userProjects = user.getProjects();
+            for (UserProject userProject : userProjects) {
                 Project project = userProject.getProject();
                 projects.add(project);
             }

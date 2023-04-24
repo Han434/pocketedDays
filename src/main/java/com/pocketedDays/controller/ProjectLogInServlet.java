@@ -61,16 +61,24 @@ public class ProjectLogInServlet extends HttpServlet {
             Map<String, Object> propertyMap = new HashMap<String, Object>();
             propertyMap.put("projectId", projectId);
             propertyMap.put("projectPassword", projectPassword);
-            List<Project> listOfProject = (List<Project>) projectDao.findByPropertyEqual(propertyMap);
+            List<Project> listOfProject = projectDao.findByPropertyEqual(propertyMap);
 
             //Get required project
             Project project = listOfProject.get(0);
 
-            //Create new UserProject
-            UserProject userProject = new UserProject(user, project, "visitor", joinInDate);
+            //Get list of userProject
+            Map<String, Object> propertyMapForUserProject = new HashMap<String, Object>();
+            propertyMapForUserProject.put("project", project);
+            propertyMapForUserProject.put("user", user);
+            List<UserProject> listOfUserProject = userProjectDao.findByPropertyEqual(propertyMapForUserProject);
 
-            //Insert it to the database
-            userProjectDao.insertEntity(userProject);
+            //If there is no record
+            if (listOfUserProject.size() == 0) {
+                //Create new UserProject
+                UserProject userProject = new UserProject(user, project, "visitor", joinInDate);
+                //Insert it to the database
+                userProjectDao.insertEntity(userProject);
+            }
 
             //Forward to projectHome
             RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome?projectId=" + projectId);

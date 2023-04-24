@@ -23,18 +23,25 @@ public class DeleteSheetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Get session variable sheetId and sheetType
         HttpSession session = request.getSession();
-        int sheetId = (int) session.getAttribute("sheetId");
-        String sheetType = (String) session.getAttribute("sheetType");
+        String userType = (String) session.getAttribute("userType");
 
-        //Get sheet form database
-        GenericDao sheetDao = new GenericDao(Sheet.class);
-        Sheet sheet = (Sheet) sheetDao.getById(sheetId);
+        if (!(userType.equals("visitor"))) {
+            int sheetId = (int) session.getAttribute("sheetId");
+            String sheetType = (String) session.getAttribute("sheetType");
 
-        //Delete sheet from the database
-        sheetDao.deleteEntity(sheet);
+            //Get sheet form database
+            GenericDao sheetDao = new GenericDao(Sheet.class);
+            Sheet sheet = (Sheet) sheetDao.getById(sheetId);
 
-        //Forward to sheet
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet?sheetType=" + sheetType);
-        dispatcher.forward(request, response);
+            //Delete sheet from the database
+            sheetDao.deleteEntity(sheet);
+
+            //Forward to sheet
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/sheet?sheetType=" + sheetType);
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

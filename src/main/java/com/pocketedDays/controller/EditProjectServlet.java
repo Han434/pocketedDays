@@ -22,16 +22,18 @@ import java.time.LocalDate;
 public class EditProjectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Get session variable of projectId
+        //Get session variable of projectId and userType
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
+        String userType = (String) session.getAttribute("userType");
+
 
         //Get submit value
         String submit = request.getParameter("submit");
 
 
         //If not equal to "Edit Project"
-        if (!submit.equals("Edit Project")) {
+        if (!submit.equals("Edit Project") && (!(userType.equals("visitor")))) {
             // Pass project for edit page
             GenericDao projectDao = new GenericDao(Project.class);
             Project project = (Project) projectDao.getById(projectId);
@@ -39,6 +41,9 @@ public class EditProjectServlet extends HttpServlet {
 
             //Forward to editProject.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/editProject.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -51,6 +56,7 @@ public class EditProjectServlet extends HttpServlet {
         //Get projectId
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
+
 
         //If equal to "Edit Project"
         if (submit.equals("Edit Project")) {

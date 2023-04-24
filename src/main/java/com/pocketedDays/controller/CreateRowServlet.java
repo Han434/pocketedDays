@@ -27,11 +27,15 @@ public class CreateRowServlet extends HttpServlet {
         String submit = request.getParameter("submit");
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
+        String userType = (String) session.getAttribute("userType");
 
         //If not equal to "Add New"
-        if (!submit.equals("Create")) {
+        if (!submit.equals("Create") && (!(userType.equals("visitor")))) {
             request.setAttribute("sheetId", sheetId);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/createRow.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
             dispatcher.forward(request, response);
         }
     }

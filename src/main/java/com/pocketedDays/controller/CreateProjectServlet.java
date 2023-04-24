@@ -38,6 +38,7 @@ public class CreateProjectServlet extends HttpServlet {
 
         GenericDao projectDao = new GenericDao(Project.class);
         GenericDao userProjectDao = new GenericDao(UserProject.class);
+        GenericDao userDao = new GenericDao(User.class);
 
         //If equal to "Add New Project"
         if (submit.equals("Add New Project")) {
@@ -49,6 +50,8 @@ public class CreateProjectServlet extends HttpServlet {
 
             //Crate and Insert project into the database
             Project project = new Project(projectName, projectPassword, createdDate, projectDescription);
+            user.addProject(project);
+            userDao.saveOrUpdateEntity(user);
             int projectId = projectDao.insertEntity(project);
 
             //Create and Insert userProject into the database

@@ -27,16 +27,22 @@ public class DeleteRowServlet extends HttpServlet {
         //Get sheetId from the session
         HttpSession session = request.getSession();
         int sheetId = (int) session.getAttribute("sheetId");
+        String userType = (String) session.getAttribute("userType");
 
-        //Get row from the database
-        GenericDao rowDao = new GenericDao(Row.class);
-        Row row = (Row) rowDao.getById(rowId);
+        if ((!(userType.equals("visitor")))) {
+            //Get row from the database
+            GenericDao rowDao = new GenericDao(Row.class);
+            Row row = (Row) rowDao.getById(rowId);
 
-        //Delete row from database
-        rowDao.deleteEntity(row);
+            //Delete row from database
+            rowDao.deleteEntity(row);
 
-        //Forward to viewRow
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);
-        dispatcher.forward(request, response);
+            //Forward to viewRow
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/viewRow?sheetId=" + sheetId);
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

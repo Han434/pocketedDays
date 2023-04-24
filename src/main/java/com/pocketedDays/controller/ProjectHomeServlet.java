@@ -30,6 +30,7 @@ public class ProjectHomeServlet extends HttpServlet {
         GenericDao projectDao = new GenericDao(Project.class);
         GenericDao userProjectDao = new GenericDao(UserProject.class);
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
         //Get projectId from the request
         int projectId = Integer.parseInt(request.getParameter("projectId"));
@@ -59,8 +60,16 @@ public class ProjectHomeServlet extends HttpServlet {
             memberNames.add(memberName);
         }
 
+        Map<String, Object> propertyMapForUserProject = new HashMap<String, Object>();
+        propertyMapForUserProject.put("project", project);
+        propertyMapForUserProject.put("user", user);
+        List<UserProject> listOfUserProject = userProjectDao.findByPropertyEqual(propertyMapForUserProject);
+
+        String userType = listOfUserProject.get(0).getUserType();
+
         //Set session variable of projectId
         session.setAttribute("projectId", projectId);
+        session.setAttribute("userType", userType);
 
         //Set attributes of creator, memberNames and project
         request.setAttribute("creator", creator);

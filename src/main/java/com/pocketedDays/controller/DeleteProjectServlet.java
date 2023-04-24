@@ -29,21 +29,27 @@ public class DeleteProjectServlet extends HttpServlet {
         //Gets session variable projectId
         HttpSession session = request.getSession();
         int projectId = (int) session.getAttribute("projectId");
+        String userType = (String) session.getAttribute("userType");
 
-        //Get project
-        Project project = (Project) projectDao.getById(projectId);
+        if ((!(userType.equals("visitor")))) {
+            //Get project
+            Project project = (Project) projectDao.getById(projectId);
 
-        //Delete userProject related to the project from database
-        List<UserProject> userProjectList = userProjectDao.findByPropertyEqual("project", project);
-        for (UserProject userProject : userProjectList) {
-            userProjectDao.deleteEntity(userProject);
+            //Delete userProject related to the project from database
+            List<UserProject> userProjectList = userProjectDao.findByPropertyEqual("project", project);
+            for (UserProject userProject : userProjectList) {
+                userProjectDao.deleteEntity(userProject);
+            }
+
+            //Delete project from database
+            projectDao.deleteEntity(project);
+
+            //Forward to workspace
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
+            dispatcher.forward(request, response);
         }
-
-        //Delete project from database
-        projectDao.deleteEntity(project);
-
-        //Forward to workspace
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/workspace");
-        dispatcher.forward(request, response);
     }
 }
