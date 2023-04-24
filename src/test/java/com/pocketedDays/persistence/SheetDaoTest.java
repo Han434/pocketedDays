@@ -22,16 +22,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class SheetDaoTest {
 
     /**
-     * The Generic dao.
+     * The Sheet dao.
      */
-    GenericDao genericDao;
+    GenericDao sheetDao;
+    /**
+     * The User dao.
+     */
+    GenericDao userDao;
+    /**
+     * The Project dao.
+     */
+    GenericDao projectDao;
+    /**
+     * The Row dao.
+     */
+    GenericDao rowDao;
 
     /**
      * Sets up.
      */
     @BeforeEach
     void setUp() {
-        genericDao = new GenericDao(Sheet.class);
+        userDao = new GenericDao(User.class);
+        sheetDao = new GenericDao(Sheet.class);
+        projectDao = new GenericDao(Project.class);
+        rowDao = new GenericDao(Row.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
@@ -45,40 +60,39 @@ class SheetDaoTest {
 
 
     /**
-     * Gets all sheets.
+     * Gets all sheets success.
      */
     @Test
     void getAllSheetsSuccess() {
-        List<Sheet> sheets = genericDao.getAll();
+        List<Sheet> sheets = sheetDao.getAll();
         assertEquals(1, sheets.size());
         Sheet sheet = sheets.get(0);
         assertEquals("Installing computer for ABC department", sheet.getSheetDescription());
     }
 
     /**
-     * Gets sheet by id.
+     * Gets sheet by sheet id success.
      */
     @Test
     void getSheetBySheetIdSuccess() {
-        Sheet sheet = (Sheet) genericDao.getById(1);
+        Sheet sheet = (Sheet) sheetDao.getById(1);
         assertEquals("Installing computer for ABC department", sheet.getSheetDescription());
     }
 
     /**
-     * Insert sheet.
+     * Insert sheet success.
      */
     @Test
     void insertSheetSuccess() {
-        GenericDao userDao = new GenericDao(User.class);
-        User user = (User) userDao.getById(1);        GenericDao projectDao = new GenericDao(Project.class);
+        User user = (User) userDao.getById(1);
         Project project = (Project) projectDao.getById(1);
         Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         project.addSheet(sheet);
 
-        int sheetId = genericDao.insertEntity(sheet);
+        int sheetId = sheetDao.insertEntity(sheet);
         assertNotEquals(0, sheetId);
 
-        Sheet sheetToTest = (Sheet) genericDao.getById(sheetId);
+        Sheet sheetToTest = (Sheet) sheetDao.getById(sheetId);
         assertEquals(sheetToTest, sheet);
         assertEquals(project, sheet.getProject());
     }
@@ -89,53 +103,51 @@ class SheetDaoTest {
      */
     @Test
     void insertSheetWithRowsSuccess() {
-        GenericDao projectDao = new GenericDao(Project.class);
-        GenericDao userDao = new GenericDao(User.class);
         User user = (User) userDao.getById(1);
         Project project = (Project) projectDao.getById(1);
         Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         Row row = new Row(sheet, user, LocalDate.parse("2018-12-22"), "abc", 1, 200, "Expense", "tag");
         sheet.addRow(row);
 
-        int sheetId = genericDao.insertEntity(sheet);
+        int sheetId = sheetDao.insertEntity(sheet);
         assertNotEquals(0, sheetId);
-        Sheet sheetToTest = (Sheet) genericDao.getById(sheetId);
+        Sheet sheetToTest = (Sheet) sheetDao.getById(sheetId);
         assertEquals(sheetToTest, sheet);
         assertEquals(1, sheetToTest.getRows().size());
         //assertEquals(row, sheetToTest.getRows().get(0));
     }
 
+    /**
+     * Insert sheet with users success.
+     */
     @Test
     void insertSheetWithUsersSuccess() {
-        GenericDao projectDao = new GenericDao(Project.class);
-        GenericDao userDao = new GenericDao(User.class);
         User user = (User) userDao.getById(1);
         Project project = (Project) projectDao.getById(1);
         Sheet sheet = new Sheet(project, "Finance department petition", user, LocalDate.parse("2018-12-27"), "TechLand","finance.png", "Not here", "Expense");
         user.addSheet(sheet);
-        int sheetId = genericDao.insertEntity(sheet);
+        int sheetId = sheetDao.insertEntity(sheet);
         assertNotEquals(0, sheetId);
-        Sheet sheetToTest = (Sheet) genericDao.getById(sheetId);
+        Sheet sheetToTest = (Sheet) sheetDao.getById(sheetId);
         assertEquals(sheetToTest, sheet);
         assertEquals(user, sheetToTest.getUser());
     }
 
 
     /**
-     * Delete sheet.
+     * Delete sheet success.
      */
     @Test
     void deleteSheetSuccess() {
-        Sheet sheetToDelete = (Sheet) genericDao.getById(1);
+        Sheet sheetToDelete = (Sheet) sheetDao.getById(1);
         Set<Row> listOfRow = sheetToDelete.getRows();
-        GenericDao rowDao = new GenericDao(Row.class);
         List<Integer> listOfRowId = new ArrayList<>();
         List<Row> row = new ArrayList<>();
         for (Row rowToDelete : listOfRow) {
             listOfRowId.add(rowToDelete.getRowId());
         }
-        genericDao.deleteEntity(sheetToDelete);
-        assertNull(genericDao.getById(1));
+        sheetDao.deleteEntity(sheetToDelete);
+        assertNull(sheetDao.getById(1));
         for (int rowId : listOfRowId) {
             row.add((Row) rowDao.getById(rowId));
         }

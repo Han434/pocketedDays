@@ -13,13 +13,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type User project test.
+ */
 public class UserProjectTest {
     /**
-     * The Generic dao.
+     * The UserProject dao.
      */
-    GenericDao genericDao;
+    GenericDao userProjectDao;
 
+    /**
+     * The User dao.
+     */
     GenericDao userDao;
+    /**
+     * The Project dao.
+     */
     GenericDao projectDao;
 
     /**
@@ -27,7 +36,7 @@ public class UserProjectTest {
      */
     @BeforeEach
     void setUp() {
-        genericDao = new GenericDao(UserProject.class);
+        userProjectDao = new GenericDao(UserProject.class);
         userDao = new GenericDao(User.class);
         projectDao = new GenericDao(Project.class);
         Database database = Database.getInstance();
@@ -41,38 +50,50 @@ public class UserProjectTest {
     void tearDown() {
     }
 
+    /**
+     * Gets all user projects success.
+     */
     @Test
     void getAllUserProjectsSuccess() {
-        List<UserProject> userProjectList = (List<UserProject>) genericDao.getAll();
+        List<UserProject> userProjectList = (List<UserProject>) userProjectDao.getAll();
         assertEquals(1, userProjectList.size());
         UserProject userProject = userProjectList.get(0);
         User user = (User) userDao.getById(1);
         assertEquals(user, userProject.getUser());
     }
 
+    /**
+     * Gets user by user project id success.
+     */
     @Test
     void getUserByUserProjectIdSuccess() {
-        UserProject userProject = (UserProject) genericDao.getById(1);
+        UserProject userProject = (UserProject) userProjectDao.getById(1);
         User user = (User) userDao.getById(1);
         assertEquals(user, userProject.getUser());
     }
 
+    /**
+     * Insert user project success.
+     */
     @Test
     void insertUserProjectSuccess() {
         User user = (User) userDao.getById(1);
         Project project = (Project) projectDao.getById(1);
 
         UserProject userProject = new UserProject(user, project, "creator", LocalDate.parse("2018-12-27"));
-        int userProjectId = genericDao.insertEntity(userProject);
+        int userProjectId = userProjectDao.insertEntity(userProject);
         assertNotEquals(0, userProjectId);
-        UserProject userProjectToTest = (UserProject) genericDao.getById(userProjectId);
+        UserProject userProjectToTest = (UserProject) userProjectDao.getById(userProjectId);
         assertEquals(userProjectToTest, userProject);
     }
 
+    /**
+     * Delete user success.
+     */
     @Test
     void deleteUserSuccess() {
-        UserProject userProjectToDelete = (UserProject) genericDao.getById(1);
-        genericDao.deleteEntity(userProjectToDelete);
-        assertNull(genericDao.getById(1));
+        UserProject userProjectToDelete = (UserProject) userProjectDao.getById(1);
+        userProjectDao.deleteEntity(userProjectToDelete);
+        assertNull(userProjectDao.getById(1));
     }
 }
