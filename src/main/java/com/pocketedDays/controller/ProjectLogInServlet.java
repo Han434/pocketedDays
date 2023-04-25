@@ -38,9 +38,6 @@ public class ProjectLogInServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("user");
 
-        //Get userId form sessionUser
-        int userId = sessionUser.getUserId();
-
         //Get value of submit
         String submit = request.getParameter("submit");
 
@@ -53,7 +50,6 @@ public class ProjectLogInServlet extends HttpServlet {
 
             //Get data
             int projectId = Integer.parseInt(request.getParameter("projectId"));
-            User user = (User) userDao.getById(userId);
             String projectPassword = request.getParameter("projectPassword");
             LocalDate joinInDate = LocalDate.now();
 
@@ -69,13 +65,15 @@ public class ProjectLogInServlet extends HttpServlet {
             //Get list of userProject
             Map<String, Object> propertyMapForUserProject = new HashMap<String, Object>();
             propertyMapForUserProject.put("project", project);
-            propertyMapForUserProject.put("user", user);
+            propertyMapForUserProject.put("user", sessionUser);
             List<UserProject> listOfUserProject = userProjectDao.findByPropertyEqual(propertyMapForUserProject);
 
             //If there is no record
             if (listOfUserProject.size() == 0) {
                 //Create new UserProject
-                UserProject userProject = new UserProject(user, project, "visitor", joinInDate);
+                UserProject userProject = new UserProject(sessionUser, project, "visitor", joinInDate);
+                sessionUser.addProject(project);
+                userDao.saveOrUpdateEntity(sessionUser);
                 //Insert it to the database
                 userProjectDao.insertEntity(userProject);
             }

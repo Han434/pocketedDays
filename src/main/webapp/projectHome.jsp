@@ -7,7 +7,7 @@
 <body class="bg-dark">
 <div class="container-fluid rounded bgs-b text-white">
     <div class="row pt-0">
-        <div class="col-12" style="background-image: url('images/projectBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 25vh">
+        <div class="col-12" style="background-image: url('images/projectBackground.jpg'); background-size: cover; background-repeat: no-repeat; height: 30vh">
             <div class="rounded-bottom text-white p-3 mx-auto">
                 <div class="text-center">
                     <h2>Project Home</h2>
@@ -16,32 +16,53 @@
                     <div class="col-3">
                         <h3>${project.projectName}</h3>
                         <h3>Password: ${project.projectPassword}</h3>
-                        <h3>Created by ${creator.userName}</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row m-3">
       <div class="col-12">
         <h3>Project Members</h3>
-        <ul>
-            <c:forEach var="memberName" items="${memberNames}">
-                <li>${memberName}</li>
-            </c:forEach>
+          <table class="table table-striped table-dark table-hover">
+              <thead>
+              <tr>
+                  <th scope="col">User Name</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Remove User From Project</th>
+              </tr>
+              </thead>
+              <tbody>
+              <c:forEach var="member" items="${members}">
+                  <tr>
+                      <td>${member.user.userName}</td>
+                      <td>${member.userType}</td>
+                      <c:choose>
+                          <c:when test = "${member.userType == 'creator'}">
+                              <td>Can't remove</td>
+                          </c:when>
+                          <c:otherwise>
+                              <td><a class="text-white btn bg-danger" href="removeUser?userProjectId=${member.id}">Remove</a></td>
+                          </c:otherwise>
+                      </c:choose>
+                  </tr>
+              </c:forEach>
+              </tbody>
+          </table>
+
         </ul>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row m-3">
         <div class="col-12">
             <h3>Project Description</h3>
             <p>${project.projectDescription}</p>
         </div>
     </div>
 
-    <div class="row bg-white p-2 rounded" style="--bs-bg-opacity: .3;">
+    <div class="row bg-white p-2 rounded mx-3" style="--bs-bg-opacity: .3;">
       <h3 class="col-12 m-2">Danger Zone</h3>
         <p>Please careful with these buttons.</p>
       <div class="col-12">
@@ -74,7 +95,6 @@
                   </div>
               </div>
           </div>
-          <a href="removeTeamMember?projectId=${project.projectId}" class="btn bg-danger ml-3">Remove a team member</a>
         <a href="editProject?submit=NoEdit" class="btn bg-primary ml-3">Edit Project</a>
       </div>
     </div>

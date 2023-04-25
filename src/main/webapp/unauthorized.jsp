@@ -5,10 +5,9 @@
     </header>
     <body class="bg-dark">
         <div class="container text-white bgs-b mt-3 rounded p3">
-            <div class="row">
-                <h2 class="text-center">
-                    Welcome abc123
-                </h2>
+            <div class="text-center m-3 p-3 row">
+                <h2>Request denied</h2>
+                <p>You are not authorized to perform this action.</p>
             </div>
         </div>
     </body>

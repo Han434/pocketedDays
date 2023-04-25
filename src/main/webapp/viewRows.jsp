@@ -11,8 +11,8 @@
             <div class="text-center">
                 <h2>Row View</h2>
             </div>
-            <div class="row my-3 align-items-end justify-content-end">
-                <div class="col-2">
+            <div class="row my-3">
+                <div class="col-6 row align-items-end justify-content-start">
                     <div>
                         <button type="button" class="btn btn-danger ml-3 text-dark" data-bs-toggle="modal" data-bs-target="#deleteSheet">
                             Delete Sheet
@@ -46,7 +46,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-2"></div>
+                <div class="col-4 row align-items-end justify-content-end">
                     <h3>Project Name: ${project.projectName}</h3>
                     <h3>Sheet Name: ${sheet.sheetDescription}</h3>
                     <h3>Sheet Type: ${sheet.sheetType}</h3>

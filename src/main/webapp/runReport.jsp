@@ -15,7 +15,7 @@
                 <div class="row mt-3 align-items-end justify-content-end">
                     <div class="col-3">
                         <h3>${project.projectName}</h3>
-                        <button class="btn bg-success text-white" id="download-button">Download as PDF</button>
+                        <button onclick="display()" class="btn bg-success text-white">Download as PDF</button>
                     </div>
                 </div>
             </div>
@@ -107,6 +107,11 @@
         </table>
     </div>
 </div>
+<script>
+    function display() {
+        window.print();
+    }
+</script>
 </body>
 <script>
     const button = document.getElementById('download-button');

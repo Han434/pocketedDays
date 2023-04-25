@@ -6,28 +6,19 @@
 </header>
 <body class="bg-dark">
 <div class="container mt-3 p-3 bgs-b rounded text-white">
-    <div class="row rounded-top">
+    <div class="row rounded-top m-3">
         <div class="text-center">
             <h2>Row View In Details</h2>
         </div>
-        <div class="row">
-            <div class="col-6">
-                <h3>Project Name: ${project.projectName}</h3>
-            </div>
-            <div class="col-6">
-                <h3>Sheet Name: ${sheet.sheetDescription}</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <h3>Sheet Type: ${sheet.sheetType}</h3>
-            </div>
-            <div class="col-6">
-
+        <div class="row align-items-end justify-content-end mt-3">
+            <div class="col-4">
+                <h4>Project Name: ${project.projectName}</h4>
+                <h4>Sheet Name: ${sheet.sheetDescription}</h4>
+                <h4>Sheet Type: ${sheet.sheetType}</h4>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row m-3">
         <table class="table table-striped table-dark table-hover">
             <thead>
             <tr>
@@ -67,7 +58,7 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
+    <div class="row m-3">
         <button type="button" class="btn btn-danger ml-3 text-dark col-3" data-bs-toggle="modal" data-bs-target="#deleteRow">
             Delete Row
         </button>

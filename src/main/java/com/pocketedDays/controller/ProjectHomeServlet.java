@@ -40,26 +40,12 @@ public class ProjectHomeServlet extends HttpServlet {
 
         //Create and Set the property map
         Map<String, Object> propertyMap = new HashMap<String, Object>();
-        propertyMap.put("userType", "creator");
         propertyMap.put("project", project);
 
         //Get userProjectList
         List<UserProject> userProjectList = userProjectDao.findByPropertyEqual(propertyMap);
 
-        //Get userProjectListForProjectMember
-        List<UserProject> userProjectListForProjectMember = userProjectDao.findByPropertyEqual("project", project);
-
-        //Create memberNames
-        List<String> memberNames = new ArrayList<>();
-
-        //Get memberNames
-        User creator = userProjectList.get(0).getUser();
-        for (UserProject userProject : userProjectListForProjectMember) {
-            User member = userProject.getUser();
-            String memberName = member.getUserName();
-            memberNames.add(memberName);
-        }
-
+        //Get userType
         Map<String, Object> propertyMapForUserProject = new HashMap<String, Object>();
         propertyMapForUserProject.put("project", project);
         propertyMapForUserProject.put("user", user);
@@ -72,8 +58,7 @@ public class ProjectHomeServlet extends HttpServlet {
         session.setAttribute("userType", userType);
 
         //Set attributes of creator, memberNames and project
-        request.setAttribute("creator", creator);
-        request.setAttribute("memberNames", memberNames);
+        request.setAttribute("members", userProjectList);
         request.setAttribute("project", project);
 
         //Forward to projectHome.jsp

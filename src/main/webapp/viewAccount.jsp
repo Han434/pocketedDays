@@ -7,11 +7,11 @@
 <body class="bg-dark">
 <div class="container mt-3 p-3 bgs-b rounded text-white">
     <div class="row rounded-top">
-        <div class="text-center">
+        <div class="text-center m-3">
             <h2>View Account Information</h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row m-3">
         <table class="table table-striped table-dark table-hover">
             <thead>
             <tr>
