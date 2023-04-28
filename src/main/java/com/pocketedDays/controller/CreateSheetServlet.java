@@ -81,7 +81,7 @@ public class CreateSheetServlet extends HttpServlet {
             try {
                 part.write(savePath + File.separator + fileName);
             } catch (Exception exception) {
-                exception.printStackTrace();
+                logger.error("Error writing file: " + exception.getMessage(), exception);
             }
         }
 
