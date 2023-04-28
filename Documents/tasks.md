@@ -1,111 +1,105 @@
 # Tasks by pages
 ## Login Page
-- [ ] LoginServlet
-- [ ] login.jsp 
-
-## Sign Up Page
-- [ ] SignUpServlet
-- [ ] signUp.jsp
+- [x] LoginServlet
 
 ## Logout (Not a page)
-- [ ] LogOutServlet
+- [x] LogOutServlet
 
 ## My Account Page
-- [ ] ViewUserInformationServlet
-- [ ] viewUserInformation.jsp
-- [ ] user.java
+- [x] ViewUserInformationServlet
+- [x] viewUserInformation.jsp
+- [x] user.java
 
 ## EditProfile Page
 - [ ] EditProfileServlet
 - [ ] editProfile.jsp
 
 ## Contact Page
-- [ ] contact.html
+- [x] contact.html
 
 ## Home Page
-- [ ] index.html
+- [x] index.html
 
 ## Workspace Page
-- [ ] WorkspaceServlet
-- [ ] workspace.jsp
-- [ ] project.java
+- [x] WorkspaceServlet
+- [x] workspace.jsp
+- [x] project.java
 
 ## Help Us Improve Page
-- [ ] helpUsImprove.jsp
-- [ ] helpUsImproveServlet
+- [x] helpUsImprove.jsp
+- [x] helpUsImproveServlet
 
 ## Create New Project Page
-- [ ] createProject.jsp
-- [ ] CreateProjectServlet
-- [ ] ProjectHomeServlet
+- [x] createProject.jsp
+- [x] CreateProjectServlet
+- [x] ProjectHomeServlet
 
 ## Project Home
-- [ ] Project Home
-- [ ] ProjectHomeServlet
-- [ ] projectHome.jsp
+- [x] ProjectHomeServlet
+- [x] projectHome.jsp
 
 ## Log Into The Project Page
-- [ ] LogIntoProjectServlet
+- [x] LogIntoProjectServlet
 
 ## Delete Project Page 
-- [ ] DeleteProjectServlet
-- [ ] deleteProject jsp
+- [x] DeleteProjectServlet
+- [x] deleteProject jsp
 
 ## Remove Team Member Page
 - [ ] RemoveTeamMemberServlet
 - [ ] removeTeamMember.jsp
 
 ## View Sheets Page
-- [ ] ViewSheetServlet
-- [ ] viewSheet.jsp
+- [x] ViewSheetServlet
+- [x] viewSheet.jsp
 
 ## Run Report Page
-- [ ] RunReportServlet
-- [ ] runReport.jsp
+- [x] RunReportServlet
+- [x] runReport.jsp
 - [ ] ResultServlet
 - [ ] result.jsp
 
 ## Create New sheet Page
-- [ ] Add New Sheet Page
-- [ ] CreateNewSheetServlet
+- [x] Add New Sheet Page
+- [x] CreateNewSheetServlet
 
 ## View Sheet In Details Page
-- [ ] ViewSheetDetaitlsServlet
-- [ ] viewSheetDetails.jsp
+- [x] ViewSheetDetailsServlet
+- [x] viewSheetDetails.jsp
 
 ## View Sheet in Details
 - [ ] View Sheet in Details Page
-- [ ] DeleteSheetServlet
+- [x] DeleteSheetServlet
 - [ ] deleteSheet.jsp
 
 ## Add a New Row Page
-- [ ] AddNewRowServlet
-- [ ] addNewRow.jsp
+- [x] AddNewRowServlet
+- [x] addNewRow.jsp
 
 ## View rows in details Page
-- [ ] ViewRowDetialsServlet
-- [ ] viewRowDetials.jsp
+- [x] ViewRowDetialsServlet
+- [x] viewRowDetials.jsp
 
 ## Edit Rows Page
-- [ ] EditRowServlet
-- [ ] editRow.jsp
+- [x] EditRowServlet
+- [x] editRow.jsp
 
 ## Delete Row (Not a page)
-- [ ] DeleteRowServlet
+- [x] DeleteRowServlet
 
 # Beans, dao and tests
 ## Project
-- [ ] Project bean
-- [ ] Project dao
+- [x] Project bean
+- [x] Project dao
 
 ## Row
-- [ ] Row bean
-- [ ] Row dao
+- [x] Row bean
+- [x] Row dao
 
 ## Sheet
-- [ ] Sheet bean
-- [ ] Sheet dao
+- [x] Sheet bean
+- [x] Sheet dao
 
 ## User
-- [ ] User bean
-- [ ] User dao
+- [x] User bean
+- [x] User dao
