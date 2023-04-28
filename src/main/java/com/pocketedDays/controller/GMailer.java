@@ -32,12 +32,21 @@ import java.util.logging.Logger;
 
 import static javax.mail.Message.RecipientType.TO;
 
-public class GMailer {
-
-    private static final String MY_EMAIL = "myominhan13579@gmail.com";
+/**
+ * The type G mailer.
+ *
+ * Source from : https://cloud.google.com/appengine/docs/legacy/standard/java/mail/sending-mail-with-mail-api
+ */
+public class GMailer implements PropertiesLoader {
     private final Logger logger = Logger.getLogger(String.valueOf(PropertiesLoader.class));
     private final Gmail service;
 
+    /**
+     * Instantiates a new G mailer.
+     *
+     * @throws GeneralSecurityException the general security exception
+     * @throws IOException              the io exception
+     */
     public GMailer() throws GeneralSecurityException, IOException {
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -63,12 +72,30 @@ public class GMailer {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
+    /**
+     * Send mail.
+     *
+     * @param subject  the subject
+     * @param message  the message
+     * @param receiver the receiver
+     * @throws GeneralSecurityException the general security exception
+     * @throws IOException              the io exception
+     * @throws MessagingException       the messaging exception
+     */
     public void sendMail(String subject, String message, String receiver) throws GeneralSecurityException, IOException, MessagingException {
         // Encode as MIME message
         Properties props = new Properties();
+        Properties properties = null;
+        try {
+            properties = loadProperties("/gmail.properties");
+        } catch (Exception e) {
+            logger.info("Somthing is wrong.");
+            throw new RuntimeException(e);
+        }
+        String myEmail = properties.getProperty("my.email");
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
-        email.setFrom(new InternetAddress(MY_EMAIL));
+        email.setFrom(new InternetAddress(myEmail));
         email.addRecipient(TO, new InternetAddress(receiver));
         email.setSubject(subject);
         email.setText(message);
