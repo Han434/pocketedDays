@@ -140,6 +140,8 @@ class SheetDaoTest {
     @Test
     void deleteSheetSuccess() {
         Sheet sheetToDelete = (Sheet) sheetDao.getById(1);
+        Project project = sheetToDelete.getProject();
+        int projectId = project.getProjectId();
         Set<Row> listOfRow = sheetToDelete.getRows();
         List<Integer> listOfRowId = new ArrayList<>();
         List<Row> row = new ArrayList<>();
@@ -152,5 +154,6 @@ class SheetDaoTest {
             row.add((Row) rowDao.getById(rowId));
         }
         assertEquals(null, row.get(0));
+        assertNotNull(projectDao.getById(projectId));
     }
 }

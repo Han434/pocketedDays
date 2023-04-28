@@ -122,7 +122,11 @@ class RowDaoTest {
      */
     @Test
     void deleteRowSuccess() {
-        rowDao.deleteEntity(rowDao.getById(1));
+        Row rowToDelete = (Row) rowDao.getById(1);
+        Sheet sheet = rowToDelete.getSheet();
+        int sheetId = sheet.getSheetId();
+        rowDao.deleteEntity(rowToDelete);
         assertNull(rowDao.getById(1));
+        assertNotNull(sheetDao.getById(sheetId));
     }
 }

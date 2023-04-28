@@ -93,7 +93,13 @@ public class UserProjectTest {
     @Test
     void deleteUserSuccess() {
         UserProject userProjectToDelete = (UserProject) userProjectDao.getById(1);
+        User user = userProjectToDelete.getUser();
+        int userId = user.getUserId();
+        Project project = userProjectToDelete.getProject();
+        int projectId = project.getProjectId();
         userProjectDao.deleteEntity(userProjectToDelete);
         assertNull(userProjectDao.getById(1));
+        assertNotNull(userDao.getById(userId));
+        assertNotNull(projectDao.getById(projectId));
     }
 }
