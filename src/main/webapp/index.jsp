@@ -29,6 +29,11 @@
                     </p>
                 </div>
             </div>
+            <div class="row">
+                <div>
+                    <a class="btn rounded bg-success" href="report/rows/">Our Web Service</a>
+                </div>
+            </div>
         </div>
     </body>
 </html>
