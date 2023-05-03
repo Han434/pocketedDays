@@ -38,10 +38,8 @@
 /EntJavaprojectspocketedDayslogs/
 
 # Resources
-# src/main/resources/client_secret_472113439088-4rjgd1mija43favjf1h6d63odmujcf50.apps.googleusercontent.com.json
-# src/main/resources/gmail.properties
-src/main/resources/
-# src\main\resources\cognito.properties
+src/main/resources/client_secret_472113439088-4rjgd1mija43favjf1h6d63odmujcf50.apps.googleusercontent.com.json
+src/main/resources/gmail.properties
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
