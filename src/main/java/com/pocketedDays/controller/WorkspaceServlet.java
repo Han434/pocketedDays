@@ -3,6 +3,7 @@ package com.pocketedDays.controller;
 import com.pocketedDays.entity.Project;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.entity.UserProject;
+import com.pocketedDays.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +30,7 @@ public class WorkspaceServlet extends HttpServlet {
         //Get session variable of user
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        GenericDao<UserProject> userProjectDao = new GenericDao<>(UserProject.class);
 
         if (user == null) {
             //Forward to logIn
@@ -37,7 +39,8 @@ public class WorkspaceServlet extends HttpServlet {
         } else {
             //Get listOfProject
             List<Project> projects = new ArrayList<>();
-            Set<UserProject> userProjects = user.getProjects();
+            List<UserProject> userProjects = userProjectDao.findByPropertyEqual("user", user);
+            //Set<UserProject> userProjects = user.getProjects();
             for (UserProject userProject : userProjects) {
                 Project project = userProject.getProject();
                 projects.add(project);

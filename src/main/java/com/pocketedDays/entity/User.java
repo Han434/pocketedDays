@@ -203,6 +203,10 @@ public class User {
         project.getUsers().add(userProject);
     }
 
+    public void removeProject(Project project) {
+        projects.remove(project);
+    }
+
     /**
      * Sets projects.
      *
