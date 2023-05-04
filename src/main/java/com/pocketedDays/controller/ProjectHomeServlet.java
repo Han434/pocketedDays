@@ -1,9 +1,11 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.Quote;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.entity.UserProject;
 import com.pocketedDays.persistence.GenericDao;
+import com.pocketedDays.persistence.QuoteDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,8 +31,10 @@ public class ProjectHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDao projectDao = new GenericDao(Project.class);
         GenericDao userProjectDao = new GenericDao(UserProject.class);
+        QuoteDao quoteDao = new QuoteDao();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        Quote quote = quoteDao.getRandomQuote();
 
         //Get projectId from the request
         int projectId = Integer.parseInt(request.getParameter("projectId"));
@@ -57,9 +61,10 @@ public class ProjectHomeServlet extends HttpServlet {
         session.setAttribute("projectId", projectId);
         session.setAttribute("userType", userType);
 
-        //Set attributes of creator, memberNames and project
+        //Set attributes of creator, memberNames, project and quote
         request.setAttribute("members", userProjectList);
         request.setAttribute("project", project);
+        request.setAttribute("quote", quote);
 
         //Forward to projectHome.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome.jsp");
