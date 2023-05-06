@@ -31,10 +31,8 @@ public class ProjectHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDao projectDao = new GenericDao(Project.class);
         GenericDao userProjectDao = new GenericDao(UserProject.class);
-        QuoteDao quoteDao = new QuoteDao();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        Quote quote = quoteDao.getRandomQuote();
 
         //Get projectId from the request
         int projectId = Integer.parseInt(request.getParameter("projectId"));
@@ -57,14 +55,13 @@ public class ProjectHomeServlet extends HttpServlet {
 
         String userType = listOfUserProject.get(0).getUserType();
 
-        //Set session variable of projectId
+        //Set session variable of projectId and userType
         session.setAttribute("projectId", projectId);
         session.setAttribute("userType", userType);
 
-        //Set attributes of creator, memberNames, project and quote
+        //Set attributes of creator, memberNames and project
         request.setAttribute("members", userProjectList);
         request.setAttribute("project", project);
-        request.setAttribute("quote", quote);
 
         //Forward to projectHome.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projectHome.jsp");

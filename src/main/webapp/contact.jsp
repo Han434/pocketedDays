@@ -10,4 +10,5 @@
     <a href = "mailto:mhan3@madisoncollege.edu" id="email">mhan3@madisoncollege.edu</a>
 </div>
 </body>
+<%@include file="footer.jsp"%>
 </html>

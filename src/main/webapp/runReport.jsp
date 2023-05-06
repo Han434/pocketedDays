@@ -113,6 +113,7 @@
     }
 </script>
 </body>
+<%@include file="footer.jsp"%>
 <script>
     const button = document.getElementById('download-button');
 

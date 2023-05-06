@@ -1,7 +1,9 @@
 package com.pocketedDays.controller;
 
+import com.pocketedDays.entity.Quote;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.persistence.GenericDao;
+import com.pocketedDays.persistence.QuoteDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +38,10 @@ public class ViewAccountServlet extends HttpServlet {
 
         //If userInformation is not null"
         if (userInformation != null) {
+            //Get random quote
+            QuoteDao quoteDao = new QuoteDao();
+            Quote quote = quoteDao.getRandomQuote();
+
             //Get data
             String userName = userInformation.get("userName");
             String birthdate = userInformation.get("birthdate");
@@ -62,7 +68,8 @@ public class ViewAccountServlet extends HttpServlet {
             //Get user from the userId
             User user = (User) userDao.getById(userId);
 
-            //Set session attribute of user
+            //Set session attribute of user and quote
+            session.setAttribute("quote", quote);
             session.setAttribute("user", user);
 
             //Forward to viewAccount.jsp

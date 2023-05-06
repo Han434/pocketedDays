@@ -1,9 +1,11 @@
 package com.pocketedDays.controller;
 
 import com.pocketedDays.entity.Project;
+import com.pocketedDays.entity.Quote;
 import com.pocketedDays.entity.User;
 import com.pocketedDays.entity.UserProject;
 import com.pocketedDays.persistence.GenericDao;
+import com.pocketedDays.persistence.QuoteDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
