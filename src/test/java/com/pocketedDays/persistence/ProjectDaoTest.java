@@ -7,9 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -182,5 +180,41 @@ class ProjectDaoTest {
             assertEquals(null, row.get(0));
         }
         assertEquals(null, sheet.get(0));
+    }
+
+    @Test
+    void calculateTotalRevenueSuccess() {
+        Project project = (Project) projectDao.getById(1);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+        propertyMap.put("sheetType", "Revenue");
+        propertyMap.put("project", project);
+
+        List<Sheet> sheets = (List<Sheet>) sheetDao.findByPropertyEqual(propertyMap);
+        int expectedTotal = 0;
+        for (Sheet sheet : sheets) {
+            int sheetTotal = sheet.calculateTotal();
+            expectedTotal += sheetTotal;
+        }
+        int retrivedTotal = project.calculateTotalRevenue();
+        assertEquals(expectedTotal, retrivedTotal);
+    }
+
+    @Test
+    void calculateTotalExpenseSuccess() {
+        Project project = (Project) projectDao.getById(1);
+        GenericDao sheetDao = new GenericDao(Sheet.class);
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+        propertyMap.put("sheetType", "Expense");
+        propertyMap.put("project", project);
+
+        List<Sheet> sheets = (List<Sheet>) sheetDao.findByPropertyEqual(propertyMap);
+        int expectedTotal = 0;
+        for (Sheet sheet : sheets) {
+            int sheetTotal = sheet.calculateTotal();
+            expectedTotal += sheetTotal;
+        }
+        int retrivedTotal = project.calculateTotalExpense();
+        assertEquals(expectedTotal, retrivedTotal);
     }
 }

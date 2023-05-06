@@ -156,4 +156,17 @@ class SheetDaoTest {
         assertEquals(null, row.get(0));
         assertNotNull(projectDao.getById(projectId));
     }
+
+    @Test
+    void calculateTotalTest() {
+        Sheet sheet = (Sheet) sheetDao.getById(1);
+        Set<Row> rows = sheet.getRows();
+        int expectedTotal = 0;
+        for (Row row : rows) {
+            int rowTotal = row.calculateTotal();
+            expectedTotal += rowTotal;
+        }
+        int retrivedTotal = sheet.calculateTotal();
+        assertEquals(expectedTotal, retrivedTotal);
+    }
 }

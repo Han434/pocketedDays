@@ -129,4 +129,12 @@ class RowDaoTest {
         assertNull(rowDao.getById(1));
         assertNotNull(sheetDao.getById(sheetId));
     }
+
+    @Test
+    void calculateTotalSuccess() {
+        Row row = (Row) rowDao.getById(1);
+        int expectedTotal = row.getQuantity() * row.getCostPerItem();
+        int retrivedTotal = row.calculateTotal();
+        assertEquals(expectedTotal, retrivedTotal);
+    }
 }
