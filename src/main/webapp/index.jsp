@@ -1,3 +1,4 @@
+<%@include file="taglib.jsp"%>
 <%@include file="head.jsp"%>
 <html>
     <header>
@@ -43,5 +44,13 @@
             </div>
         </div>
     </body>
-    <%@include file="footer.jsp"%>
+    <c:choose>
+        <c:when test="${not empty quoteDao}">
+            <%@include file="footer.jsp"%>
+        </c:when>
+        <c:otherwise>
+            <footer class="text-center bgs-b mt-3 p-2 text-white">
+            </footer>
+        </c:otherwise>
+    </c:choose>
 </html>

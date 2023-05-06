@@ -40,7 +40,6 @@ public class ViewAccountServlet extends HttpServlet {
         if (userInformation != null) {
             //Get random quote
             QuoteDao quoteDao = new QuoteDao();
-            Quote quote = quoteDao.getRandomQuote();
 
             //Get data
             String userName = userInformation.get("userName");
@@ -69,7 +68,7 @@ public class ViewAccountServlet extends HttpServlet {
             User user = (User) userDao.getById(userId);
 
             //Set session attribute of user and quote
-            session.setAttribute("quote", quote);
+            session.setAttribute("quoteDao", quoteDao);
             session.setAttribute("user", user);
 
             //Forward to viewAccount.jsp
