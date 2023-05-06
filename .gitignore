@@ -43,6 +43,7 @@ src/main/resources/gmail.properties
 src/main/resources/cognito.properties
 src/main/resources/hibernate.cfg.xml
 src/main/.platform
+src/main/.ebextensions
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
