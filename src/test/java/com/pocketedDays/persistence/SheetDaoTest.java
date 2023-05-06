@@ -157,6 +157,9 @@ class SheetDaoTest {
         assertNotNull(projectDao.getById(projectId));
     }
 
+    /**
+     * Calculate total test.
+     */
     @Test
     void calculateTotalTest() {
         Sheet sheet = (Sheet) sheetDao.getById(1);

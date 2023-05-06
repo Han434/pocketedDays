@@ -182,6 +182,9 @@ class ProjectDaoTest {
         assertEquals(null, sheet.get(0));
     }
 
+    /**
+     * Calculate total revenue success.
+     */
     @Test
     void calculateTotalRevenueSuccess() {
         Project project = (Project) projectDao.getById(1);
@@ -200,6 +203,9 @@ class ProjectDaoTest {
         assertEquals(expectedTotal, retrivedTotal);
     }
 
+    /**
+     * Calculate total expense success.
+     */
     @Test
     void calculateTotalExpenseSuccess() {
         Project project = (Project) projectDao.getById(1);

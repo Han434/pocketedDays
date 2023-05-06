@@ -13,10 +13,22 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+/**
+ * The type User dao test.
+ */
 class UserDaoTest {
+    /**
+     * The User dao.
+     */
     GenericDao userDao;
+    /**
+     * The Project dao.
+     */
     GenericDao projectDao;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         userDao = new GenericDao(User.class);
@@ -25,10 +37,16 @@ class UserDaoTest {
         database.runSQL("cleandb.sql");
     }
 
+    /**
+     * Tear down.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * Gets all users success.
+     */
     @Test
     void getAllUsersSuccess() {
         List<User> users = (List<User>) userDao.getAll();
@@ -37,12 +55,18 @@ class UserDaoTest {
         assertEquals("White", user.getUserName());
     }
 
+    /**
+     * Gets user by user id success.
+     */
     @Test
     void getUserByUserIdSuccess() {
         User user = (User) userDao.getById(1);
         assertEquals("White", user.getUserName());
     }
 
+    /**
+     * Save or update user success.
+     */
     @Test
     void saveOrUpdateUserSuccess() {
         String newUserName = "Han";
@@ -53,6 +77,9 @@ class UserDaoTest {
         assertEquals(userToUpdate, retrievedUser);
     }
 
+    /**
+     * Insert user success.
+     */
     @Test
     void insertUserSuccess() {
         User user = new User("A", "B", "Red", "Female", "abc@gmail.com", LocalDate.parse("2018-12-27"));

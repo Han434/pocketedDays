@@ -4,6 +4,7 @@ import com.pocketedDays.entity.Quote;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * The type Test service client.
@@ -16,7 +17,7 @@ public class TestServiceClient {
      * @throws Exception the exception
      */
     @Test
-    public void testGetPetByIdSuccess() throws Exception {
+    public void getPetByIdSuccess() throws Exception {
         QuoteDao quoteDao = new QuoteDao();
         Quote quote = quoteDao.getById(1);
         Quote expectedQuote = new Quote();
@@ -24,5 +25,18 @@ public class TestServiceClient {
         expectedQuote.setAuthor("Kevin Kruse");
         expectedQuote.setId(1);
         assertEquals(expectedQuote, quote);
+    }
+
+    /**
+     * Gets random quote.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void getRandomQuote () throws Exception {
+        QuoteDao quoteDao = new QuoteDao();
+        Quote quote = null;
+        quote = quoteDao.getRandomQuote();
+        assertNotNull(quote);
     }
 }

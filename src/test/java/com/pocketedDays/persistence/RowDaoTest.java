@@ -130,6 +130,9 @@ class RowDaoTest {
         assertNotNull(sheetDao.getById(sheetId));
     }
 
+    /**
+     * Calculate total success.
+     */
     @Test
     void calculateTotalSuccess() {
         Row row = (Row) rowDao.getById(1);
