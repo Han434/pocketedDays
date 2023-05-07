@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The type Create project servlet.
+ * The type Project log in servlet.
  */
 @WebServlet (
         urlPatterns = {"/projectLogIn"}
