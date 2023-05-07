@@ -88,9 +88,13 @@ public class Auth extends HttpServlet implements PropertiesLoader {
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
                 //TODO forward to an error page
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/Error500.jsp");
+                dispatcher.forward(req, resp);
             } catch (InterruptedException e) {
                 logger.error("Error getting token from Cognito oauth url " + e.getMessage(), e);
                 //TODO forward to an error page
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/Error500.jsp");
+                dispatcher.forward(req, resp);
             }
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/viewAccount");
