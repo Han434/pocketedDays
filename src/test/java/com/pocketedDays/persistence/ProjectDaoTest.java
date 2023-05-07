@@ -188,7 +188,6 @@ class ProjectDaoTest {
     @Test
     void calculateTotalRevenueSuccess() {
         Project project = (Project) projectDao.getById(1);
-        GenericDao sheetDao = new GenericDao(Sheet.class);
         Map<String, Object> propertyMap = new HashMap<String, Object>();
         propertyMap.put("sheetType", "Revenue");
         propertyMap.put("project", project);
@@ -209,7 +208,6 @@ class ProjectDaoTest {
     @Test
     void calculateTotalExpenseSuccess() {
         Project project = (Project) projectDao.getById(1);
-        GenericDao sheetDao = new GenericDao(Sheet.class);
         Map<String, Object> propertyMap = new HashMap<String, Object>();
         propertyMap.put("sheetType", "Expense");
         propertyMap.put("project", project);
