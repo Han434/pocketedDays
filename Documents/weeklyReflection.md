@@ -56,3 +56,30 @@
 
 ## Week 9
 ### Tasks Completed
+* Work on the weekly exercise
+
+## Week 12
+### Tasks Completed
+* Finish Team project
+
+## Week 13
+### Tasks Completed
+* Finish Checkpoint 2
+* Finish weekly exercise
+
+## Week 14
+### Tasks Completed
+* Work on week feedback
+* Finish Checkpoint 3
+
+## Week 15
+### Tasks Completed
+* Finish peer review
+* Work on the feedback
+* Finish week 12 self-evaluation
+
+## Week 16
+### Tasks Completed
+* Finish presentation
+* Finish Inide project
+* Finish week 16 self-evaluation
