@@ -34,14 +34,14 @@ public class CreateSheetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String userType = (String) session.getAttribute("userType");
+        RequestDispatcher dispatcher;
         if (!(userType.equals("visitor"))) {
             //Forward to createSheet.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/createSheet.jsp");
-            dispatcher.forward(request, response);
+            dispatcher = request.getRequestDispatcher("/createSheet.jsp");
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
-            dispatcher.forward(request, response);
+            dispatcher = request.getRequestDispatcher("/unauthorized.jsp");
         }
+        dispatcher.forward(request, response);
     }
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
@@ -61,6 +61,7 @@ public class CreateSheetServlet extends HttpServlet {
         int projectId = (int) session.getAttribute("projectId");
         User user = (User) session.getAttribute("user");
         String sheetType = (String) session.getAttribute("sheetType");
+        String uploadedFilePath = "";
 
 
         // gets absolute path of the web application
@@ -68,7 +69,7 @@ public class CreateSheetServlet extends HttpServlet {
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
 
-        // creates the save directory if it does not exists
+        // creates the save directory if it does not exist
         File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
@@ -79,9 +80,12 @@ public class CreateSheetServlet extends HttpServlet {
             // refines the fileName in case it is an absolute path
             fileName = new File(fileName).getName();
             try {
+                uploadedFilePath = fileName;
                 part.write(savePath + File.separator + fileName);
             } catch (Exception exception) {
                 logger.error("Error writing file: " + exception.getMessage(), exception);
+//                RequestDispatcher dispatcher = request.getRequestDispatcher("/Error500.jsp");
+//                dispatcher.forward(request, response);
             }
         }
 
@@ -89,7 +93,7 @@ public class CreateSheetServlet extends HttpServlet {
         String sheetDescription = request.getParameter("sheetDescription");
         LocalDate createdDate = LocalDate.now();
         String organization = request.getParameter("organization");
-        String filePath = request.getParameter("filePath");
+        String filePath = uploadedFilePath;
         String note = request.getParameter("note");
 
         //Create new sheet
