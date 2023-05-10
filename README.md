@@ -18,7 +18,7 @@ I decided to develop this application while using Notion. What I want is I want 
 * Dependency Management
     * Maven
 * Web Services consumed using Java
-    * 
+    * https://dummyjson.com/quotes/
 * CSS
     * Bootstrap
 * Data Validation
@@ -28,8 +28,9 @@ I decided to develop this application while using Notion. What I want is I want 
 * Hosting
     * AWS
 * Independent Research Topic/s
-    *
-* Unit Testing
+    * File Uploading
+    * Java API
+* Unit Testing 
     * JUnit tests to achieve 80%+ code coverage
 * IDE: IntelliJ IDEA
 
