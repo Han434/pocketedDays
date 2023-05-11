@@ -296,18 +296,17 @@ public class Sheet implements Comparable<Sheet>, NumberFormatInterface {
 
     @Override
     public String toString() {
-        return "Sheet{" +
-                "sheetId=" + sheetId +
-                ", project=" + project +
-                ", sheetDescription='" + sheetDescription + '\'' +
-                //", user=" + user +
-                ", updatedDate=" + updatedDate +
-                ", organization='" + organization + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", note='" + note + '\'' +
-                ", sheetType='" + sheetType + '\'' +
-                //", rows=" + rows +
-                '}';
+        StringBuilder sheet = new StringBuilder("Sheet{");
+        sheet.append("sheetId='").append(sheetId);
+        sheet.append("', project='").append(project);
+        sheet.append("', sheetDescription='").append(sheetDescription);
+        sheet.append("', updatedDate='").append(updatedDate);
+        sheet.append("', organization='").append(organization);
+        sheet.append("', filePath='").append(filePath);
+        sheet.append("', note='").append(note);
+        sheet.append("', note='").append(sheetType);
+        sheet.append("'}");
+        return sheet.toString();
     }
 
     @Override

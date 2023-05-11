@@ -221,15 +221,15 @@ public class Project implements NumberFormatInterface {
 
     @Override
     public String toString() {
-        return "Project{" +
-                "projectId=" + projectId +
-                ", projectName='" + projectName + '\'' +
-                ", projectPassword='" + projectPassword + '\'' +
-                ", updatedDate=" + updatedDate +
-                ", projectDescription='" + projectDescription + '\'' +
-                //", sheets=" + sheets +
-                ", users=" + users +
-                '}';
+        StringBuilder project = new StringBuilder("Project{");
+        project.append("projectId='").append(projectId);
+        project.append("', projectName='").append(projectName);
+        project.append("', projectPassword='").append(projectPassword);
+        project.append("', updatedDate='").append(updatedDate);
+        project.append("', projectDescription='").append(projectDescription);
+        project.append("', users='").append(users);
+        project.append("'}");
+        return project.toString();
     }
 
     /**

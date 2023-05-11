@@ -154,13 +154,13 @@ public class UserProject implements Comparable<UserProject> {
 
     @Override
     public String toString() {
-        return "UserProject{" +
-                "id=" + id +
-                ", user=" + user +
-                //", project=" + project +
-                ", userType='" + userType + '\'' +
-                ", joinInDate=" + joinInDate +
-                '}';
+        StringBuilder userProject = new StringBuilder("UserProject{");
+        userProject.append("id='").append(id);
+        userProject.append("', user='").append(user);
+        userProject.append("', userType='").append(userType);
+        userProject.append("', joinInDate='").append(joinInDate);
+        userProject.append("'}");
+        return userProject.toString();
     }
 
     @Override

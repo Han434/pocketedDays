@@ -258,15 +258,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", email='" + email + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                '}';
+        StringBuilder user = new StringBuilder("User{");
+        user.append("userId='").append(userId);
+        user.append("', firstName='").append(firstName);
+        user.append("', lastName='").append(lastName);
+        user.append("', userName='").append(userName);
+        user.append("', gender='").append(gender);
+        user.append("', email='").append(email);
+        user.append("', dateOfBirth='").append(dateOfBirth);
+        user.append("'}");
+        return user.toString();
     }
 
     @Override

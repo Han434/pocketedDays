@@ -243,17 +243,17 @@ public class Row implements Comparable<Row>, NumberFormatInterface {
 
     @Override
     public String toString() {
-        return "Row{" +
-                "rowId=" + rowId +
-                ", sheet=" + sheet +
-                //", user=" + user +
-                ", updatedDate=" + updatedDate +
-                ", rowDescription='" + rowDescription + '\'' +
-                ", quantity=" + quantity +
-                ", costPerItem=" + costPerItem +
-                ", rowType='" + rowType + '\'' +
-                ", tag='" + tag + '\'' +
-                '}';
+        StringBuilder row = new StringBuilder("Row{");
+        row.append("rowId='").append(rowId);
+        row.append("', sheet='").append(sheet);
+        row.append("', updatedDate='").append(updatedDate);
+        row.append("', rowDescription='").append(rowDescription);
+        row.append("', quantity='").append(quantity);
+        row.append("', costPerItem='").append(costPerItem);
+        row.append("', rowType='").append(rowType);
+        row.append("', tag='").append(tag);
+        row.append("'}");
+        return row.toString();
     }
 
     /**

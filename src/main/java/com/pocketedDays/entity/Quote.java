@@ -87,11 +87,11 @@ public class Quote {
 
 	@Override
  	public String toString(){
-		return 
-			"Quote{" +
-			"quote = '" + quote + '\'' + 
-			",author = '" + author + '\'' + 
-			",id = '" + id + '\'' + 
-			"}";
-		}
+		StringBuilder quote = new StringBuilder("Quote{");
+		quote.append("quote='").append(quote);
+		quote.append("', author='").append(author);
+		quote.append("', id='").append(id);
+		quote.append("'}");
+		return quote.toString();
+	}
 }
