@@ -73,7 +73,7 @@ public class LogOut extends HttpServlet implements PropertiesLoader {
             dispatcher.forward(request, response);
         } else {
             session.removeAttribute("user");
-            String url = "https://pocketed.auth.us-east-2.amazoncognito.com/logout?client_id=27rfufbu3j9ro6pbub70kcu67h&logout_uri=http://localhost:8080/pocketedDays_war/index.jsp";
+            String url = "https://pocketed.auth.us-east-2.amazoncognito.com/logout?client_id=27rfufbu3j9ro6pbub70kcu67h&logout_uri=https://pocketeddays-env.eba-znfy6w8h.us-east-2.elasticbeanstalk.com/index.jsp";
             response.sendRedirect(url);
         }
     }
