@@ -14,7 +14,8 @@
                 </div>
                 <div class="row mt-3 align-items-end justify-content-end">
                     <div class="col-3">
-                        <h3>${project.projectName}</h3>
+                        <h3>ProjectId: ${project.projectId}</h3>
+                        <h3>Project Name: ${project.projectName}</h3>
                         <h3>Password: ${project.projectPassword}</h3>
                     </div>
                 </div>
